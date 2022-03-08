@@ -56,8 +56,8 @@ public class Main {
     		
 				Endereco e1 = new Endereco();
 				e1.setCep(71925000);
-				e1.setBairro("Àguas Claras");
-				e1.setCidade("Brasília");
+				e1.setBairro("Aguas Claras");
+				e1.setCidade("Brasilia");
 				
 				Telefone t1 = new Telefone();
 				t1.setDdd(221);
@@ -74,10 +74,10 @@ public class Main {
 				//associa o objeto pessoa com endereco.
 				p[0].setEndereco(e1);
 				
-				System.out.println("o nome do usuario é : "+ p[0].getNome());
-				System.out.println("o telefone da pessoa é "+ p[0].getTelefone().getTelefone());
-				System.out.println("o endereco do usuario é " + p[0].getEndereco().getBairro());
-				System.out.println("o cep do usuario é " + p[0].getEndereco().getCep());
+				System.out.println("o nome do usuario : "+ p[0].getNome());
+				System.out.println("o telefone da pessoa  "+ p[0].getTelefone().getTelefone());
+				System.out.println("o endereco do usuario  " + p[0].getEndereco().getBairro());
+				System.out.println("o cep do usuario  " + p[0].getEndereco().getCep());
 
 			System.out.println("\nVendedor cadastrado com sucesso! ");
 			break;
@@ -129,7 +129,7 @@ public class Main {
 			System.out.println("\n\t---- CARRINHO DE COMPRAS ----\n");
 			
 			if(c[0] == null) {
-				System.out.println("	O seu carrinho está vazio");
+				System.out.println("	O seu carrinho esta vazio");
 			}else {
 				//lista a marca de produtos associados ao carrinho
 				for(int i=0, cont=1; i<c[0].quantidadeProdutos(); i++, cont++) {
@@ -148,7 +148,7 @@ public class Main {
 			System.out.println("\n\t---- ROUPAS FAVORITAS ----\n");
 
 			if(c[0] == null) {
-				System.out.println("	A sua lista de roupas favoritas está vazia");
+				System.out.println("	A sua lista de roupas favoritas esta vazia");
 			}else {
 				//lista a marca de produtos associados ao carrinho
 				for(int i=0, cont=1; i<rf.quantidadeProdutos(); i++, cont++) {
@@ -210,7 +210,7 @@ public class Main {
 			return;
 
 		default:
-			System.out.println("Opção inválida!");
+			System.out.println("Opcao invalida!");
 			break;
 		}
 		
