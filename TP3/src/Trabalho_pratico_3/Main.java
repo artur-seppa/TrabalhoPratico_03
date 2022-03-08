@@ -24,6 +24,8 @@ public class Main {
 			Pessoa p[] = new Pessoa[100]; 
 			
 			Roupa v[] = new Roupa[100];
+			Sapato s[] = new Sapato[100];
+			Acessorio a[] = new Acessorio[100];
 			
 			CarrinhoDeCompra c[] = new CarrinhoDeCompra[100];
 			
@@ -48,7 +50,7 @@ public class Main {
 		switch (opcao) {
 
 		case 1:
-			System.out.println("\n\t---- CADASTRAR VENDEDOR ----\n");
+			System.out.println("\n\t---- CADASTRAR USUARIO ----\n");
     		
     		System.out.println("Digite o seu nome:");
     		String input;
@@ -67,7 +69,6 @@ public class Main {
 				p[0] = new Pessoa();
 				p[0].setNome(input);
 				p[0].setSexo("masc");
-				p[0].setCpf("043485");
 				
 				//associa o objeto pessoa com telefone.
 				p[0].setTelefone(t1);
@@ -75,11 +76,12 @@ public class Main {
 				p[0].setEndereco(e1);
 				
 				System.out.println("o nome do usuario é : "+ p[0].getNome());
+				System.out.println("o cpf do usuario é: " + p[0].getCpf());
 				System.out.println("o telefone da pessoa é "+ p[0].getTelefone().getTelefone());
 				System.out.println("o endereco do usuario é " + p[0].getEndereco().getBairro());
 				System.out.println("o cep do usuario é " + p[0].getEndereco().getCep());
 
-			System.out.println("\nVendedor cadastrado com sucesso! ");
+			System.out.println("\n Usuario cadastrado com sucesso! ");
 			break;
 
 		case 2:
@@ -178,6 +180,12 @@ public class Main {
 			v[3].setCondicao("usado");
 			v[3].setDescricao("camiseta social");
 			
+			s[0] = new Sapato();
+			s[0].setCategoria("social");
+			
+			a[0] = new Acessorio();
+			a[0].setCor("dourado");
+			
 			c[0] = new CarrinhoDeCompra();
 			c[0].adicionarProduto(v[2]);
 			c[0].adicionarProduto(v[3]);
@@ -186,10 +194,11 @@ public class Main {
 			rf.adicionarProduto(v[3]);
 			
 			
-			for (int i = 0; i<=1; i++) {
-				System.out.println("Produto");
-				System.out.println(v[2].getMarca());
-				System.out.println(v[2].getCategoria());
+			for (int i = 2; i<=3; i++) {
+				System.out.println("PRODUTO");
+				System.out.println(v[i].getMarca());
+				System.out.println(v[i].getCategoria());
+				System.out.println("");
 			}
 
 				//lista a marca de produtos associados a pessoa p[1].

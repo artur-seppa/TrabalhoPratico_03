@@ -1,23 +1,33 @@
 package Trabalho_pratico_3;
 
 public class Acessorio extends Produto{
-	private String categoria;
-	private String estilo;
+	private String tipo;
+	private String material;
 	private String cor;
 	private String tamanho;
 	
-	public String getCategoria() {
-		return categoria;
+	public Acessorio() {
+		this.setTipo("colar");
+		this.setMaterial("ouro");
 	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	
+	
+	public String getTipo() {
+		return tipo;
 	}
-	public String getEstilo() {
-		return estilo;
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
-	public void setEstilo(String estilo) {
-		this.estilo = estilo;
+
+	public String getMaterial() {
+		return material;
 	}
+
+	public void setMaterial(String material) {
+		this.material = material;
+	}
+
 	public String getCor() {
 		return cor;
 	}

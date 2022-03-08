@@ -27,6 +27,8 @@ public class Pessoa {
 		//o construtor inicia o array list 
 		public Pessoa() {
 			produtos = new ArrayList<Produto>();
+			this.setSenha("abcde");
+			this.setCpf("123456789");
 		}
 
 		//permite adicionar produtos associados a pessoa
