@@ -140,12 +140,8 @@ public class Main {
 //					System.out.println(v[2].getCategoria());
 //				}
 //			}
-<<<<<<< HEAD
 			
 			System.out.println("\nCategoria cadastrada com sucesso! ");
->>>>>>> refs/remotes/origin/master
-=======
-			System.out.println("\n\tCarriho de compras! ")
 >>>>>>> refs/remotes/origin/master
 			break;
 
