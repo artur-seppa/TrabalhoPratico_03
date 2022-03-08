@@ -24,10 +24,6 @@ public class Main {
 			Pessoa p[] = new Pessoa[100]; 
 			
 			Roupa v[] = new Roupa[100];
-			
-			CarrinhoDeCompra c[] = new CarrinhoDeCompra[100];
-			
-			RoupaFavorita rf = new RoupaFavorita();
 				
 		//=============================/
 		
@@ -128,7 +124,6 @@ public class Main {
 		case 3:
 			System.out.println("\n\t---- CARRINHO DE COMPRAS ----\n");
 			
-<<<<<<< HEAD
 			if(c[0] == null) {
 				System.out.println("	O seu carrinho está vazio");
 			}else {
@@ -140,19 +135,9 @@ public class Main {
 					System.out.println("Valor do Produto : R$ " + c[0].getProduto(i).getPreco());
 					System.out.println("");
 				}
-=======
-<<<<<<< HEAD
-			System.out.println("\n\tCarriho de compras! ")
-=======
-			//lista a marca de produtos associados a pessoa
-			for(int i=0; i<p[1].quantidadeProdutos(); i++) {
-				System.out.println(p[1].getProduto(i).getMarca());
->>>>>>> branch 'master' of https://github.com/artur-seppa/TrabalhoPratico_03.git
 			}
 			
-<<<<<<< HEAD
 			System.out.println("\n\tCarrinho de compras! ");
-=======
 //			for(int i=0; i<3; i++) {
 //				if(v[2].equals(null)) {
 //					System.out.println("Sem produtos no carrinho");
@@ -164,24 +149,275 @@ public class Main {
 			
 			System.out.println("\nCategoria cadastrada com sucesso! ");
 >>>>>>> refs/remotes/origin/master
->>>>>>> branch 'master' of https://github.com/artur-seppa/TrabalhoPratico_03.git
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
 			break;
 
 		case 4:
 			System.out.println("\n\t---- ROUPAS FAVORITAS ----\n");
 
-			if(c[0] == null) {
-				System.out.println("	A sua lista de roupas favoritas está vazia");
-			}else {
-				//lista a marca de produtos associados ao carrinho
-				for(int i=0, cont=1; i<rf.quantidadeProdutos(); i++, cont++) {
-					System.out.println("Marca : " + rf.getProduto(i).getMarca());
-					System.out.println("Valor do Produto : R$ " + rf.getProduto(i).getPreco());
-					System.out.println("Condicao do produto : " + rf.getProduto(i).getCondicao());
-					System.out.println("Descricao do produto : " + rf.getProduto(i).getDescricao());
-				}
-			}
-			
 			System.out.println("\nLista de Roupas Favoritas! ");
 			break;
 
