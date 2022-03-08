@@ -12,9 +12,6 @@ public class Main {
 		System.out.print("|    3. Ver Carrinho de Compras                  |\n");
 		System.out.print("|    4. Ver Lista de Roupas Favoritas            |\n");
 		System.out.print("|    5. Visualizar Produtos Disponiveis          |\n");
-		System.out.print("|    6. Ver Carrinho de Compras                  |\n");
-		System.out.print("|    7. Imprimir Relacao Vendedor-Cliente        |\n");
-		System.out.print("|    8. Publicar Novo Item                       |\n");
 		System.out.print("|    0. Sair                                     |\n");
 		System.out.print("|------------------------------------------------|\n");
 		System.out.print("\nInsira a opcao desejada: ");
@@ -140,14 +137,13 @@ public class Main {
 //					System.out.println(v[2].getCategoria());
 //				}
 //			}
-			
-			System.out.println("\nCategoria cadastrada com sucesso! ");
+			System.out.println("\n\tCarriho de compras! ")
 			break;
 
 		case 4:
 			System.out.println("\n\t---- ROUPAS FAVORITAS ----\n");
 
-			System.out.println("\nPromoção cadastrada com sucesso! ");
+			System.out.println("\nLista de Roupas Favoritas! ");
 			break;
 
 		case 5:
@@ -184,21 +180,6 @@ public class Main {
 			
 			break;
 
-		case 6:
-			System.out.println("\n\t---- LISTA DE DESTAQUES ----\n");
-
-			break;
-
-		case 7:
-			System.out.println("\n\t---- RELAÇÃO VENDEDOR E CLIENTE ----\n");
-
-			break;
-
-		case 8:
-			System.out.println("\n\t---- PUBLICAR NOVO ITEM ----\n");
-
-			System.out.println("\nItem publicado com sucesso! ");
-			break;
 
 		case 0:
 
