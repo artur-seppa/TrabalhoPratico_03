@@ -24,6 +24,8 @@ public class Main {
 			Pessoa p[] = new Pessoa[100]; 
 			
 			Roupa v[] = new Roupa[100];
+			
+			CarrinhoDeCompra c[] = new CarrinhoDeCompra[100];
 				
 		//=============================/
 		
@@ -125,9 +127,9 @@ public class Main {
 			System.out.println("\n\t---- CARRINHO DE COMPRAS ----\n");
 			
 			//lista a marca de produtos associados a pessoa
-			for(int i=0; i<p[1].quantidadeProdutos(); i++) {
-				System.out.println(p[1].getProduto(i).getMarca());
-			}
+//			for(int i=0; i<c1.qu; i++) {
+//				System.out.println(p[1].getProduto(i).getMarca());
+//			}
 			
 //			for(int i=0; i<3; i++) {
 //				if(v[2].equals(null)) {
@@ -137,7 +139,7 @@ public class Main {
 //					System.out.println(v[2].getCategoria());
 //				}
 //			}
-			System.out.println("\n\tCarriho de compras! ")
+			System.out.println("\n\tCarriho de compras! ");
 			break;
 
 		case 4:
@@ -160,6 +162,9 @@ public class Main {
 			r4.setCategoria("camiseta");
 			r4.setPreco(99.00f);
 			r4.setDescricao("camiseta social");
+			
+			CarrinhoDeCompra c1 = new CarrinhoDeCompra();
+			c1.adicionarRoupa(v[2]);;		
 			
 			
 			for (int i = 0; i<=1; i++) {
