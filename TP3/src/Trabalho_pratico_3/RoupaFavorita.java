@@ -1,23 +1,34 @@
 package Trabalho_pratico_3;
 
+import java.util.ArrayList;
+
 public class RoupaFavorita {
-	private Produto marca;
-	private Produto preco;
-	private Produto condicao;
-	private Produto descricao;
+	private ArrayList<Produto> produtos;
 	
-	public Produto getMarca() {
-		return marca;
+	
+	//o construtor inicia o array list 
+	public RoupaFavorita() {
+		produtos = new ArrayList<Produto>();
 	}
-	public Produto getPreco() {
-		return preco;
+
+	//permite adicionar produtos associados ao carrinho
+	public void adicionarProduto(Produto produto) {
+		produtos.add(produto);
 	}
-	public Produto getCondicao() {
-		return condicao;
+			
+	//retorna a quantidade de produtos do carrinho
+	public int quantidadeProdutos() {
+		return produtos.size();
 	}
-	public Produto getDescricao() {
-		return descricao;
+			
+	//exclui o produto associado ao carrinho
+	public void excluirProduto(Produto produto) {
+		produtos.remove(produto);
 	}
 	
+	//pega a posiçao de onde o produto se encontra
+	public Produto getProduto(int posicao) {
+		return produtos.get(posicao);
+	}
 	
 }
