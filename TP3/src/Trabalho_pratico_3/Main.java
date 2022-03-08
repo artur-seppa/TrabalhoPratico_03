@@ -23,7 +23,7 @@ public class Main {
 		//	100 usuarios sao criados
 			Pessoa p[] = new Pessoa[100]; 
 			
-			Produto v[] = new Produto[100];
+			Roupa v[] = new Roupa[100];
 				
 		//=============================/
 		
@@ -124,7 +124,25 @@ public class Main {
 		case 3:
 			System.out.println("\n\t---- CARRINHO DE COMPRAS ----\n");
 			
+<<<<<<< HEAD
 			System.out.println("\n\tCarriho de compras! ")
+=======
+			//lista a marca de produtos associados a pessoa
+			for(int i=0; i<p[1].quantidadeProdutos(); i++) {
+				System.out.println(p[1].getProduto(i).getMarca());
+			}
+			
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
 			break;
 
 		case 4:
@@ -136,11 +154,11 @@ public class Main {
 		case 5:
 			System.out.println("\n\t----  PRODUTOS DISPONIVEIS ----\n");
 			
-			Roupa r3 = new Roupa();
-			r3.setMarca("DC");
-			r3.setCategoria("camisa");
-			r3.setPreco(99.00f);
-			r3.setDescricao("camisa florida");
+			v[2] = new Roupa();
+			v[2].setMarca("DC");
+			v[2].setCategoria("camisa");
+			v[2].setPreco(99.00f);
+			v[2].setDescricao("camisa florida");
 			
 			Roupa r4 = new Roupa();
 			r4.setMarca("Marvel");
@@ -151,8 +169,8 @@ public class Main {
 			
 			for (int i = 0; i<=1; i++) {
 				System.out.println("Produto");
-				System.out.println(r3.getMarca());
-				System.out.println(r3.getCategoria());
+				System.out.println(v[2].getMarca());
+				System.out.println(v[2].getCategoria());
 			}
 
 				//lista a marca de produtos associados a pessoa p[1].
