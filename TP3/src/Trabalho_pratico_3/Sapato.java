@@ -6,6 +6,11 @@ public class Sapato extends Produto{
 	private String cor;
 	private String tamanho;
 	
+	public Sapato() {
+		this.setCor("vermelho");
+		this.setGenero("feminino");
+	}
+	
 	public String getCategoria() {
 		return categoria;
 	}
