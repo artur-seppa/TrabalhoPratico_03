@@ -24,6 +24,10 @@ public class Main {
 			Pessoa p[] = new Pessoa[100]; 
 			
 			Roupa v[] = new Roupa[100];
+			
+			CarrinhoDeCompra c[] = new CarrinhoDeCompra[100];
+			
+			RoupaFavorita rf = new RoupaFavorita();
 				
 		//=============================/
 		
@@ -124,25 +128,37 @@ public class Main {
 		case 3:
 			System.out.println("\n\t---- CARRINHO DE COMPRAS ----\n");
 			
-			//lista a marca de produtos associados a pessoa
-			for(int i=0; i<p[1].quantidadeProdutos(); i++) {
-				System.out.println(p[1].getProduto(i).getMarca());
+			if(c[0] == null) {
+				System.out.println("	O seu carrinho está vazio");
+			}else {
+				//lista a marca de produtos associados ao carrinho
+				for(int i=0, cont=1; i<c[0].quantidadeProdutos(); i++, cont++) {
+					
+					System.out.println("Item : " + cont);
+					System.out.println("Descricao do produto : " + c[0].getProduto(i).getDescricao());
+					System.out.println("Valor do Produto : R$ " + c[0].getProduto(i).getPreco());
+					System.out.println("");
+				}
 			}
 			
-//			for(int i=0; i<3; i++) {
-//				if(v[2].equals(null)) {
-//					System.out.println("Sem produtos no carrinho");
-//				}else {
-//					System.out.println(v[2].getMarca());
-//					System.out.println(v[2].getCategoria());
-//				}
-//			}
-			System.out.println("\n\tCarriho de compras! ")
+			System.out.println("\n\tCarrinho de compras! ");
 			break;
 
 		case 4:
 			System.out.println("\n\t---- ROUPAS FAVORITAS ----\n");
 
+			if(c[0] == null) {
+				System.out.println("	A sua lista de roupas favoritas está vazia");
+			}else {
+				//lista a marca de produtos associados ao carrinho
+				for(int i=0, cont=1; i<rf.quantidadeProdutos(); i++, cont++) {
+					System.out.println("Marca : " + rf.getProduto(i).getMarca());
+					System.out.println("Valor do Produto : R$ " + rf.getProduto(i).getPreco());
+					System.out.println("Condicao do produto : " + rf.getProduto(i).getCondicao());
+					System.out.println("Descricao do produto : " + rf.getProduto(i).getDescricao());
+				}
+			}
+			
 			System.out.println("\nLista de Roupas Favoritas! ");
 			break;
 
@@ -155,11 +171,19 @@ public class Main {
 			v[2].setPreco(99.00f);
 			v[2].setDescricao("camisa florida");
 			
-			Roupa r4 = new Roupa();
-			r4.setMarca("Marvel");
-			r4.setCategoria("camiseta");
-			r4.setPreco(99.00f);
-			r4.setDescricao("camiseta social");
+			v[3] = new Roupa();
+			v[3].setMarca("Marvel");
+			v[3].setCategoria("camiseta");
+			v[3].setPreco(129.00f);
+			v[3].setCondicao("usado");
+			v[3].setDescricao("camiseta social");
+			
+			c[0] = new CarrinhoDeCompra();
+			c[0].adicionarProduto(v[2]);
+			c[0].adicionarProduto(v[3]);
+			
+			rf = new RoupaFavorita();
+			rf.adicionarProduto(v[3]);
 			
 			
 			for (int i = 0; i<=1; i++) {

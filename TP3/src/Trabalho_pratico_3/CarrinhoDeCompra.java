@@ -24,7 +24,7 @@ public class CarrinhoDeCompra {
 		produtos.add(produto);
 	}
 			
-	//retorna a qauntidade de produtos do carrinho
+	//retorna a quantidade de produtos do carrinho
 	public int quantidadeProdutos() {
 		return produtos.size();
 	}
@@ -32,5 +32,11 @@ public class CarrinhoDeCompra {
 	//exclui o produto associado ao carrinho
 	public void excluirProduto(Produto produto) {
 		produtos.remove(produto);
-	}	
+	}
+	
+	//pega a posiçao de onde o produto se encontra
+	public Produto getProduto(int posicao) {
+		return produtos.get(posicao);
+	}
+	
 }
