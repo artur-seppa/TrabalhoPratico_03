@@ -128,6 +128,7 @@ public class Main {
 		case 3:
 			System.out.println("\n\t---- CARRINHO DE COMPRAS ----\n");
 			
+<<<<<<< HEAD
 			if(c[0] == null) {
 				System.out.println("	O seu carrinho está vazio");
 			}else {
@@ -139,9 +140,31 @@ public class Main {
 					System.out.println("Valor do Produto : R$ " + c[0].getProduto(i).getPreco());
 					System.out.println("");
 				}
+=======
+<<<<<<< HEAD
+			System.out.println("\n\tCarriho de compras! ")
+=======
+			//lista a marca de produtos associados a pessoa
+			for(int i=0; i<p[1].quantidadeProdutos(); i++) {
+				System.out.println(p[1].getProduto(i).getMarca());
+>>>>>>> branch 'master' of https://github.com/artur-seppa/TrabalhoPratico_03.git
 			}
 			
+<<<<<<< HEAD
 			System.out.println("\n\tCarrinho de compras! ");
+=======
+//			for(int i=0; i<3; i++) {
+//				if(v[2].equals(null)) {
+//					System.out.println("Sem produtos no carrinho");
+//				}else {
+//					System.out.println(v[2].getMarca());
+//					System.out.println(v[2].getCategoria());
+//				}
+//			}
+			
+			System.out.println("\nCategoria cadastrada com sucesso! ");
+>>>>>>> refs/remotes/origin/master
+>>>>>>> branch 'master' of https://github.com/artur-seppa/TrabalhoPratico_03.git
 			break;
 
 		case 4:
