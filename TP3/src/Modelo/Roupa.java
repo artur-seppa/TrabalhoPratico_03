@@ -1,15 +1,11 @@
-package Trabalho_pratico_3;
+package Modelo;
 
-public class Sapato extends Produto{
+public class Roupa extends Produto{
 	private String categoria;
 	private String estilo;
 	private String cor;
+	private String tecido;
 	private String tamanho;
-	
-	public Sapato() {
-		this.setCor("vermelho");
-		this.setGenero("feminino");
-	}
 	
 	public String getCategoria() {
 		return categoria;
@@ -29,10 +25,18 @@ public class Sapato extends Produto{
 	public void setCor(String cor) {
 		this.cor = cor;
 	}
+	public String getTecido() {
+		return tecido;
+	}
+	public void setTecido(String tecido) {
+		this.tecido = tecido;
+	}
 	public String getTamanho() {
 		return tamanho;
 	}
 	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
 	}
+	
+	
 }

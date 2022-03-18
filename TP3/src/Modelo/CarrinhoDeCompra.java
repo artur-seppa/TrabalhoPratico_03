@@ -1,4 +1,4 @@
-package Trabalho_pratico_3;
+package Modelo;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Trabalho_pratico_3;
+package Modelo;
 
 public class Acessorio extends Produto{
 	private String tipo;
