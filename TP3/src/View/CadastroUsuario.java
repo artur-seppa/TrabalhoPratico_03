@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class TelaPrincipal implements ActionListener{
+public class CadastroUsuario implements ActionListener{
 	
 	//---->classes swing(GUI)
 	
@@ -36,25 +36,28 @@ public class TelaPrincipal implements ActionListener{
 	* 	com seus respectivos atributos e metodos das classes. 
 	*/
 	
-	private static ControleUsuario pessoa = new ControleUsuario();
+//	private static ControleUsuario pessoa = new ControleUsuario();
 	
-	private static JFrame janela = new JFrame("Menu");
+	private static JFrame janela = new JFrame("Cadastrar");
+	private static JPanel panel = new JPanel();
+	private static JLabel titulo = new JLabel("Cadastro de usuario");
+	
 	private static JButton cadastroUsuario = new JButton("Cadastrar");
 	private static JButton loginButton = new JButton("Entrar");
-	private static JTextField userText = new JTextField(20);
-	private static JPasswordField passwordText = new JPasswordField(20);
-	private static JLabel titulo = new JLabel("Roupas e Acessorios");
-	private static JPanel panel = new JPanel();
 	
-	public TelaPrincipal(){		
+	private static JTextField nomeText = new JTextField(20);
+	private static JPasswordField passwordText = new JPasswordField(20);
+	private static JTextField telefoneText = new JTextField(9);
+	private static JTextField dddText = new JTextField(3);
+	
+	private static CadastroUsuario objCadastro = new CadastroUsuario();
+	
+	public void imprimirTela(){		
 		janela.setVisible(true);
 		
-		janela.setSize(400, 340);
+		janela.setSize(400, 400);
 		janela.add(panel);
 		placeComponents(panel);
-		
-		//Ao clicar no 'x' a janela fecha
-		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	//nao pode ter main, procure na tela pessoa
@@ -69,79 +72,81 @@ public class TelaPrincipal implements ActionListener{
 		*/
 		
 		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
-		titulo.setFont(new Font("Arial", Font.BOLD, 19));
-		titulo.setBounds(90, 10, 250, 30);		
+		titulo.setFont(new Font("Arial", Font.BOLD, 17));
+		titulo.setBounds(100, 10, 250, 30);		
 		panel.add(titulo);
 
-		JLabel userLabel = new JLabel("Usuario:");
+		/*=========Nome==========*/
+		JLabel userLabel = new JLabel("Digite o seu nome :");
 		userLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		userLabel.setBounds(130, 50, 140, 30);
+		userLabel.setBounds(20, 50, 160, 30);
 		panel.add(userLabel);
 
-//		JTextField userText = new JTextField(20);
-		//userText.setFont(new Font("Arial", Font.BOLD, 16));
-		userText.setBounds(130, 80, 140, 30);
-		panel.add(userText);
+		nomeText.setBounds(20, 80, 160, 30);
+		panel.add(nomeText);
 
-		JLabel passwordLabel = new JLabel("Senha:");
+		/*=========Senha==========*/
+		JLabel passwordLabel = new JLabel("digite a senha :");
 		passwordLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		passwordLabel.setBounds(130, 120, 140, 30);
+		passwordLabel.setBounds(20, 120, 160, 30);
 		panel.add(passwordLabel);
 
-//		JPasswordField passwordText = new JPasswordField(20);
-		passwordText.setBounds(130, 150, 140, 30);
+		passwordText.setBounds(20, 150, 160, 30);
 		panel.add(passwordText);
+		
+		/*=========DDD==========*/
+		JLabel dddlabel = new JLabel("DDD :");
+		dddlabel.setFont(new Font("Arial", Font.BOLD, 15));
+		dddlabel.setBounds(20, 190, 160, 30);
+		panel.add(dddlabel);
 
-//		JButton loginButton = new JButton("Entrar");
-		loginButton.setBounds(50, 210, 140, 30);
-		panel.add(loginButton);
+		dddText.setBounds(20, 220, 50, 30);
+		panel.add(dddText);
 		
-		//JButton cadastroUsuario = new JButton("register");
-		cadastroUsuario.setBounds(210, 210, 140, 30);
+		/*=========telefone==========*/
+		JLabel telelabel = new JLabel("Telefone :");
+		telelabel.setFont(new Font("Arial", Font.BOLD, 15));
+		telelabel.setBounds(90, 190, 140, 30);
+		panel.add(telelabel);
+
+		telefoneText.setBounds(90, 220, 140, 30);
+		panel.add(telefoneText);
+		
+		/*---------Button---------*/
+		cadastroUsuario.setBounds(20, 270, 140, 30);
 		panel.add(cadastroUsuario);
-	}
-	
-	public static void main(String[] args) {
-		/*
-		 * Na main instanciamos o obj menu da classe TelaPrincipal
-		 * e assim o nosso construtor passa a existir na aplicacao
-		*/
-		TelaPrincipal menu = new TelaPrincipal();
 		
-	/*
-	* ActionListener: verifica se o usuario clicou em algum dos
-	* buttons criados
-	*/
-		cadastroUsuario.addActionListener(menu);
-		loginButton.addActionListener(menu);
+		/*
+		* ActionListener: verifica se o usuario clicou em algum dos
+		* buttons criados
+		*/
+		cadastroUsuario.addActionListener(objCadastro);
 	}
 	
 	
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
+		boolean sucesso;
+		
+		ControleUsuario usuario = new ControleUsuario();
 		
 		if(src == cadastroUsuario) {
-			new CadastroUsuario().imprimirTela();
-		}
-		
-		if(src == loginButton) {
-			boolean sucesso;
-			ControleUsuario usuario = new ControleUsuario();
+			
+//			int contadorUsuario = pessoa[0].contadorUsuario();
 			
 			try {
 				String password = String.valueOf(passwordText.getPassword());
-				sucesso = usuario.logarUsuario(userText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
+				sucesso = usuario.cadastrarUsuario(nomeText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
 				if(sucesso == true) {
 					JOptionPane.showMessageDialog(null, 
-					"usuario: "+ userText.getText() +"\n" +
-					"usuario: "+ password +"\n", null, 
+					"Usuario cadastrado com sucesso\n", null, 
 					JOptionPane.INFORMATION_MESSAGE);
 					
 					//fecha a janela quando logar o usuario
 					janela.setVisible(false);
 				}else{
 					JOptionPane.showMessageDialog(null, 
-					"tente novamente\n", null, 
+					"Os campos nao foram preenchidos corretamente\n", null, 
 					JOptionPane.INFORMATION_MESSAGE);
 				}
 			}catch(Exception ex){
@@ -152,3 +157,4 @@ public class TelaPrincipal implements ActionListener{
 		}
 	}
 }
+
