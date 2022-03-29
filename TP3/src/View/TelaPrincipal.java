@@ -36,7 +36,8 @@ public class TelaPrincipal implements ActionListener{
 	* 	com seus respectivos atributos e metodos das classes. 
 	*/
 	
-	private static ControleUsuario pessoa = new ControleUsuario();
+	/*Banco de dados instanciado*/
+	private static ControleUsuario usuario = new ControleUsuario();
 	
 	private static JFrame janela = new JFrame("Menu");
 	private static JButton cadastroUsuario = new JButton("Cadastrar");
@@ -121,24 +122,31 @@ public class TelaPrincipal implements ActionListener{
 		Object src = e.getSource();
 		
 		if(src == cadastroUsuario) {
-			new CadastroUsuario().imprimirTela();
+			//TEM QUE PASSAR O BD PARA NAO PERDER A CONFIGURACAO do construtor
+			//e usuarios ja fabricados
+			new CadastroUsuario().imprimirTelaCadastro(usuario);
 		}
 		
 		if(src == loginButton) {
 			boolean sucesso;
-			ControleUsuario usuario = new ControleUsuario();
 			
 			try {
 				String password = String.valueOf(passwordText.getPassword());
 				sucesso = usuario.logarUsuario(userText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
 				if(sucesso == true) {
-					JOptionPane.showMessageDialog(null, 
-					"usuario: "+ userText.getText() +"\n" +
-					"usuario: "+ password +"\n", null, 
-					JOptionPane.INFORMATION_MESSAGE);
+//					JOptionPane.showMessageDialog(null, 
+//					"usuario: "+ userText.getText() +"\n" +
+//					"usuario: "+ password +"\n", null, 
+//					JOptionPane.INFORMATION_MESSAGE);
 					
 					//fecha a janela quando logar o usuario
 					janela.setVisible(false);
+					
+					//TEM QUE PASSAR O BD PARA NAO PERDER A CONFIGURACAO do construtor
+					//e usuarios ja fabricados
+					new TelaMenu().imprimirTelaMenu(usuario);
+					
+					
 				}else{
 					JOptionPane.showMessageDialog(null, 
 					"tente novamente\n", null, 

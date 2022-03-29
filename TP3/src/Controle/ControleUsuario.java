@@ -4,19 +4,28 @@ import java.util.Date;
 import Modelo.*;
 
 public class ControleUsuario {
-	//instancia o objeto array "pessoa" de Pessoa
-	Pessoa pessoa[] = new Pessoa[100]; 
+	//instancia o objeto array "pessoa" de Pessoa com tamanho de 100.
+	private Pessoa pessoa[] = new Pessoa[100]; 
 	private Telefone telefone;
 	private Endereco endereco; 
 	
 	//quantidade inicial de usuarios
-	static int qtdPessoas = 1;
-	static int cont = 1;
+	private int qtdPessoas = 3;
 	
+	/*
+	 * Contrutor de usuarios, 
+	 * sendo iniciado com a criacao de 3 user
+	 */
 	public ControleUsuario() {
-		pessoa[cont] = new Pessoa();
-		pessoa[cont].setNome("artur");
-		pessoa[cont].setSenha("123");
+		for(int i=0; i<=2; i++) {
+			pessoa[i] = new Pessoa();
+			pessoa[i].setNome("user"+i);
+			pessoa[i].setSenha("123"+i);
+		}
+	}
+	
+	public Pessoa[] getUsuarios() {
+		return pessoa;
 	}
 	
 	
@@ -27,7 +36,7 @@ public class ControleUsuario {
 	public String[] escreveUsuarios() {
 		String[] totalP = new String[qtdPessoas];
 		
-		for(int i = 1; i <= qtdPessoas; i++) {
+		for(int i = 0; i < qtdPessoas; i++) {
 			totalP[i] = pessoa[i].getNome();
 		}
 		
@@ -42,12 +51,14 @@ public class ControleUsuario {
 		if(nome != null && nome.length()>0 && /*sexo != null && sexo.length()>0 &&*/ senha!= null && senha.length()>0 /*&& email != null && email.length()>0 && cpf != null && cpf.length()>0
 		   && ddd>0 && telefone>0
 		   && estado != null && estado.length()>0 && cidade != null && cidade.length()>0 && endereco != null && endereco.length() > 0*/){
-//			pessoa[cont] = new Pessoa();
-			pessoa[cont].setNome(nome);
-			pessoa[cont].setSenha(senha);
 			
-			//incrementa o numero do contador ao criar o usuario
-			cont = cont + 1;
+			/*
+			 *	Um novo usuario eh cadastrado com as informacoes passadas pela view
+			 *	de cadastro 
+			 */
+			pessoa[qtdPessoas] = new Pessoa();
+			pessoa[qtdPessoas].setNome(nome);
+			pessoa[qtdPessoas].setSenha(senha);
 			
 			//incrementa o numero de usuarios totais
 			qtdPessoas = qtdPessoas + 1;
@@ -58,13 +69,14 @@ public class ControleUsuario {
 		return false;
 	}
 	
-	public boolean logarUsuario(String nome, String senha) {
+	public boolean logarUsuario( String nome, String senha) {
 		
-		for(int i = 1; i <= qtdPessoas; i++) {
-			if(pessoa[i].getNome() == nome) {
-				//if(senha == pessoa[i].getSenha()) {
+		//procura pelo mesmo nome e senha nos usuarios cadastrados
+		for(int i = 0; i <qtdPessoas; i++) {
+			if(nome.equals(pessoa[i].getNome()) ) {
+				if(senha.equals(pessoa[i].getSenha()) ) {
 					return true;
-				//}
+				}
 			}
 		}
 		//caso nao encontre o nome e nem a senha retorna false

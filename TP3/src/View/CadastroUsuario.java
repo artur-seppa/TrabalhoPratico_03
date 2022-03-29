@@ -50,9 +50,19 @@ public class CadastroUsuario implements ActionListener{
 	private static JTextField telefoneText = new JTextField(9);
 	private static JTextField dddText = new JTextField(3);
 	
+	//instancia o TIPO ControleUsuario === BD
+	private static ControleUsuario usuario;
 	private static CadastroUsuario objCadastro = new CadastroUsuario();
 	
-	public void imprimirTela(){		
+	public void imprimirTelaCadastro(ControleUsuario u){
+	    
+		/*
+		 * Obtem o "BD" criado na tela anterior, com seus users ja pre fabricados,
+		 * e passa essa configuracao ao obj usuario de mesmo tipo ControleUsuario
+		 */
+		
+		usuario = u;
+		
 		janela.setVisible(true);
 		
 		janela.setSize(400, 400);
@@ -128,11 +138,7 @@ public class CadastroUsuario implements ActionListener{
 		Object src = e.getSource();
 		boolean sucesso;
 		
-		ControleUsuario usuario = new ControleUsuario();
-		
 		if(src == cadastroUsuario) {
-			
-//			int contadorUsuario = pessoa[0].contadorUsuario();
 			
 			try {
 				String password = String.valueOf(passwordText.getPassword());
