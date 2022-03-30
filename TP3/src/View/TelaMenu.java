@@ -21,11 +21,30 @@ import javax.swing.event.MenuListener;
 public class TelaMenu implements ActionListener{
 	
 	private static JFrame janela = new JFrame("Roupas e Acessorios");
+	
+	/*
+	 * Criacao de Jpanel's
+	 */
+	private static JPanel panelHome = new JPanel();
+	private static JLabel tituloHome = new JLabel("Home");
+	
 	private static JPanel panelRoupas = new JPanel();
 	private static JLabel tituloRoupas = new JLabel("Roupas");
 	
+	private static JPanel panelCarrinho = new JPanel();
+	private static JLabel tituloCarrinho = new JLabel("Carrinho");
+	
 	private static TelaMenu telaMenu = new TelaMenu();	//instancia o objeto da telaMenu
 	private static ControleUsuario usuario;		//instancia o TIPO ControleUsuario === BD
+	
+	/*
+	 * JMenu permite instanciar os arquivos clicaveis da
+	 * barra de menu 
+	 */
+	JMenu home = new JMenu("Home");
+	JMenu perfil = new JMenu("Perfil");
+	JMenu menuCarrinho = new JMenu("carrinho de compras"); 
+	JMenu menuFavoritos = new JMenu("Roupas Favoritas");
 	
 	public void imprimirTelaMenu(ControleUsuario u){
 		
@@ -40,14 +59,16 @@ public class TelaMenu implements ActionListener{
 		
 	}
 	
-//	public void panelVisibleFalse(){
+	public void divHomeNotVisible(){
+		panelHome.setVisible(false);
+	}
 	
-	public void painelHome() {
-		janela.add(panelRoupas);
-		panelRoupas.setVisible(true);
+	public void painelCarrinho() {
+		janela.add(panelCarrinho);
+		panelCarrinho.setVisible(true);
 		
 		
-		panelRoupas.setLayout(null);
+		panelCarrinho.setLayout(null);
 		
 		/*
 		* set o width e height do obj.
@@ -55,15 +76,33 @@ public class TelaMenu implements ActionListener{
 		*/
 		
 		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
-		tituloRoupas.setFont(new Font("Arial", Font.BOLD, 17));
-		tituloRoupas.setBounds(0, 15, 250, 30);		
-		panelRoupas.add(tituloRoupas);
+		tituloCarrinho.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloCarrinho.setBounds(0, 15, 250, 30);		
+		panelCarrinho.add(tituloCarrinho);
+	}
+	
+	public void divHome() {
+		janela.add(panelHome);
+		panelHome.setVisible(true);
+		
+		
+		panelHome.setLayout(null);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloHome.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloHome.setBounds(0, 15, 250, 30);		
+		panelHome.add(tituloHome);
 		
 	}
 	
 	public TelaMenu(){	
 		
-		painelHome();
+		divHome();
 		
 		/*
 		 *	JMenuBar == instancia a barra de menu  
@@ -77,14 +116,6 @@ public class TelaMenu implements ActionListener{
 		janela.setJMenuBar(barraMenu);
 		
 		
-		/*
-		 * JMenu permite instanciar os arquivos clicaveis da
-		 * barra de menu 
-		 */
-		JMenu perfil = new JMenu("Perfil");
-		JMenu menuCarrinho = new JMenu("carrinho de compras"); 
-		JMenu menuFavoritos = new JMenu("Roupas Favoritas");
-		
 		//isntancia os itens submenu
 		JMenuItem itemConfiguracao = new JMenuItem("Configuracao");
 		JMenuItem itemSair = new JMenuItem("Sair");
@@ -94,6 +125,7 @@ public class TelaMenu implements ActionListener{
 		perfil.add(itemSair);
 		
 		//acrescenta os componentes na barra de menu
+		barraMenu.add(home);
 		barraMenu.add(perfil);
 		barraMenu.add(menuCarrinho);
 		barraMenu.add(menuFavoritos);
@@ -107,31 +139,57 @@ public class TelaMenu implements ActionListener{
 		*/
 		itemSair.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	JOptionPane.showMessageDialog(null, 
-    			"Entrou\n", null, 
-    			JOptionPane.INFORMATION_MESSAGE);
+//            	JOptionPane.showMessageDialog(null, 
+//    			"Entrou\n", null, 
+//    			JOptionPane.INFORMATION_MESSAGE);
+            	divHomeNotVisible();
+            	
+            	painelCarrinho();
             }
         });
 		
 		
-		//menuCarrinho.addMenuListener(new ListenerMenuCarrinho());
+		//----------------evento de clique nos Menus------------------
 		
-		
-		menuFavoritos.addMenuListener(new ListenerMenuFavorito());
+		/*
+		* addMenuListener: verfica se o usuario clicou no Jmenu.
+		* O menu ao ser clicado chama o metodo ListenerMenus
+		*/
+		menuCarrinho.addMenuListener(new ListenerMenus());
+		menuFavoritos.addMenuListener(new ListenerMenus());
 		
 		
 	}
 	
-	class ListenerMenuFavorito implements MenuListener {
-
+	
+	class ListenerMenus implements MenuListener {
+		
 	    @Override
 	    public void menuSelected(MenuEvent e) {
-	        System.out.println("favorito");
+	    	
+	    	//getSource pega o nome do Menu que chamou o evento
+	        if(e.getSource().equals(menuCarrinho) ) {
+	        	System.out.println("carrinho");
+	        	divHomeNotVisible();
+            	
+	        	System.out.println("ANTES DE TROCAR");
+            	painelCarrinho();
+            	
+            	System.out.println("TROCOU");
+	        }
+	        if(e.getSource().equals(menuFavoritos) ) {
+	        	System.out.println("favoritos");
+	        }
 	    }
 
 	    @Override
 	    public void menuDeselected(MenuEvent e) {
-	        System.out.println("saiu favorito");
+	    	if(e.getSource().equals(menuCarrinho) ) {
+	        	System.out.println("saiu carrinho");
+	        }
+	        if(e.getSource().equals(menuFavoritos) ) {
+	        	System.out.println("saiu favoritos");
+	        }
 	    }
 
 	    @Override
@@ -140,13 +198,15 @@ public class TelaMenu implements ActionListener{
 	    }
 	}
 	
-
+	
 	public void actionPerformed(ActionEvent e) {
+//		Object src = e.getSource();
 		
-//		if(e.getSource() == menuCarrinho) {
-//			JOptionPane.showMessageDialog(null, 
-//	    			"Entrou Carrinho\n", null, 
-//	    			JOptionPane.INFORMATION_MESSAGE);
+//		if(src == menuCarrinho) {
+////			JOptionPane.showMessageDialog(null, 
+////	    			"Entrou Carrinho\n", null, 
+////	    			JOptionPane.INFORMATION_MESSAGE);
+//			System.out.println("entrou carrinho");
 //		}
 	}
 	
