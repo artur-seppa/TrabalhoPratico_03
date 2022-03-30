@@ -1,4 +1,4 @@
-package Trabalho_pratico_3;
+package Modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +27,11 @@ public class Pessoa {
 		//o construtor inicia o array list 
 		public Pessoa() {
 			produtos = new ArrayList<Produto>();
+//			this.setCpf("012345596");
+//			this.setNome(nome);
+//			this.setSexo(sexo);
+//			this.setSenha(senha);
+//			this.setEmail(email);
 		}
 
 		//permite adicionar produtos associados a pessoa

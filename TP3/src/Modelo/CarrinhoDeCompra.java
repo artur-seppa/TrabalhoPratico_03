@@ -1,4 +1,4 @@
-package Trabalho_pratico_3;
+package Modelo;
 
 import java.util.ArrayList;
 
@@ -32,5 +32,11 @@ public class CarrinhoDeCompra {
 	//exclui o produto associado ao carrinho
 	public void excluirProduto(Produto produto) {
 		produtos.remove(produto);
-	}	
+	}
+	
+	//pega a posiçao de onde o produto se encontra
+	public Produto getProduto(int posicao) {
+		return produtos.get(posicao);
+	}
+	
 }
