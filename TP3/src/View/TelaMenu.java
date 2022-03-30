@@ -15,10 +15,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 public class TelaMenu implements ActionListener{
 	
 	private static JFrame janela = new JFrame("Roupas e Acessorios");
+	private static JPanel panelRoupas = new JPanel();
+	private static JLabel tituloRoupas = new JLabel("Roupas");
 	
 	private static TelaMenu telaMenu = new TelaMenu();	//instancia o objeto da telaMenu
 	private static ControleUsuario usuario;		//instancia o TIPO ControleUsuario === BD
@@ -36,7 +40,30 @@ public class TelaMenu implements ActionListener{
 		
 	}
 	
+//	public void panelVisibleFalse(){
+	
+	public void painelHome() {
+		janela.add(panelRoupas);
+		panelRoupas.setVisible(true);
+		
+		
+		panelRoupas.setLayout(null);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloRoupas.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloRoupas.setBounds(0, 15, 250, 30);		
+		panelRoupas.add(tituloRoupas);
+		
+	}
+	
 	public TelaMenu(){	
+		
+		painelHome();
 		
 		/*
 		 *	JMenuBar == instancia a barra de menu  
@@ -86,14 +113,41 @@ public class TelaMenu implements ActionListener{
             }
         });
 		
+		
+		//menuCarrinho.addMenuListener(new ListenerMenuCarrinho());
+		
+		
+		menuFavoritos.addMenuListener(new ListenerMenuFavorito());
+		
+		
+	}
+	
+	class ListenerMenuFavorito implements MenuListener {
+
+	    @Override
+	    public void menuSelected(MenuEvent e) {
+	        System.out.println("favorito");
+	    }
+
+	    @Override
+	    public void menuDeselected(MenuEvent e) {
+	        System.out.println("saiu favorito");
+	    }
+
+	    @Override
+	    public void menuCanceled(MenuEvent e) {
+	        System.out.println("menuCanceled");
+	    }
 	}
 	
 
 	public void actionPerformed(ActionEvent e) {
-		Object src = e.getSource();
 		
-//		if(src == itemSair) {
-//			
+//		if(e.getSource() == menuCarrinho) {
+//			JOptionPane.showMessageDialog(null, 
+//	    			"Entrou Carrinho\n", null, 
+//	    			JOptionPane.INFORMATION_MESSAGE);
 //		}
-	}	
+	}
+	
 }
