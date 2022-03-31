@@ -52,22 +52,24 @@ public class CadastroUsuario implements ActionListener{
 	
 	//instancia o TIPO ControleUsuario === BD
 	private static ControleUsuario usuario;
+//	private static ControleDados dados;
 	private static CadastroUsuario objCadastro = new CadastroUsuario();
-	
+//									ControleDados
 	public void imprimirTelaCadastro(ControleUsuario u){
 	    
 		/*
 		 * Obtem o "BD" criado na tela anterior, com seus users ja pre fabricados,
 		 * e passa essa configuracao ao obj usuario de mesmo tipo ControleUsuario
 		 */
-		
 		usuario = u;
+//		dados = u;
 		
 		janela.setVisible(true);
 		
 		janela.setSize(400, 400);
 		janela.add(panel);
 		placeComponents(panel);
+		
 	}
 
 	//nao pode ter main, procure na tela pessoa
@@ -143,13 +145,22 @@ public class CadastroUsuario implements ActionListener{
 			try {
 				String password = String.valueOf(passwordText.getPassword());
 				sucesso = usuario.cadastrarUsuario(nomeText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
+//				sucesso = dados.cadastrarUsuario(nomeText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
 				if(sucesso == true) {
 					JOptionPane.showMessageDialog(null, 
 					"Usuario cadastrado com sucesso\n", null, 
 					JOptionPane.INFORMATION_MESSAGE);
 					
-					//fecha a janela quando logar o usuario
+					//fecha a janela quando cadastrar o usuario
 					janela.setVisible(false);
+					
+					
+					//passa o valor null para os inputs ao finalizar a operacao
+					nomeText.setText(null);
+					passwordText.setText(null);
+					telefoneText.setText(null);
+					dddText.setText(null);
+					
 				}else{
 					JOptionPane.showMessageDialog(null, 
 					"Os campos nao foram preenchidos corretamente\n", null, 
@@ -160,6 +171,7 @@ public class CadastroUsuario implements ActionListener{
 				"Erro: " + ex + "\n", null, 
 				JOptionPane.INFORMATION_MESSAGE);
 			}
+			
 		}
 	}
 }

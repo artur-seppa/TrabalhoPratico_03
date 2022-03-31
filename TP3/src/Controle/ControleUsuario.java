@@ -9,23 +9,39 @@ public class ControleUsuario {
 	private Telefone telefone;
 	private Endereco endereco; 
 	
-	//quantidade inicial de usuarios
-	private int qtdPessoas = 3;
+	//Produtos
+	private Produto produto[] = new Produto[100]; 
+	private Roupa roupa[] = new Roupa[100]; 
+	private Acessorio acessorio[] = new Acessorio[100]; 
+	private Sapato sapato[] = new Sapato[100];
+	
+	//quantidade inicial
+	private int qtdPessoas = 0;
+	private int qtdRoupas = 0;
 	
 	/*
 	 * Contrutor de usuarios, 
 	 * sendo iniciado com a criacao de 3 user
 	 */
 	public ControleUsuario() {
-		for(int i=0; i<=2; i++) {
+		for(int i=0; i<3; i++) {
 			pessoa[i] = new Pessoa();
 			pessoa[i].setNome("user"+i);
 			pessoa[i].setSenha("123"+i);
+			
+			roupa[i] = new Roupa();
+			roupa[i].setCategoria("roupa");
+			roupa[i].setDescricao("camiseta"+i);
+			
+			//ASSOCIA O NOME DA PESSOA AO PRODUTO
+			roupa[i].setPessoa(pessoa[i]);
+			
+			//ASSOCIA O PRODUTO A PESSOA
+			pessoa[i].adicionarProduto(roupa[i]);
 		}
-	}
-	
-	public Pessoa[] getUsuarios() {
-		return pessoa;
+		
+		qtdPessoas = 3;
+		qtdRoupas = 3;
 	}
 	
 	
@@ -33,15 +49,31 @@ public class ControleUsuario {
 	 * PEGA TODOS OS NOMES DE USUARIOS E PASSA PARA totalP
 	 */
 	
+	
 	public String[] escreveUsuarios() {
+		
 		String[] totalP = new String[qtdPessoas];
 		
-		for(int i = 0; i < qtdPessoas; i++) {
+		for(int i = 0; i < qtdPessoas /*qtdPessoas*/; i++) {
 			totalP[i] = pessoa[i].getNome();
 		}
 		
 		return totalP;
 	}
+	
+	
+	public String getNome(int i) {		
+		return pessoa[i].getNome();
+	}
+	
+	public int getQtdPessoas() {
+		return qtdPessoas;
+	}
+	
+	public Pessoa[] retornaStringPessoa() {		
+		return pessoa;
+	}
+	
 	
 	
 	public boolean cadastrarUsuario(String nome, /*String sexo,*/ String senha/*, String email, String cpf, 
@@ -61,11 +93,21 @@ public class ControleUsuario {
 			pessoa[qtdPessoas].setSenha(senha);
 			
 			//incrementa o numero de usuarios totais
-			qtdPessoas = qtdPessoas + 1;
+			qtdPessoas++;
 			
 			return true;
 		
 		}
+		
+		//procura pelo mesmo nome e senha nos usuarios cadastrados
+//				for(int i = 0; i <qtdPessoas; i++) {
+//					if(nome.equals(pessoa[i].getNome()) ) {
+//						if(senha.equals(pessoa[i].getSenha()) ) {
+//							return false;
+//						}
+//					}
+//				}
+		
 		return false;
 	}
 	
@@ -81,6 +123,23 @@ public class ControleUsuario {
 		}
 		//caso nao encontre o nome e nem a senha retorna false
 		return false;
+	}
+	
+	/*==========================PRODUTOS===============================*/
+	
+	public String[] escreveProdutos() {
+		
+		String[] totalR = new String[qtdRoupas];
+		
+		for(int i = 0; i < qtdRoupas; i++) {
+			totalR[i] = roupa[i].getDescricao();
+		}
+		
+		return totalR;
+	}
+	
+	public int getQtdRoupas() {
+		return qtdRoupas;
 	}
 	
 }

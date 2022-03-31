@@ -1,12 +1,17 @@
 package View;
 import Controle.*;
+import Modelo.Pessoa;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -14,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
@@ -36,6 +43,20 @@ public class TelaMenu implements ActionListener{
 	
 	private static TelaMenu telaMenu = new TelaMenu();	//instancia o objeto da telaMenu
 	private static ControleUsuario usuario;		//instancia o TIPO ControleUsuario === BD
+
+	/*
+	 * Criacao do JList 
+	 */
+	private static String[] listaUsuarios = new String[100];
+	/*JList recebe a string listaNomes para ser colocado dentro*/
+	private JList<String> listaPessoas;
+		
+	/*
+	 * Criacao dos Buttons associados ao JList
+	 */
+	private static JButton buttonDetalhes = new JButton("Ver detalhes");
+	private static JButton buttonCarrinho = new JButton("Inserir no carrinho");
+	private static JButton buttonfavoritos = new JButton("Inserir nos favoritos");
 	
 	/*
 	 * JMenu permite instanciar os arquivos clicaveis da
@@ -46,6 +67,7 @@ public class TelaMenu implements ActionListener{
 	JMenu menuCarrinho = new JMenu("carrinho de compras"); 
 	JMenu menuFavoritos = new JMenu("Roupas Favoritas");
 	
+	
 	public void imprimirTelaMenu(ControleUsuario u){
 		
 		/*
@@ -54,8 +76,32 @@ public class TelaMenu implements ActionListener{
 		 */
 		usuario = u;
 		
+		
+		/*
+		 * Pega os usuarios instanciados dentro do BD e passa para 
+		 * o JList usuarios
+		 */
+		try {
+			
+			int qtd = usuario.getQtdRoupas();
+			listaUsuarios = usuario.escreveProdutos();
+			
+//			for(int i = 0; i<qtd; i++) {
+//				System.out.println(listaUsuarios[i]);
+//			}		
+				
+			
+		}catch(Exception ex){
+			JOptionPane.showMessageDialog(null, 
+			"Erro: " + ex + "\n", null, 
+			JOptionPane.INFORMATION_MESSAGE);
+		}
+		
 		janela.setVisible(true);
 		janela.setSize(600, 400);
+		
+		//inicia o panel home
+		divHome();
 		
 	}
 	
@@ -81,11 +127,10 @@ public class TelaMenu implements ActionListener{
 		panelCarrinho.add(tituloCarrinho);
 	}
 	
-	public void divHome() {
+	public void divHome(/*String[] listaUsuarios*/) {
 		janela.add(panelHome);
-		panelHome.setVisible(true);
 		
-		
+		panelHome.setVisible(true);	
 		panelHome.setLayout(null);
 		
 		/*
@@ -95,14 +140,35 @@ public class TelaMenu implements ActionListener{
 		
 		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
 		tituloHome.setFont(new Font("Arial", Font.BOLD, 17));
-		tituloHome.setBounds(0, 15, 250, 30);		
+		tituloHome.setBounds(40, 15, 250, 30);
 		panelHome.add(tituloHome);
+		
+		/*-------------JList------------*/
+		/*
+		 * Criacao do Jlist com scroll no panel 
+		 */
+		
+		listaPessoas = new JList(listaUsuarios);
+				
+		JScrollPane scrollPane = new JScrollPane(listaPessoas);
+		scrollPane.setBounds(40, 50, 500, 200);
+		
+		panelHome.add(scrollPane);
+		
+		/*-------------Buttons------------*/
+		buttonDetalhes.setBounds(40, 270, 140, 35);
+		panelHome.add(buttonDetalhes);
+		
+		
+		/*
+		* ActionListener: verifica se o usuario clicou em algum dos
+		* buttons criados
+		*/
+		buttonDetalhes.addActionListener(telaMenu);
 		
 	}
 	
 	public TelaMenu(){	
-		
-		divHome();
 		
 		/*
 		 *	JMenuBar == instancia a barra de menu  
@@ -158,7 +224,6 @@ public class TelaMenu implements ActionListener{
 		menuCarrinho.addMenuListener(new ListenerMenus());
 		menuFavoritos.addMenuListener(new ListenerMenus());
 		
-		
 	}
 	
 	
@@ -169,13 +234,13 @@ public class TelaMenu implements ActionListener{
 	    	
 	    	//getSource pega o nome do Menu que chamou o evento
 	        if(e.getSource().equals(menuCarrinho) ) {
-	        	System.out.println("carrinho");
+	        	
+	        	//retira o panel Home
 	        	divHomeNotVisible();
-            	
-	        	System.out.println("ANTES DE TROCAR");
+
+	        	//aloca o panel Carrinho
             	painelCarrinho();
-            	
-            	System.out.println("TROCOU");
+
 	        }
 	        if(e.getSource().equals(menuFavoritos) ) {
 	        	System.out.println("favoritos");
@@ -200,14 +265,14 @@ public class TelaMenu implements ActionListener{
 	
 	
 	public void actionPerformed(ActionEvent e) {
-//		Object src = e.getSource();
+		Object src = e.getSource();
 		
-//		if(src == menuCarrinho) {
-////			JOptionPane.showMessageDialog(null, 
-////	    			"Entrou Carrinho\n", null, 
-////	    			JOptionPane.INFORMATION_MESSAGE);
-//			System.out.println("entrou carrinho");
-//		}
+		if(src == buttonDetalhes) {
+			JOptionPane.showMessageDialog(null, 
+	    			"Entrou button\n", null, 
+	    			JOptionPane.INFORMATION_MESSAGE);
+			System.out.println("entrou carrinho");
+		}
 	}
 	
 }

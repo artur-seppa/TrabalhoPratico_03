@@ -1,7 +1,7 @@
 package Modelo;
 
 public class Acessorio extends Produto{
-	private String tipo;
+	private String categoria;
 	private String material;
 	private String cor;
 	private String tamanho;
@@ -13,11 +13,11 @@ public class Acessorio extends Produto{
 	
 	
 	public String getTipo() {
-		return tipo;
+		return categoria;
 	}
 
 	public void setTipo(String tipo) {
-		this.tipo = tipo;
+		this.categoria = tipo;
 	}
 
 	public String getMaterial() {
