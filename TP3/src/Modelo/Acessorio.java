@@ -1,7 +1,6 @@
 package Modelo;
 
 public class Acessorio extends Produto{
-
 	private String categoria;
 	private String material;
 	private String cor;
@@ -19,24 +18,6 @@ public class Acessorio extends Produto{
 
 	public void setTipo(String tipo) {
 		this.categoria = tipo;
-
-	private String tipo;
-	private String material;
-	private String cor;
-	private String tamanho;
-	
-	public Acessorio() {
-		this.setTipo("colar");
-		this.setMaterial("ouro");
-	}
-	
-	
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 	public String getMaterial() {
