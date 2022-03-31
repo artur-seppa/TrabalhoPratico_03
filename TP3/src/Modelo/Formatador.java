@@ -8,6 +8,7 @@ import javax.swing.text.MaskFormatter;
 public class Formatador {
 	static Scanner ler = new Scanner(System.in);
 
+	/**teste teste....
 	/**
 	 * Verifica se a String data é valida. Caso seja, é convertida em tipo Date;
 	 * caso nao seja, solicita outra String data e o metodo é chamado novamente.
