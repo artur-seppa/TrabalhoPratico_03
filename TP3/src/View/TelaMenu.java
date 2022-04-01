@@ -164,7 +164,20 @@ public class TelaMenu implements ActionListener{
 		* ActionListener: verifica se o usuario clicou em algum dos
 		* buttons criados
 		*/
-		buttonDetalhes.addActionListener(telaMenu);
+	    
+		buttonDetalhes.addActionListener(
+	      new ActionListener(){
+	        public void actionPerformed(ActionEvent e){
+	        	
+	        	// Um botão que permite obter o índice do item selecionado
+	        	int indice = listaPessoas.getSelectedIndex();
+	          
+	          //antes de tudo os JLabels do DetalheProduto sao limpados
+	          new DetalheProduto().Close();
+	          new DetalheProduto().imprimirTelaDetalhe(usuario, indice);
+	        }
+	      }
+	    );
 		
 	}
 	
@@ -267,12 +280,15 @@ public class TelaMenu implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		
-		if(src == buttonDetalhes) {
-			JOptionPane.showMessageDialog(null, 
-	    			"Entrou button\n", null, 
-	    			JOptionPane.INFORMATION_MESSAGE);
-			System.out.println("entrou carrinho");
-		}
+//		if(src == buttonDetalhes) {
+//
+//			JOptionPane.showMessageDialog(null, 
+//	    			"Entrou button\n", null, 
+//	    			JOptionPane.INFORMATION_MESSAGE);
+//			System.out.println("entrou carrinho");
+			
+//			new DetalheProduto().imprimirTelaDetalhe(usuario);
+//		}
 	}
 	
 }

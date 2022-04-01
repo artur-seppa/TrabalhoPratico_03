@@ -32,6 +32,12 @@ public class ControleUsuario {
 			roupa[i] = new Roupa();
 			roupa[i].setCategoria("roupa");
 			roupa[i].setDescricao("camiseta"+i);
+			roupa[i].setCor("vermelha");
+			roupa[i].setEstilo("formal");
+			roupa[i].setTecido("algodao");
+			roupa[i].setTamanho("p");
+			roupa[i].setGenero("masculino");
+			roupa[i].setPreco(i+1.99f);
 			
 			//ASSOCIA O NOME DA PESSOA AO PRODUTO
 			roupa[i].setPessoa(pessoa[i]);
@@ -140,6 +146,13 @@ public class ControleUsuario {
 	
 	public int getQtdRoupas() {
 		return qtdRoupas;
+	}
+	
+	/*
+	 * return da Peça 
+	 * */
+	public Roupa getRoupa(int i) {
+		return roupa[i];
 	}
 	
 }
