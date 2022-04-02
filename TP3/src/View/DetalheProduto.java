@@ -77,9 +77,6 @@ public class DetalheProduto{
 		janela.add(panel);
 		placeComponents(panel);
 		
-		//passa o valor null para os inputs ao finalizar a operacao
-		nomeText.setText(null);
-		
 	}
 
 	//nao pode ter main, procure na tela pessoa
@@ -161,7 +158,7 @@ public class DetalheProduto{
 
 	}
 	
-	public static void Close() {
+	public static void CloseDetalhes() {
 		//passa o valor null para os inputs ao finalizar a operacao
 		descricao.setText(null);
 		tamanho.setText(null);

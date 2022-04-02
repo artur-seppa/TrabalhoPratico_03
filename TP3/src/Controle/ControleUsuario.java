@@ -15,9 +15,13 @@ public class ControleUsuario {
 	private Acessorio acessorio[] = new Acessorio[100]; 
 	private Sapato sapato[] = new Sapato[100];
 	
+	//Carrinho
+	private CarrinhoDeCompra carrinho[] = new CarrinhoDeCompra[100];
+	
 	//quantidade inicial
 	private int qtdPessoas = 0;
 	private int qtdRoupas = 0;
+	private int qtdID = 0;
 	
 	/*
 	 * Contrutor de usuarios, 
@@ -28,6 +32,7 @@ public class ControleUsuario {
 			pessoa[i] = new Pessoa();
 			pessoa[i].setNome("user"+i);
 			pessoa[i].setSenha("123"+i);
+			pessoa[i].setId(i);
 			
 			roupa[i] = new Roupa();
 			roupa[i].setCategoria("roupa");
@@ -44,10 +49,14 @@ public class ControleUsuario {
 			
 			//ASSOCIA O PRODUTO A PESSOA
 			pessoa[i].adicionarProduto(roupa[i]);
+			
+			carrinho[i] = new CarrinhoDeCompra();
+			carrinho[i].adicionarProduto(roupa[i]);
 		}
 		
 		qtdPessoas = 3;
 		qtdRoupas = 3;
+		qtdID = 3;
 	}
 	
 	
@@ -98,8 +107,13 @@ public class ControleUsuario {
 			pessoa[qtdPessoas].setNome(nome);
 			pessoa[qtdPessoas].setSenha(senha);
 			
+			pessoa[qtdPessoas].setId(qtdID);
+			
+			carrinho[qtdPessoas] = new CarrinhoDeCompra();
+			
 			//incrementa o numero de usuarios totais
 			qtdPessoas++;
+			qtdID++;
 			
 			return true;
 		
@@ -117,18 +131,18 @@ public class ControleUsuario {
 		return false;
 	}
 	
-	public boolean logarUsuario( String nome, String senha) {
+	public int logarUsuario( String nome, String senha) {
 		
 		//procura pelo mesmo nome e senha nos usuarios cadastrados
 		for(int i = 0; i <qtdPessoas; i++) {
 			if(nome.equals(pessoa[i].getNome()) ) {
 				if(senha.equals(pessoa[i].getSenha()) ) {
-					return true;
+					return pessoa[i].getId();
 				}
 			}
 		}
 		//caso nao encontre o nome e nem a senha retorna false
-		return false;
+		return -1;
 	}
 	
 	/*==========================PRODUTOS===============================*/
@@ -153,6 +167,35 @@ public class ControleUsuario {
 	 * */
 	public Roupa getRoupa(int i) {
 		return roupa[i];
+	}
+	
+	/*==========================CARRINHO===============================*/
+	
+	//int i associado ao id do usuario e int r associado ao id da roupa
+	public void AdicionarCompra(int i, int r) {	
+		carrinho[i].adicionarProduto(roupa[r]);
+	}
+	
+	public int QtdProduto(int i) {
+		return carrinho[i].quantidadeProdutos();
+	}
+	
+	public String[] escreveProdutosCarrinho(int qtd, int r) {
+		String[] roupa = new String[qtd];
+		
+		for(int i = 0; i < qtd; i++) {
+			roupa[i] = carrinho[r].getProduto(i).getDescricao();
+		}
+		
+		return roupa;
+	}
+	
+	public void RemoveProdutoCarrinho(int c, int i) {
+		carrinho[c].excluirProduto(roupa[i]);
+	}
+	
+	public String getProdutoCarrinho(int c, int i) {
+		return carrinho[c].getProduto(i).getDescricao();
 	}
 	
 }

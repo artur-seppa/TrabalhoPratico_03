@@ -1,6 +1,9 @@
 package View;
 import Controle.*;
 import Modelo.Pessoa;
+import Modelo.Produto;
+import Modelo.Roupa;
+import Modelo.CarrinhoDeCompra;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,6 +11,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,6 +19,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -47,16 +52,32 @@ public class TelaMenu implements ActionListener{
 	/*
 	 * Criacao do JList 
 	 */
-	private static String[] listaUsuarios = new String[100];
+	private static String[] listaProdutos = new String[100];
 	/*JList recebe a string listaNomes para ser colocado dentro*/
-	private JList<String> listaPessoas;
-		
+	private JList<String> JlistProdutos;
+	
+	private static String[] ListaCarrinho = new String[100];
+	/*JList recebe a string listaNomes para ser colocado dentro*/
+	private JList<String> JlistCarrinho;
+	private DefaultListModel model = new DefaultListModel();
+	private JScrollPane srollCarrinho = new JScrollPane();
+	
 	/*
 	 * Criacao dos Buttons associados ao JList
 	 */
 	private static JButton buttonDetalhes = new JButton("Ver detalhes");
 	private static JButton buttonCarrinho = new JButton("Inserir no carrinho");
-	private static JButton buttonfavoritos = new JButton("Inserir nos favoritos");
+	private static JButton buttonfavoritos = new JButton("Inserir favoritos");
+	
+	private static JButton compra = new JButton("Fechar compra");
+	private static JButton excluirPcarrinho = new JButton("Excluir Produto");
+	
+	/*
+	 *	variaveis Globais  
+	 */
+	private static int idUser;
+	private static int qtdProdutos;
+	private static CarrinhoDeCompra[] compras = new CarrinhoDeCompra[100];
 	
 	/*
 	 * JMenu permite instanciar os arquivos clicaveis da
@@ -68,14 +89,33 @@ public class TelaMenu implements ActionListener{
 	JMenu menuFavoritos = new JMenu("Roupas Favoritas");
 	
 	
-	public void imprimirTelaMenu(ControleUsuario u){
+	public void imprimirTelaMenu(ControleUsuario u, int idUsuario){
 		
 		/*
 		 * Obtem o "BD" criado na tela anterior, com seus users ja pre fabricados,
 		 * e passa essa configuracao ao obj usuario de mesmo tipo ControleUsuario
 		 */
 		usuario = u;
+		idUser = idUsuario;
 		
+		/*
+		 *	O usuario ao logar ja tem o seeu carrinho atualizado com 
+		 *	pedidos anteriores 
+		 */
+		qtdProdutos = usuario.QtdProduto(idUser);
+//		int qtdProdutos = usuario.QtdProduto(idUser);
+//				ListaCarrinho = usuario.escreveProdutosCarrinho(qtdProdutos, idUser);
+		
+		model = new DefaultListModel();
+		JlistCarrinho = new JList<String>(model);
+		srollCarrinho = new JScrollPane(JlistCarrinho);
+		
+				for(int i=0; i<qtdProdutos; i++) {
+					model.addElement(usuario.getProdutoCarrinho(idUser, i));
+				}
+		
+		System.out.println(idUser);
+		System.out.println("qtdprodutos do inicio == "+qtdProdutos);
 		
 		/*
 		 * Pega os usuarios instanciados dentro do BD e passa para 
@@ -84,7 +124,7 @@ public class TelaMenu implements ActionListener{
 		try {
 			
 			int qtd = usuario.getQtdRoupas();
-			listaUsuarios = usuario.escreveProdutos();
+			listaProdutos = usuario.escreveProdutos();
 			
 //			for(int i = 0; i<qtd; i++) {
 //				System.out.println(listaUsuarios[i]);
@@ -107,9 +147,16 @@ public class TelaMenu implements ActionListener{
 	
 	public void divHomeNotVisible(){
 		panelHome.setVisible(false);
+		
+	}
+	
+	public void panelCarrinhoNotVisible(){
+		panelCarrinho.setVisible(false);
+		
 	}
 	
 	public void painelCarrinho() {
+		
 		janela.add(panelCarrinho);
 		panelCarrinho.setVisible(true);
 		
@@ -125,6 +172,66 @@ public class TelaMenu implements ActionListener{
 		tituloCarrinho.setFont(new Font("Arial", Font.BOLD, 17));
 		tituloCarrinho.setBounds(0, 15, 250, 30);		
 		panelCarrinho.add(tituloCarrinho);
+		
+		/*-------------JList------------*/
+		
+		/*
+		 * Instancia o scroll do Jlist carrinho no panel 
+		 */
+		
+		srollCarrinho.setBounds(40, 50, 500, 200);
+		panelCarrinho.add(srollCarrinho);
+		
+		
+		/*--------------------BUTTONS---------------------*/
+		  compra.setBounds(190, 270, 170, 35);
+		  panelCarrinho.add(compra);
+		  
+		  excluirPcarrinho.addActionListener(
+			      new ActionListener(){
+			        public void actionPerformed(ActionEvent e){
+
+			        	
+			   	    
+			        }
+			      }
+			    );
+		  
+		  excluirPcarrinho.setBounds(190, 270, 170, 35);
+		  panelCarrinho.add(excluirPcarrinho);
+		  
+		  excluirPcarrinho.addActionListener(
+			      new ActionListener(){
+			        public void actionPerformed(ActionEvent e){
+
+			        	// Um botão que permite obter o índice do item selecionado
+			        	int remover = JlistCarrinho.getSelectedIndex();
+			        	
+			        	
+			        	//exerce a remocao do item no carrinho
+			        	try {
+				        	usuario.RemoveProdutoCarrinho(idUser, remover);
+				        	model.remove(remover);
+				        	
+				        	qtdProdutos--;
+				        	
+				        	System.out.println("qtd produtosa agora == " + qtdProdutos);
+				        	System.out.println("indice remover agora == " + remover);
+				        	
+				        	for(int i=0; i<qtdProdutos; i++) {
+								System.out.println(usuario.getProdutoCarrinho(idUser, i));
+							}
+			        	
+			        	}catch(Exception ex){
+//			    			JOptionPane.showMessageDialog(null, 
+//			    					"Erro: " + ex + "\n", null, 
+//			    					JOptionPane.INFORMATION_MESSAGE);
+			    		}
+			   	    
+			        }
+			      }
+			    );
+		
 	}
 	
 	public void divHome(/*String[] listaUsuarios*/) {
@@ -148,9 +255,9 @@ public class TelaMenu implements ActionListener{
 		 * Criacao do Jlist com scroll no panel 
 		 */
 		
-		listaPessoas = new JList(listaUsuarios);
+		JlistProdutos = new JList(listaProdutos);
 				
-		JScrollPane scrollPane = new JScrollPane(listaPessoas);
+		JScrollPane scrollPane = new JScrollPane(JlistProdutos);
 		scrollPane.setBounds(40, 50, 500, 200);
 		
 		panelHome.add(scrollPane);
@@ -158,6 +265,12 @@ public class TelaMenu implements ActionListener{
 		/*-------------Buttons------------*/
 		buttonDetalhes.setBounds(40, 270, 140, 35);
 		panelHome.add(buttonDetalhes);
+		
+		buttonfavoritos.setBounds(190, 270, 170, 35);
+		panelHome.add(buttonfavoritos);
+		
+		buttonCarrinho.setBounds(370, 270, 170, 35);
+		panelHome.add(buttonCarrinho);
 		
 		
 		/*
@@ -170,14 +283,53 @@ public class TelaMenu implements ActionListener{
 	        public void actionPerformed(ActionEvent e){
 	        	
 	        	// Um botão que permite obter o índice do item selecionado
-	        	int indice = listaPessoas.getSelectedIndex();
+	        	int indice = JlistProdutos.getSelectedIndex();
 	          
 	          //antes de tudo os JLabels do DetalheProduto sao limpados
-	          new DetalheProduto().Close();
+	          new DetalheProduto().CloseDetalhes();
 	          new DetalheProduto().imprimirTelaDetalhe(usuario, indice);
 	        }
 	      }
 	    );
+		
+		buttonCarrinho.addActionListener(
+			new ActionListener(){
+			 public void actionPerformed(ActionEvent e){
+				        	
+				 // Um botão que permite obter o índice do item selecionado
+				 int indice = JlistProdutos.getSelectedIndex();
+				 
+				 usuario.AdicionarCompra(idUser, indice);
+				 qtdProdutos = usuario.QtdProduto(idUser);
+				 
+				 System.out.println("indice do button carrinho == "+indice);
+				 System.out.println("qtd produtos do button carrinho == "+qtdProdutos);
+				 System.out.println("produto no carrinh  == "+ usuario.getProdutoCarrinho(idUser, qtdProdutos-1));
+				 
+				 for(int i=0; i<qtdProdutos; i++) {
+						System.out.println("PRODUTOOOOO ======" + usuario.getProdutoCarrinho(idUser, i));
+					}
+				 
+				 //ADICIONA O NOVO PRODUTO NA JLIST DO CARRINHO
+				 model.addElement(usuario.getProdutoCarrinho(idUser, qtdProdutos-1));
+				 
+			}
+		  }
+	   );
+		
+		buttonfavoritos.addActionListener(
+				new ActionListener(){
+				 public void actionPerformed(ActionEvent e){
+					        	
+					 // Um botão que permite obter o índice do item selecionado
+					 int indice = JlistProdutos.getSelectedIndex();
+					          
+					 //antes de tudo os JLabels do DetalheProduto sao limpados
+//					 new DetalheProduto().Close();
+//					 new DetalheProduto().imprimirTelaDetalhe(usuario, indice);
+				}
+			  }
+		   );
 		
 	}
 	
@@ -236,6 +388,7 @@ public class TelaMenu implements ActionListener{
 		*/
 		menuCarrinho.addMenuListener(new ListenerMenus());
 		menuFavoritos.addMenuListener(new ListenerMenus());
+		home.addMenuListener(new ListenerMenus());
 		
 	}
 	
@@ -250,7 +403,7 @@ public class TelaMenu implements ActionListener{
 	        	
 	        	//retira o panel Home
 	        	divHomeNotVisible();
-
+	        	
 	        	//aloca o panel Carrinho
             	painelCarrinho();
 
@@ -258,12 +411,21 @@ public class TelaMenu implements ActionListener{
 	        if(e.getSource().equals(menuFavoritos) ) {
 	        	System.out.println("favoritos");
 	        }
+	        
+	        if(e.getSource().equals(home) ) {
+	        	
+	        	panelCarrinhoNotVisible();
+	        	
+	        	panelHome.setVisible(true);
+	        	System.out.println("entrou home");
+	        }
 	    }
 
 	    @Override
 	    public void menuDeselected(MenuEvent e) {
 	    	if(e.getSource().equals(menuCarrinho) ) {
 	        	System.out.println("saiu carrinho");
+
 	        }
 	        if(e.getSource().equals(menuFavoritos) ) {
 	        	System.out.println("saiu favoritos");

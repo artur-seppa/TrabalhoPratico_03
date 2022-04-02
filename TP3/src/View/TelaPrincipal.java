@@ -132,20 +132,20 @@ public class TelaPrincipal implements ActionListener{
 		}
 		
 		if(src == loginButton) {
-			boolean sucesso;
+			int sucesso;
 			
 			try {
 				String password = String.valueOf(passwordText.getPassword());
 				sucesso = usuario.logarUsuario(userText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
 //				sucesso = cpessoa.logarUsuario(userText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
-				if(sucesso == true) {
+				if(sucesso != -1) {
 					
 					//fecha a janela quando logar o usuario
 					janela.setVisible(false);
 					
 					//TEM QUE PASSAR O BD PARA NAO PERDER A CONFIGURACAO do construtor
 					//e usuarios ja fabricados
-					new TelaMenu().imprimirTelaMenu(usuario);
+					new TelaMenu().imprimirTelaMenu(usuario, sucesso);
 //					new TelaTesteMenu().imprimirTelaMenuTeste(usuario);
 					
 //					String teste;

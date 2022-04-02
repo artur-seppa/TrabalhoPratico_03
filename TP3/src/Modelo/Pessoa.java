@@ -18,6 +18,7 @@ public class Pessoa {
 		private String email;
 		private String cpf;
 		private Date dataNascimento;
+		private int id;
 		
 		private Telefone telefone;
 		private Endereco endereco; 
@@ -100,6 +101,14 @@ public class Pessoa {
 
 		public void setDataNascimento(Date dataNascimento) {
 			this.dataNascimento = dataNascimento;
+		}
+		
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
 		}
 		
 		//======getter e setter dos objetos especiais=======//
