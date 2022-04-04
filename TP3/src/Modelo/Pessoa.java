@@ -120,6 +120,14 @@ public class Pessoa {
 		public void setTelefone(Telefone telefone) {
 			this.telefone = telefone;
 		}
+		
+		public void setDDD(int ddd) {
+			this.telefone.setDdd(ddd);
+		}
+		
+		public int getDDD() {
+			return telefone.getDdd();
+		}
 
 		public Endereco getEndereco() {
 			return endereco;

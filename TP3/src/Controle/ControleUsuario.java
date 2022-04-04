@@ -6,8 +6,8 @@ import Modelo.*;
 public class ControleUsuario {
 	//instancia o objeto array "pessoa" de Pessoa com tamanho de 100.
 	private Pessoa pessoa[] = new Pessoa[100]; 
-	private Telefone telefone;
-	private Endereco endereco; 
+	private Telefone telefone[] = new Telefone[100];
+	private Endereco endereco[] = new Endereco[100]; 
 	
 	//Produtos
 	private Produto produto[] = new Produto[100]; 
@@ -15,8 +15,9 @@ public class ControleUsuario {
 	private Acessorio acessorio[] = new Acessorio[100]; 
 	private Sapato sapato[] = new Sapato[100];
 	
-	//Carrinho
+	//Carrinho e Favoritos
 	private CarrinhoDeCompra carrinho[] = new CarrinhoDeCompra[100];
+	private RoupaFavorita favorito[] = new RoupaFavorita[100];
 	
 	//quantidade inicial
 	private int qtdPessoas = 0;
@@ -34,6 +35,17 @@ public class ControleUsuario {
 			pessoa[i].setSenha("123"+i);
 			pessoa[i].setId(i);
 			
+			telefone[i] = new Telefone();
+			telefone[i].setDdd(061);
+			telefone[i].setTelefone(912345678);
+			
+			endereco[i] = new Endereco();
+			endereco[i].setEstado("DF");
+			endereco[i].setCidade("Brasilia");
+			endereco[i].setBairro("Aguas Claras");
+			endereco[i].setEndereco("Residencial BlaBla " + i);
+			endereco[i].setCep(1234567*(i+1));
+			
 			roupa[i] = new Roupa();
 			roupa[i].setCategoria("roupa");
 			roupa[i].setDescricao("camiseta"+i);
@@ -50,8 +62,18 @@ public class ControleUsuario {
 			//ASSOCIA O PRODUTO A PESSOA
 			pessoa[i].adicionarProduto(roupa[i]);
 			
+			//ASSOCIA O NOME DA PESSOA AO TELEFONE
+			telefone[i].setPessoa(pessoa[i]);
+			
+			//ASSOCIA O NOME DA PESSOA AO ENDERECO
+			endereco[i].setPessoa(pessoa[i]);
+			
+			//ASSOCIA O PRODUTO AO CARRINHO E A LISTA DE FAVORITOS
 			carrinho[i] = new CarrinhoDeCompra();
 			carrinho[i].adicionarProduto(roupa[i]);
+			
+			favorito[i] = new RoupaFavorita();
+			favorito[i].adicionarProduto(roupa[i]);
 		}
 		
 		qtdPessoas = 3;
@@ -77,6 +99,28 @@ public class ControleUsuario {
 	}
 	
 	
+	public int getCep(int i) {		
+		return endereco[i].getCep();
+	}
+	
+	public String getEndereco(int i) {		
+		return endereco[i].getEndereco();
+	}
+	
+	public String getEstado(int i) {		
+		return endereco[i].getEstado();
+	}
+	
+	public String getCidade(int i) {		
+		return endereco[i].getCidade();
+	}
+	
+	public String getBairro(int i) {		
+		return endereco[i].getBairro();
+	}
+	
+	
+	
 	public String getNome(int i) {		
 		return pessoa[i].getNome();
 	}
@@ -91,13 +135,13 @@ public class ControleUsuario {
 	
 	
 	
-	public boolean cadastrarUsuario(String nome, /*String sexo,*/ String senha/*, String email, String cpf, 
+	public boolean cadastrarUsuario(String nome, /*String sexo,*/ String senha/*, String email, String cpf*/, 
 	int ddd, int telefone, 
-	String estado, String cidade, String endereco*/) {
+	String estado, String cidade, String bairro, String endereco, int cep) {
 		
-		if(nome != null && nome.length()>0 && /*sexo != null && sexo.length()>0 &&*/ senha!= null && senha.length()>0 /*&& email != null && email.length()>0 && cpf != null && cpf.length()>0
+		if(nome != null && nome.length()>0 && /*sexo != null && sexo.length()>0 &&*/ senha!= null && senha.length()>0 /*&& email != null && email.length()>0 && cpf != null && cpf.length()>0*/
 		   && ddd>0 && telefone>0
-		   && estado != null && estado.length()>0 && cidade != null && cidade.length()>0 && endereco != null && endereco.length() > 0*/){
+		   && estado != null && estado.length()>0 && cidade != null && cidade.length()>0 && bairro != null && bairro.length()>0 && endereco != null && endereco.length() > 0 && cep>0){
 			
 			/*
 			 *	Um novo usuario eh cadastrado com as informacoes passadas pela view
@@ -106,6 +150,8 @@ public class ControleUsuario {
 			pessoa[qtdPessoas] = new Pessoa();
 			pessoa[qtdPessoas].setNome(nome);
 			pessoa[qtdPessoas].setSenha(senha);
+			
+			
 			
 			pessoa[qtdPessoas].setId(qtdID);
 			
@@ -190,12 +236,59 @@ public class ControleUsuario {
 		return roupa;
 	}
 	
+	public void RemoveTodosCarrinho(int qtd, int r) {
+		
+		for(int i = qtd; i >= 0; i--) {
+			carrinho[r].excluirProduto(roupa[i]);
+		}
+	}
+	
 	public void RemoveProdutoCarrinho(int c, int i) {
 		carrinho[c].excluirProduto(roupa[i]);
 	}
 	
 	public String getProdutoCarrinho(int c, int i) {
 		return carrinho[c].getProduto(i).getDescricao();
+	}
+	
+	public float getProdutoValor(int c, int i) {
+		return carrinho[c].getProduto(i).getPreco();
+	}
+	
+/*==========================LISTA DE FAVORITOS===============================*/
+	
+	//int i associado ao id do usuario e int r associado ao id da roupa
+	public void AdicionarFavorito(int i, int r) {	
+		favorito[i].adicionarProduto(roupa[r]);
+	}
+	
+	public int QtdProdutoFavorito(int i) {
+		return favorito[i].quantidadeProdutos();
+	}
+	
+//	public String[] escreveProdutosFavoritos(int qtd, int r) {
+//		String[] roupa = new String[qtd];
+//		
+//		for(int i = 0; i < qtd; i++) {
+//			roupa[i] = favorito[r].getProduto(i).getDescricao();
+//		}
+//		
+//		return roupa;
+//	}
+	
+	public void RemoveTodosFavoritos(int qtd, int r) {
+		
+		for(int i = qtd+1; i >= 0; i--) {
+			favorito[r].excluirProduto(roupa[i]);
+		}
+	}
+	
+	public void RemoveProdutoFavorito(int c, int i) {
+		favorito[c].excluirProduto(roupa[i]);
+	}
+	
+	public String getProdutoFavorito(int c, int i) {
+		return favorito[c].getProduto(i).getDescricao();
 	}
 	
 }

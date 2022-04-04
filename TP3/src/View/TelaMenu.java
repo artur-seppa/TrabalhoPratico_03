@@ -30,7 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-public class TelaMenu implements ActionListener{
+public class TelaMenu{
 	
 	private static JFrame janela = new JFrame("Roupas e Acessorios");
 	
@@ -44,23 +44,29 @@ public class TelaMenu implements ActionListener{
 	private static JLabel tituloRoupas = new JLabel("Roupas");
 	
 	private static JPanel panelCarrinho = new JPanel();
-	private static JLabel tituloCarrinho = new JLabel("Carrinho");
+	private static JLabel tituloCarrinho = new JLabel("Carrinho de Compras");
+	
+	private static JPanel panelFavoritos = new JPanel();
+	private static JLabel tituloFavoritos = new JLabel("Lista de Favoritos");
 	
 	private static TelaMenu telaMenu = new TelaMenu();	//instancia o objeto da telaMenu
 	private static ControleUsuario usuario;		//instancia o TIPO ControleUsuario === BD
 
 	/*
-	 * Criacao do JList 
+	 * Criacao do JList: recebe a String Lista para imprimir no swing)
 	 */
 	private static String[] listaProdutos = new String[100];
-	/*JList recebe a string listaNomes para ser colocado dentro*/
 	private JList<String> JlistProdutos;
 	
 	private static String[] ListaCarrinho = new String[100];
-	/*JList recebe a string listaNomes para ser colocado dentro*/
 	private JList<String> JlistCarrinho;
 	private DefaultListModel model = new DefaultListModel();
 	private JScrollPane srollCarrinho = new JScrollPane();
+	
+	private static String[] ListaFavorito = new String[100];
+	private JList<String> JlistFavorito;
+	private DefaultListModel modelFavorito = new DefaultListModel();
+	private JScrollPane srollFavorito = new JScrollPane();
 	
 	/*
 	 * Criacao dos Buttons associados ao JList
@@ -72,12 +78,15 @@ public class TelaMenu implements ActionListener{
 	private static JButton compra = new JButton("Fechar compra");
 	private static JButton excluirPcarrinho = new JButton("Excluir Produto");
 	
+	private static JButton FavoritoAddCarrinho = new JButton("Inserir no carrinho");
+	private static JButton excluirFavorito = new JButton("Excluir Produto");
+	
 	/*
 	 *	variaveis Globais  
 	 */
 	private static int idUser;
 	private static int qtdProdutos;
-	private static CarrinhoDeCompra[] compras = new CarrinhoDeCompra[100];
+	private static int qtdProdutosFavoritos;
 	
 	/*
 	 * JMenu permite instanciar os arquivos clicaveis da
@@ -98,24 +107,6 @@ public class TelaMenu implements ActionListener{
 		usuario = u;
 		idUser = idUsuario;
 		
-		/*
-		 *	O usuario ao logar ja tem o seeu carrinho atualizado com 
-		 *	pedidos anteriores 
-		 */
-		qtdProdutos = usuario.QtdProduto(idUser);
-//		int qtdProdutos = usuario.QtdProduto(idUser);
-//				ListaCarrinho = usuario.escreveProdutosCarrinho(qtdProdutos, idUser);
-		
-		model = new DefaultListModel();
-		JlistCarrinho = new JList<String>(model);
-		srollCarrinho = new JScrollPane(JlistCarrinho);
-		
-				for(int i=0; i<qtdProdutos; i++) {
-					model.addElement(usuario.getProdutoCarrinho(idUser, i));
-				}
-		
-		System.out.println(idUser);
-		System.out.println("qtdprodutos do inicio == "+qtdProdutos);
 		
 		/*
 		 * Pega os usuarios instanciados dentro do BD e passa para 
@@ -125,6 +116,8 @@ public class TelaMenu implements ActionListener{
 			
 			int qtd = usuario.getQtdRoupas();
 			listaProdutos = usuario.escreveProdutos();
+			
+			System.out.println("ddd do user == "+ usuario.getCep(idUser));
 			
 //			for(int i = 0; i<qtd; i++) {
 //				System.out.println(listaUsuarios[i]);
@@ -137,6 +130,45 @@ public class TelaMenu implements ActionListener{
 			JOptionPane.INFORMATION_MESSAGE);
 		}
 		
+		/*
+		 *	O usuario ao logar ja tem o seu carrinho atualizado com 
+		 *	pedidos anteriores 
+		 */
+		
+		//Instancia o Jlist do Carrinho de Compras
+		model = new DefaultListModel();
+		JlistCarrinho = new JList<String>(model);
+		srollCarrinho = new JScrollPane(JlistCarrinho);
+		
+		qtdProdutos = usuario.QtdProduto(idUser);
+		
+		System.out.println("qtd produtos inicial "+ qtdProdutos);
+		
+		for(int i=0; i<qtdProdutos; i++) {
+			model.addElement(usuario.getProdutoCarrinho(idUser, i));
+		}
+		
+		/*
+		 *	O usuario ao logar ja tem a sua lista de favoritos atualizada com 
+		 *	pedidos anteriores 
+		 */
+		
+		//Instancia o Jlist da Lista de Favoritos
+		modelFavorito = new DefaultListModel();
+		JlistFavorito = new JList<String>(modelFavorito);
+		srollFavorito = new JScrollPane(JlistFavorito);
+		
+		qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);
+		
+		for(int i=0; i<qtdProdutosFavoritos; i++) {
+			
+			System.out.println("favoritos ===== "+ usuario.getProdutoFavorito(idUser, i));
+			
+			modelFavorito.addElement(usuario.getProdutoFavorito(idUser, i));
+		}
+		
+		/*-------------------INSTANCIA A JANELA------------------*/
+		
 		janela.setVisible(true);
 		janela.setSize(600, 400);
 		
@@ -145,96 +177,9 @@ public class TelaMenu implements ActionListener{
 		
 	}
 	
-	public void divHomeNotVisible(){
-		panelHome.setVisible(false);
-		
-	}
+	/*####################### PAINEL HOME ############################*/
 	
-	public void panelCarrinhoNotVisible(){
-		panelCarrinho.setVisible(false);
-		
-	}
-	
-	public void painelCarrinho() {
-		
-		janela.add(panelCarrinho);
-		panelCarrinho.setVisible(true);
-		
-		
-		panelCarrinho.setLayout(null);
-		
-		/*
-		* set o width e height do obj.
-		* (loc x, loc y do titulo na window. || width e height do titulo)
-		*/
-		
-		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
-		tituloCarrinho.setFont(new Font("Arial", Font.BOLD, 17));
-		tituloCarrinho.setBounds(0, 15, 250, 30);		
-		panelCarrinho.add(tituloCarrinho);
-		
-		/*-------------JList------------*/
-		
-		/*
-		 * Instancia o scroll do Jlist carrinho no panel 
-		 */
-		
-		srollCarrinho.setBounds(40, 50, 500, 200);
-		panelCarrinho.add(srollCarrinho);
-		
-		
-		/*--------------------BUTTONS---------------------*/
-		  compra.setBounds(190, 270, 170, 35);
-		  panelCarrinho.add(compra);
-		  
-		  excluirPcarrinho.addActionListener(
-			      new ActionListener(){
-			        public void actionPerformed(ActionEvent e){
-
-			        	
-			   	    
-			        }
-			      }
-			    );
-		  
-		  excluirPcarrinho.setBounds(190, 270, 170, 35);
-		  panelCarrinho.add(excluirPcarrinho);
-		  
-		  excluirPcarrinho.addActionListener(
-			      new ActionListener(){
-			        public void actionPerformed(ActionEvent e){
-
-			        	// Um botão que permite obter o índice do item selecionado
-			        	int remover = JlistCarrinho.getSelectedIndex();
-			        	
-			        	
-			        	//exerce a remocao do item no carrinho
-			        	try {
-				        	usuario.RemoveProdutoCarrinho(idUser, remover);
-				        	model.remove(remover);
-				        	
-				        	qtdProdutos--;
-				        	
-				        	System.out.println("qtd produtosa agora == " + qtdProdutos);
-				        	System.out.println("indice remover agora == " + remover);
-				        	
-				        	for(int i=0; i<qtdProdutos; i++) {
-								System.out.println(usuario.getProdutoCarrinho(idUser, i));
-							}
-			        	
-			        	}catch(Exception ex){
-//			    			JOptionPane.showMessageDialog(null, 
-//			    					"Erro: " + ex + "\n", null, 
-//			    					JOptionPane.INFORMATION_MESSAGE);
-			    		}
-			   	    
-			        }
-			      }
-			    );
-		
-	}
-	
-	public void divHome(/*String[] listaUsuarios*/) {
+	public void divHome() {
 		janela.add(panelHome);
 		
 		panelHome.setVisible(true);	
@@ -250,7 +195,7 @@ public class TelaMenu implements ActionListener{
 		tituloHome.setBounds(40, 15, 250, 30);
 		panelHome.add(tituloHome);
 		
-		/*-------------JList------------*/
+		/*----------------JList---------------*/
 		/*
 		 * Criacao do Jlist com scroll no panel 
 		 */
@@ -262,7 +207,7 @@ public class TelaMenu implements ActionListener{
 		
 		panelHome.add(scrollPane);
 		
-		/*-------------Buttons------------*/
+		/*---------------Buttons---------------*/
 		buttonDetalhes.setBounds(40, 270, 140, 35);
 		panelHome.add(buttonDetalhes);
 		
@@ -321,17 +266,268 @@ public class TelaMenu implements ActionListener{
 				new ActionListener(){
 				 public void actionPerformed(ActionEvent e){
 					        	
-					 // Um botão que permite obter o índice do item selecionado
+					// Um botão que permite obter o índice do item selecionado
 					 int indice = JlistProdutos.getSelectedIndex();
-					          
-					 //antes de tudo os JLabels do DetalheProduto sao limpados
-//					 new DetalheProduto().Close();
-//					 new DetalheProduto().imprimirTelaDetalhe(usuario, indice);
+					 
+					 usuario.AdicionarFavorito(idUser, indice);
+					 qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);
+					 
+					 System.out.println("indice do button favorito == "+indice);
+					 System.out.println("qtd produtos do button favorito == "+qtdProdutosFavoritos);
+					 System.out.println("produto no favorito  == "+ usuario.getProdutoFavorito(idUser, qtdProdutosFavoritos-1));
+					 
+					 for(int i=0; i<qtdProdutosFavoritos; i++) {
+							System.out.println("FAVORITOOOOOS ======" + usuario.getProdutoFavorito(idUser, i));
+						}
+					 
+					 //ADICIONA O NOVO PRODUTO NA JLIST DE FAVORITOS
+					 modelFavorito.addElement(usuario.getProdutoFavorito(idUser, qtdProdutosFavoritos-1));
 				}
 			  }
 		   );
 		
 	}
+	
+		/*####################### PAINEL CARRINHO ############################*/
+	
+		public void painelCarrinho() {
+		
+		janela.add(panelCarrinho);
+		panelCarrinho.setVisible(true);
+		
+		
+		panelCarrinho.setLayout(null);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloCarrinho.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloCarrinho.setBounds(40, 15, 250, 30);		
+		panelCarrinho.add(tituloCarrinho);
+		
+		/*-----------------JList-----------------*/
+		
+		/*
+		 * Instancia o scroll do Jlist carrinho no panel 
+		 */
+		
+		srollCarrinho.setBounds(40, 50, 500, 200);
+		panelCarrinho.add(srollCarrinho);
+		
+		
+		/*--------------------BUTTONS---------------------*/
+		  compra.setBounds(40, 270, 140, 35);
+		  panelCarrinho.add(compra);
+		  
+		  compra.addActionListener(
+			      new ActionListener(){
+			        public void actionPerformed(ActionEvent e){
+
+			        	int size = model.getSize();
+			        	float total = 0;
+			        	System.out.println("size === "+ size );
+			        	
+//			        	model.getElementAt(size);
+			        	
+
+			        	
+			        	
+			        	for(int i=0; i<size; i++) {
+							System.out.println("PRODUTO a ser comprado " + usuario.getProdutoCarrinho(idUser, i));
+							System.out.println("preco === " + usuario.getProdutoValor(idUser, i));
+							total = total + usuario.getProdutoValor(idUser, i);
+			        	}
+			        	
+			        	System.out.println("endereco : " + usuario.getEndereco(idUser));
+			        	
+			        	System.out.println("total == " + total);
+			        	
+			        	
+			        	
+			        	new TelaCompra().imprimirTelaCompra(usuario, idUser, size);
+			   	    
+			        }
+			      }
+			    );
+		  
+		  excluirPcarrinho.setBounds(190, 270, 170, 35);
+		  panelCarrinho.add(excluirPcarrinho);
+		  
+		  excluirPcarrinho.addActionListener(
+			      new ActionListener(){
+			        public void actionPerformed(ActionEvent e){
+
+			        	// Um botão que permite obter o índice do item selecionado
+			        	int remover = JlistCarrinho.getSelectedIndex();
+			        	
+			        	
+			        	//exerce a remocao do item no carrinho
+			        	try {
+				        	usuario.RemoveProdutoCarrinho(idUser, remover);
+				        	model.remove(remover);
+				        	
+				        	//garante que todos os produtos sejam removidos do carrinho
+				         	if(qtdProdutos == 1) {
+				        		usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
+				        	}
+				        	
+				        	qtdProdutos--;
+				        	
+//				        	//garante que todos os produtos sejam removidos do carrinho
+//				         	if(qtdProdutos == 0) {
+//				        		usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
+//				        	}
+				        	
+				        	System.out.println("qtd produtosa agora == " + qtdProdutos);
+				        	System.out.println("indice remover agora == " + remover);
+			        	
+			        	}catch(Exception ex){
+//			    			JOptionPane.showMessageDialog(null, 
+//			    					"Erro: " + ex + "\n", null, 
+//			    					JOptionPane.INFORMATION_MESSAGE);
+			    		}
+			   	    
+			        }
+			      }
+			    );
+		  
+		  for(int i=0; i<qtdProdutos; i++) {
+				System.out.println("PRODUTOS NO CARRINHO " + usuario.getProdutoCarrinho(idUser, i));
+			}
+		
+	}
+		
+	/*####################### PAINEL FAVORITOS ############################*/
+	
+	public void divFavorito() {
+		
+		janela.add(panelFavoritos);
+		panelFavoritos.setVisible(true);
+		
+		
+		panelFavoritos.setLayout(null);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloFavoritos.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloFavoritos.setBounds(40, 15, 250, 30);		
+		panelFavoritos.add(tituloFavoritos);
+		
+		/*-----------------JList-----------------*/
+		
+		/*
+		 * Instancia o scroll do Jlist favoritos no panel 
+		 */
+		
+		srollFavorito.setBounds(40, 50, 500, 200);
+		panelFavoritos.add(srollFavorito);
+		
+		
+		/*--------------------BUTTONS---------------------*/
+		  
+//		FavoritoAddCarrinho.setBounds(190, 270, 170, 35);
+//		  panelFavoritos.add(FavoritoAddCarrinho);
+		  
+		  //NAO ESTA FUNCIONANDO DIREITO, VERIFICAR O PORQUE
+		  
+//		  FavoritoAddCarrinho.addActionListener(
+//				  new ActionListener(){
+//						 public void actionPerformed(ActionEvent e){
+//							        	
+//							 // Um botão que permite obter o índice do item selecionado
+//							 int indice = JlistFavorito.getSelectedIndex();
+//							 
+//							 usuario.AdicionarCompra(idUser, indice);
+//							 qtdProdutos = usuario.QtdProduto(idUser);
+//							 
+//							 System.out.println("indice do button carrinho == "+indice);
+//							 System.out.println("qtd produtos do button carrinho == "+qtdProdutos);
+//							 System.out.println("produto no carrinh  == "+ usuario.getProdutoCarrinho(idUser, qtdProdutos-1));
+//							 
+//							 for(int i=0; i<qtdProdutos; i++) {
+//									System.out.println("PRODUTOOOOO ======" + usuario.getProdutoCarrinho(idUser, i));
+//								}
+//							 
+//							 //ADICIONA O NOVO PRODUTO NA JLIST DO CARRINHO
+//							 model.addElement(usuario.getProdutoCarrinho(idUser, qtdProdutos-1));
+//							 
+//						}
+//					  }
+//				   );
+		  
+		  excluirFavorito.setBounds(190, 270, 170, 35);
+		  panelFavoritos.add(excluirFavorito);
+		  
+		  excluirFavorito.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){
+							        	
+							// Um botão que permite obter o índice do item selecionado
+					        	int remover = JlistFavorito.getSelectedIndex();
+					        	
+					        	
+					        	//exerce a remocao do item na lista de favoritos
+					        	try {
+						        	usuario.RemoveProdutoFavorito(idUser, remover);
+						        	modelFavorito.remove(remover);
+						        	
+						        	qtdProdutosFavoritos--;
+						        	
+						        	//garante que todos os produtos sejam removidos do carrinho
+						         	if(qtdProdutosFavoritos == 0) {
+						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser);
+						        	}
+						        	
+						        	System.out.println("qtd favorito agora == " + qtdProdutosFavoritos);
+						        	System.out.println("indice DO FAVORITO agora == " + remover);
+						        	
+						        	
+					        	
+					        	}catch(Exception ex){
+//					    			JOptionPane.showMessageDialog(null, 
+//					    					"Erro: " + ex + "\n", null, 
+//					    					JOptionPane.INFORMATION_MESSAGE);
+					    		}
+					        	
+					        	System.out.println("qtd favorito FORA DO TRY == " + qtdProdutosFavoritos);
+					        	
+					        	for(int i=0; i<qtdProdutosFavoritos; i++) {
+									System.out.println("PRODUTO FAVORITO " + usuario.getProdutoFavorito(idUser, i));
+								}
+					        	
+						}
+					  }
+				   );
+		  
+	}
+	
+	/*====================Metodos SETVISIBLE(FALSE)=======================*/
+	
+	public void divHomeNotVisible(){
+		panelHome.setVisible(false);
+		
+	}
+	
+	public void panelCarrinhoNotVisible(){
+		panelCarrinho.setVisible(false);	
+	}
+	
+	public void panelFavoritoNotVisible(){
+		panelFavoritos.setVisible(false);	
+	}
+	
+	/*=======================CONSTRUTOR DA TELA===========================*/
+	
+	/*
+	 * O CONSTRUTOR INSTANCIA O MENU JUNTO COM SEUS COMPONENTES 
+	 */
 	
 	public TelaMenu(){	
 		
@@ -362,7 +558,7 @@ public class TelaMenu implements ActionListener{
 		barraMenu.add(menuFavoritos);
 		
 		
-		//============evento de clique nos itens(submenu)==============
+		//-------------evento de clique nos itens(submenu)----------------
 		
 		/*
 		* ActionListener: verifica se o usuario clicou em algum dos
@@ -393,6 +589,8 @@ public class TelaMenu implements ActionListener{
 	}
 	
 	
+	/*=====================METODO LISTENER DO MENU=========================*/
+	
 	class ListenerMenus implements MenuListener {
 		
 	    @Override
@@ -401,23 +599,33 @@ public class TelaMenu implements ActionListener{
 	    	//getSource pega o nome do Menu que chamou o evento
 	        if(e.getSource().equals(menuCarrinho) ) {
 	        	
-	        	//retira o panel Home
+	        	//retira os panels
 	        	divHomeNotVisible();
+	        	panelFavoritoNotVisible();
 	        	
 	        	//aloca o panel Carrinho
             	painelCarrinho();
 
 	        }
 	        if(e.getSource().equals(menuFavoritos) ) {
-	        	System.out.println("favoritos");
+	        	
+	        	//retira os panels
+	        	divHomeNotVisible();
+	        	panelCarrinhoNotVisible();
+	        	
+	        	//aloca o panel Favoritos
+	        	divFavorito();
 	        }
 	        
 	        if(e.getSource().equals(home) ) {
 	        	
+	        	//retira os panels
 	        	panelCarrinhoNotVisible();
+	        	panelFavoritoNotVisible();
 	        	
+	        	//instancia a visibilidade do panelHome
 	        	panelHome.setVisible(true);
-	        	System.out.println("entrou home");
+	        	
 	        }
 	    }
 
@@ -436,21 +644,6 @@ public class TelaMenu implements ActionListener{
 	    public void menuCanceled(MenuEvent e) {
 	        System.out.println("menuCanceled");
 	    }
-	}
-	
-	
-	public void actionPerformed(ActionEvent e) {
-		Object src = e.getSource();
-		
-//		if(src == buttonDetalhes) {
-//
-//			JOptionPane.showMessageDialog(null, 
-//	    			"Entrou button\n", null, 
-//	    			JOptionPane.INFORMATION_MESSAGE);
-//			System.out.println("entrou carrinho");
-			
-//			new DetalheProduto().imprimirTelaDetalhe(usuario);
-//		}
-	}
+	}	
 	
 }

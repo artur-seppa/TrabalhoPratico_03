@@ -47,8 +47,16 @@ public class CadastroUsuario implements ActionListener{
 	
 	private static JTextField nomeText = new JTextField(20);
 	private static JPasswordField passwordText = new JPasswordField(20);
+	
 	private static JTextField telefoneText = new JTextField(9);
 	private static JTextField dddText = new JTextField(3);
+	
+	private static JTextField enderecoText = new JTextField(50);
+	private static JTextField cidadeText = new JTextField(20);
+	private static JTextField estadoText = new JTextField(20);
+	private static JTextField bairroText = new JTextField(20);
+	private static JTextField cepText = new JTextField(9);
+	
 	
 	//instancia o TIPO ControleUsuario === BD
 	private static ControleUsuario usuario;
@@ -66,7 +74,7 @@ public class CadastroUsuario implements ActionListener{
 		
 		janela.setVisible(true);
 		
-		janela.setSize(400, 400);
+		janela.setSize(400, 710);
 		janela.add(panel);
 		placeComponents(panel);
 		
@@ -124,8 +132,53 @@ public class CadastroUsuario implements ActionListener{
 		telefoneText.setBounds(90, 220, 140, 30);
 		panel.add(telefoneText);
 		
+		/*=========estado==========*/
+		JLabel estadolabel = new JLabel("Estado :");
+		estadolabel.setFont(new Font("Arial", Font.BOLD, 15));
+		estadolabel.setBounds(20, 260, 140, 30);
+		panel.add(estadolabel);
+
+		estadoText.setBounds(20, 290, 140, 30);
+		panel.add(estadoText);
+		
+		/*=========cidade==========*/
+		JLabel cidadelabel = new JLabel("Cidade :");
+		cidadelabel.setFont(new Font("Arial", Font.BOLD, 15));
+		cidadelabel.setBounds(20, 330, 140, 30);
+		panel.add(cidadelabel);
+
+		cidadeText.setBounds(20, 360, 140, 30);
+		panel.add(cidadeText);
+		
+		/*=========bairro==========*/
+		JLabel bairrolabel = new JLabel("Bairro :");
+		bairrolabel.setFont(new Font("Arial", Font.BOLD, 15));
+		bairrolabel.setBounds(20, 400, 140, 30);
+		panel.add(bairrolabel);
+
+		bairroText.setBounds(20, 430, 140, 30);
+		panel.add(bairroText);
+		
+		/*=========endereco==========*/
+		JLabel enderecolabel = new JLabel("Endereco :");
+		enderecolabel.setFont(new Font("Arial", Font.BOLD, 15));
+		enderecolabel.setBounds(20, 470, 140, 30);
+		panel.add(enderecolabel);
+
+		enderecoText.setBounds(20, 500, 140, 30);
+		panel.add(enderecoText);
+		
+		/*=========cep==========*/
+		JLabel ceplabel = new JLabel("Cep :");
+		ceplabel.setFont(new Font("Arial", Font.BOLD, 15));
+		ceplabel.setBounds(20, 540, 140, 30);
+		panel.add(ceplabel);
+
+		cepText.setBounds(20, 570, 140, 30);
+		panel.add(cepText);
+		
 		/*---------Button---------*/
-		cadastroUsuario.setBounds(20, 270, 140, 30);
+		cadastroUsuario.setBounds(20, 620, 140, 30);
 		panel.add(cadastroUsuario);
 		
 		/*
@@ -144,8 +197,12 @@ public class CadastroUsuario implements ActionListener{
 			
 			try {
 				String password = String.valueOf(passwordText.getPassword());
-				sucesso = usuario.cadastrarUsuario(nomeText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
-//				sucesso = dados.cadastrarUsuario(nomeText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
+				int ddd = Integer.parseInt(dddText.getText());
+				int telefone = Integer.parseInt(telefoneText.getText());
+				int cep = Integer.parseInt(cepText.getText());
+				
+				sucesso = usuario.cadastrarUsuario(nomeText.getText(), /*sexo,*/ password, ddd, telefone, estadoText.getText(), cidadeText.getText(), bairroText.getText(), enderecoText.getText(), cep);
+				
 				if(sucesso == true) {
 					JOptionPane.showMessageDialog(null, 
 					"Usuario cadastrado com sucesso\n", null, 
@@ -160,6 +217,11 @@ public class CadastroUsuario implements ActionListener{
 					passwordText.setText(null);
 					telefoneText.setText(null);
 					dddText.setText(null);
+					estadoText.setText(null);
+					cidadeText.setText(null);
+					bairroText.setText(null);
+					enderecoText.setText(null);
+					cepText.setText(null);
 					
 				}else{
 					JOptionPane.showMessageDialog(null, 

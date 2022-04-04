@@ -1,12 +1,20 @@
 package Modelo;
 
 public class Endereco {
+	private Pessoa pessoa;
+	
 	private int cep;
 	private String bairro;
 	private String estado;
 	private String cidade; 
 	private String endereco;
 	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
 	public int getCep() {
 		return cep;
 	}
