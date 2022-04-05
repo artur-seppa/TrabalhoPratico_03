@@ -109,6 +109,7 @@ public class TelaCompra{
 		FinalizaPagamento.addActionListener(
 				new ActionListener() {
 		            public void actionPerformed(ActionEvent e) {
+		            	
 		            	if(pagamento.getText() != null && pagamento.getText().length()>0) {
 		            		
 		            	
@@ -123,7 +124,7 @@ public class TelaCompra{
 		            		JOptionPane.showMessageDialog(null, 
 					    	"Por favor, insira a forma de pagamento\n", null, 
 					    	JOptionPane.INFORMATION_MESSAGE);
-		            		
+			            	
 		            	}
 		            	
 		            }
@@ -131,71 +132,6 @@ public class TelaCompra{
 
 		
 	}
-
-
-
-	
-//
-//		/*=========Cor==========*/
-//		JLabel fraseCor = new JLabel("cor :");
-//		fraseCor.setBounds(20, 90, 160, 30);
-//		panel.add(fraseCor);
-//		
-//		cor = new JLabel(roupa[cont].getCor());
-//		cor.setBounds(100, 90, 160, 30);
-//		panel.add(cor);
-//;
-//		/*=========estilo==========*/
-//		JLabel fraseEstilo = new JLabel("estilo :");
-//		fraseEstilo.setBounds(20, 130, 160, 30);
-//		panel.add(fraseEstilo);
-//
-//		estilo = new JLabel(roupa[cont].getEstilo());
-//		estilo.setBounds(100, 130, 160, 30);
-//		panel.add(estilo);
-//		
-//		/*=========tecido==========*/
-//		JLabel fraseTecido = new JLabel("tecido :");
-//		fraseTecido.setBounds(20, 170, 160, 30);
-//		panel.add(fraseTecido);
-//		
-//		tecido = new JLabel(roupa[cont].getTecido());
-//		tecido.setBounds(100, 170, 160, 30);
-//		panel.add(tecido);
-//		
-//		/*=========genero==========*/
-//		JLabel fraseGenero = new JLabel("genero :");
-//		fraseGenero.setBounds(20, 210, 160, 30);
-//		panel.add(fraseGenero);
-//		
-//		genero = new JLabel(roupa[cont].getGenero());
-//		genero.setBounds(100, 210, 160, 30);
-//		panel.add(genero);
-//		
-//		/*=========preco==========*/
-//		JLabel frasePreco = new JLabel("preco :");
-//		frasePreco.setBounds(20, 250, 160, 30);
-//		panel.add(frasePreco);
-//		
-//		preco = new JLabel("R$ " + roupa[cont].getPreco());
-//		preco.setBounds(100, 250, 160, 30);
-//		panel.add(preco);
-
-//	}
-//	
-//	public static void CloseDetalhes() {
-//		//passa o valor null para os inputs ao finalizar a operacao
-//		descricao.setText(null);
-//		tamanho.setText(null);
-//		cor.setText(null);
-//		estilo.setText(null);
-//		tecido.setText(null);
-//		genero.setText(null);
-//		preco.setText(null);
-//		
-//		janela.setVisible(false);
-//		
-//	}
 
 }
 

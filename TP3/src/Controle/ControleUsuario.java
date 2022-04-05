@@ -98,6 +98,35 @@ public class ControleUsuario {
 		return totalP;
 	}
 	
+	/***********PESSOA***********/
+	
+	public String getNome(int i) {		
+		return pessoa[i].getNome();
+	}
+	
+	public String getSenha(int i) {		
+		return pessoa[i].getSenha();
+	}
+	
+	public int getQtdPessoas() {
+		return qtdPessoas;
+	}
+	
+	public Pessoa[] retornaStringPessoa() {		
+		return pessoa;
+	}
+	
+	/***********PESSOA***********/
+	
+	public int getDDD(int i) {		
+		return tel[i].getDdd();
+	}
+	
+	public int getTelefone(int i) {		
+		return tel[i].getTelefone();
+	}
+	
+	/***********ENDERECO***********/
 	
 	public int getCep(int i) {		
 		return endereco[i].getCep();
@@ -118,20 +147,6 @@ public class ControleUsuario {
 	public String getBairro(int i) {		
 		return endereco[i].getBairro();
 	}
-	
-	public String getNome(int i) {		
-		return pessoa[i].getNome();
-	}
-	
-	public int getQtdPessoas() {
-		return qtdPessoas;
-	}
-	
-	public Pessoa[] retornaStringPessoa() {		
-		return pessoa;
-	}
-	
-	
 	
 	public boolean cadastrarUsuario(String nome, /*String sexo,*/ String senha/*, String email, String cpf*/, 
 	int ddd, int telefone, 
@@ -200,6 +215,23 @@ public class ControleUsuario {
 				}
 			}
 		}
+		//caso nao encontre o nome e nem a senha retorna false
+		return -1;
+	}
+	
+	public int DeletarUsuario(String nome, String senha) {
+		
+		//procura pelo mesmo nome e senha nos usuarios cadastrados
+		for(int i = 0; i <qtdPessoas; i++) {
+			if(nome.equals(pessoa[i].getNome()) ) {
+				if(senha.equals(pessoa[i].getSenha()) ) {
+					
+//					for(int i)
+					
+				}
+			}
+		}
+		
 		//caso nao encontre o nome e nem a senha retorna false
 		return -1;
 	}

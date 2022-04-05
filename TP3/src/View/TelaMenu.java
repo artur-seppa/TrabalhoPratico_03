@@ -51,6 +51,12 @@ public class TelaMenu{
 	private static JPanel panelFavoritos = new JPanel();
 	private static JLabel tituloFavoritos = new JLabel("Lista de Favoritos");
 	
+	private static JPanel panelPerfil = new JPanel();
+	private static JLabel tituloPerfil = new JLabel("Editar perfil");
+	
+	private static JPanel panelProduto = new JPanel();
+	private static JLabel tituloProduto = new JLabel("Inserir produto");
+	
 	private static TelaMenu telaMenu = new TelaMenu();	//instancia o objeto da telaMenu
 	private static ControleUsuario usuario;		//instancia o TIPO ControleUsuario === BD
 
@@ -95,7 +101,7 @@ public class TelaMenu{
 	 * barra de menu 
 	 */
 	JMenu home = new JMenu("Home");
-	JMenu perfil = new JMenu("Perfil");
+	JMenu perfil = new JMenu("Usuario");
 	JMenu menuCarrinho = new JMenu("carrinho de compras"); 
 	JMenu menuFavoritos = new JMenu("Roupas Favoritas");
 	
@@ -419,8 +425,8 @@ public class TelaMenu{
 				        	enderecoLabel.setText( usuario.getEndereco(idUser));
 				        	frete.setText("Valor de frete : " + aleatorio);
 				      			        	
-				        	new TelaCompra().imprimirTelaCompra(/*usuario, idUser, size*/);
-			        	
+				        	new TelaCompra().imprimirTelaCompra();
+				        	
 			        	}else {
 			        		
 			        		JOptionPane.showMessageDialog(null, 
@@ -463,33 +469,6 @@ public class TelaMenu{
 				        	
 				        	System.out.println("qtd produtosa agora == " + qtdProdutos);
 				        	System.out.println("indice remover agora == " + remover);
-				        	
-				        	/*
-				        	 * AO EXCLUIR UM PRODUTO, ATUALIZA O FECHAMENTO DA COMPRA
-				        	 */
-				        	
-				        	int size = model.getSize();
-				        	float total = 0;
-				        	
-				        	if(size != 0) {
-					        	
-						        	for(int i=0; i<size; i++) {
-		//								System.out.println("PRODUTO a ser comprado " + usuario.getProdutoCarrinho(idUser, i));
-		//								System.out.println("preco === " + usuario.getProdutoValor(idUser, i));
-										total = total + usuario.getProdutoValor(idUser, i);
-						        	}
-						        	
-						        	//instancia o valor total dos produto
-						        	valorTotal.setText("total == " + total);
-						        	valorTotal.setText("Valor total: R$" + total);
-						        	endereco.setText("Endereco de entrega :");
-						        	enderecoLabel.setText( usuario.getEndereco(idUser));
-						        	frete.setText("Valor de frete : " + aleatorio);
-						        	
-						        	new TelaCompra().imprimirTelaCompra(/*usuario, idUser, size*/);
-				        	}else {
-					        		
-				        	}
 				        	
 				        	
 			        	}catch(Exception ex){
@@ -616,6 +595,157 @@ public class TelaMenu{
 		  
 	}
 	
+	/*####################### PAINEL PERFIL ############################*/
+	
+	public void divPerfil() {
+		
+		janela.add(panelPerfil);
+		panelPerfil.setVisible(true);
+		
+		panelPerfil.setLayout(null);
+		janela.setSize(600, 500);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloPerfil.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloPerfil.setBounds(25, 15, 250, 30);		
+		panelPerfil.add(tituloPerfil);
+		
+		
+		/*--------------------LABELS E TEXTFILELDS---------------------*/
+		
+			/***************PESSOA********************/
+			JLabel nome = new JLabel("Nome :");
+			nome.setFont(new Font("Arial", Font.BOLD, 15));
+			nome.setBounds(25, 45, 120, 30);
+			panelPerfil.add(nome);
+		
+			JTextField nomeText = new JTextField(120);
+			nomeText.setText(usuario.getNome(idUser));
+			nomeText.setBounds(25, 75, 200, 30);
+			panelPerfil.add(nomeText);
+			
+			JLabel senha = new JLabel("Senha :");
+			senha.setFont(new Font("Arial", Font.BOLD, 15));
+			senha.setBounds(25, 115, 120, 30);
+			panelPerfil.add(senha);
+		
+			JTextField senhaText = new JTextField(120);
+			senhaText.setText(usuario.getSenha(idUser));
+			senhaText.setBounds(25, 145, 200, 30);
+			panelPerfil.add(senhaText);
+			
+			
+			/***************TELEFONE********************/
+			JLabel telefone = new JLabel("Telefone :");
+			telefone.setFont(new Font("Arial", Font.BOLD, 15));
+			telefone.setBounds(255, 45, 120, 30);
+			panelPerfil.add(telefone);
+		
+			JTextField telefoneText = new JTextField(120);
+			telefoneText.setText(Integer.toString(usuario.getTelefone(idUser)) );
+			telefoneText.setBounds(255, 75, 200, 30);
+			panelPerfil.add(telefoneText);
+			
+			JLabel ddd = new JLabel("DDD :");
+			ddd.setFont(new Font("Arial", Font.BOLD, 15));
+			ddd.setBounds(255, 115, 120, 30);
+			panelPerfil.add(ddd);
+		
+			JTextField dddText = new JTextField(120);
+			dddText.setText(Integer.toString(usuario.getDDD(idUser)) );
+			dddText.setBounds(255, 145, 200, 30);
+			panelPerfil.add(dddText);
+			
+			/***************ENDERECO********************/
+			JLabel estado = new JLabel("Estado :");
+			estado.setFont(new Font("Arial", Font.BOLD, 15));
+			estado.setBounds(25, 185, 120, 30);
+			panelPerfil.add(estado);
+		
+			JTextField estadoText = new JTextField(120);
+			estadoText.setText(usuario.getEstado(idUser));
+			estadoText.setBounds(25, 215, 200, 30);
+			panelPerfil.add(estadoText);
+			
+			JLabel cidade = new JLabel("Cidade :");
+			cidade.setFont(new Font("Arial", Font.BOLD, 15));
+			cidade.setBounds(25, 255, 120, 30);
+			panelPerfil.add(cidade);
+		
+			JTextField cidadeText = new JTextField(120);
+			cidadeText.setText(usuario.getCidade(idUser));
+			cidadeText.setBounds(25, 285, 200, 30);
+			panelPerfil.add(cidadeText);
+			
+			JLabel bairro = new JLabel("Bairro :");
+			bairro.setFont(new Font("Arial", Font.BOLD, 15));
+			bairro.setBounds(25, 325, 120, 30);
+			panelPerfil.add(bairro);
+		
+			JTextField bairroText = new JTextField(120);
+			bairroText.setText(usuario.getBairro(idUser));
+			bairroText.setBounds(25, 355, 200, 30);
+			panelPerfil.add(bairroText);
+			
+			JLabel endereco = new JLabel("Endereco :");
+			endereco.setFont(new Font("Arial", Font.BOLD, 15));
+			endereco.setBounds(255, 185, 120, 30);
+			panelPerfil.add(endereco);
+		
+			JTextField enderecoText = new JTextField(120);
+			enderecoText.setText(usuario.getEndereco(idUser));
+			enderecoText.setBounds(255, 215, 200, 30);
+			panelPerfil.add(enderecoText);
+			
+			JLabel cep = new JLabel("Cep :");
+			cep.setFont(new Font("Arial", Font.BOLD, 15));
+			cep.setBounds(255, 255, 120, 30);
+			panelPerfil.add(cep);
+		
+			JTextField cepText = new JTextField(120);
+			cepText.setText(Integer.toString(usuario.getCep(idUser)) );
+			cepText.setBounds(255, 285, 200, 30);
+			panelPerfil.add(cepText);
+			
+			/*--------------------BUTTONS---------------------*/
+		
+		  JButton ButtonSalvar = new JButton("Salvar");
+		  ButtonSalvar.setBounds(285, 335, 140, 35);
+		  panelPerfil.add(ButtonSalvar);
+		  
+		  ButtonSalvar.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){
+							boolean sucesso;
+							 
+							int ddd = Integer.parseInt(dddText.getText());
+							int telefone = Integer.parseInt(telefoneText.getText());
+							int cep = Integer.parseInt(cepText.getText());
+							
+							sucesso = usuario.cadastrarUsuario(nomeText.getText(), /*sexo,*/ senhaText.getText(), ddd, telefone, estadoText.getText(), cidadeText.getText(), bairroText.getText(), enderecoText.getText(), cep);
+									
+								if(sucesso == true) {
+									JOptionPane.showMessageDialog(null, 
+									"Informacoes editadas com sucesso\n", null, 
+									JOptionPane.INFORMATION_MESSAGE);
+								}else{
+									JOptionPane.showMessageDialog(null, 
+											"Os campos nao foram preenchidos corretamente\n", null, 
+											JOptionPane.INFORMATION_MESSAGE);
+								}		
+					        	
+						}
+					  }
+				   );
+		  
+	}
+	
+	
 	/*====================Metodos SETVISIBLE(FALSE)=======================*/
 	
 	public void divHomeNotVisible(){
@@ -629,6 +759,11 @@ public class TelaMenu{
 	
 	public void panelFavoritoNotVisible(){
 		panelFavoritos.setVisible(false);	
+	}
+	
+	public void panelPerfilNotVisible(){
+		panelPerfil.setVisible(false);
+		janela.setSize(600, 400);
 	}
 	
 	/*=======================CONSTRUTOR DA TELA===========================*/
@@ -652,11 +787,11 @@ public class TelaMenu{
 		
 		
 		//isntancia os itens submenu
-		JMenuItem itemConfiguracao = new JMenuItem("Configuracao");
+		JMenuItem itemPerfil = new JMenuItem("Perfil");
 		JMenuItem itemSair = new JMenuItem("Sair");
 		
 		//adiciona os itens submenu em cada componente do menu
-		perfil.add(itemConfiguracao);
+		perfil.add(itemPerfil);
 		perfil.add(itemSair);
 		
 		//acrescenta os componentes na barra de menu
@@ -672,6 +807,20 @@ public class TelaMenu{
 		* ActionListener: verifica se o usuario clicou em algum dos
 		* buttons criados
 		*/
+		
+		itemPerfil.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+//            	JOptionPane.showMessageDialog(null, 
+//    			"Entrou\n", null, 
+//    			JOptionPane.INFORMATION_MESSAGE);
+            	divHomeNotVisible();
+            	panelFavoritoNotVisible();
+            	panelCarrinhoNotVisible();
+
+            	divPerfil();
+            }
+        });
+		
 		itemSair.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 //            	JOptionPane.showMessageDialog(null, 
@@ -710,6 +859,7 @@ public class TelaMenu{
 	        	//retira os panels
 	        	divHomeNotVisible();
 	        	panelFavoritoNotVisible();
+	        	panelPerfilNotVisible();
 	        	
 	        	//aloca o panel Carrinho
             	painelCarrinho();
@@ -720,6 +870,7 @@ public class TelaMenu{
 	        	//retira os panels
 	        	divHomeNotVisible();
 	        	panelCarrinhoNotVisible();
+	        	panelPerfilNotVisible();
 	        	
 	        	//aloca o panel Favoritos
 	        	divFavorito();
@@ -730,6 +881,7 @@ public class TelaMenu{
 	        	//retira os panels
 	        	panelCarrinhoNotVisible();
 	        	panelFavoritoNotVisible();
+	        	panelPerfilNotVisible();
 	        	
 	        	//instancia a visibilidade do panelHome
 	        	panelHome.setVisible(true);
