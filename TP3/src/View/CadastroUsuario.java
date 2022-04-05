@@ -60,9 +60,8 @@ public class CadastroUsuario implements ActionListener{
 	
 	//instancia o TIPO ControleUsuario === BD
 	private static ControleUsuario usuario;
-//	private static ControleDados dados;
 	private static CadastroUsuario objCadastro = new CadastroUsuario();
-//									ControleDados
+
 	public void imprimirTelaCadastro(ControleUsuario u){
 	    
 		/*

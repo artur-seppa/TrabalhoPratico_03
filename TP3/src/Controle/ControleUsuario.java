@@ -6,7 +6,7 @@ import Modelo.*;
 public class ControleUsuario {
 	//instancia o objeto array "pessoa" de Pessoa com tamanho de 100.
 	private Pessoa pessoa[] = new Pessoa[100]; 
-	private Telefone telefone[] = new Telefone[100];
+	private Telefone tel[] = new Telefone[100];
 	private Endereco endereco[] = new Endereco[100]; 
 	
 	//Produtos
@@ -35,9 +35,9 @@ public class ControleUsuario {
 			pessoa[i].setSenha("123"+i);
 			pessoa[i].setId(i);
 			
-			telefone[i] = new Telefone();
-			telefone[i].setDdd(061);
-			telefone[i].setTelefone(912345678);
+			tel[i] = new Telefone();
+			tel[i].setDdd(061);
+			tel[i].setTelefone(912345678);
 			
 			endereco[i] = new Endereco();
 			endereco[i].setEstado("DF");
@@ -63,7 +63,7 @@ public class ControleUsuario {
 			pessoa[i].adicionarProduto(roupa[i]);
 			
 			//ASSOCIA O NOME DA PESSOA AO TELEFONE
-			telefone[i].setPessoa(pessoa[i]);
+			tel[i].setPessoa(pessoa[i]);
 			
 			//ASSOCIA O NOME DA PESSOA AO ENDERECO
 			endereco[i].setPessoa(pessoa[i]);
@@ -119,8 +119,6 @@ public class ControleUsuario {
 		return endereco[i].getBairro();
 	}
 	
-	
-	
 	public String getNome(int i) {		
 		return pessoa[i].getNome();
 	}
@@ -137,11 +135,11 @@ public class ControleUsuario {
 	
 	public boolean cadastrarUsuario(String nome, /*String sexo,*/ String senha/*, String email, String cpf*/, 
 	int ddd, int telefone, 
-	String estado, String cidade, String bairro, String endereco, int cep) {
+	String estado, String cidade, String bairro, String adress, int cep) {
 		
 		if(nome != null && nome.length()>0 && /*sexo != null && sexo.length()>0 &&*/ senha!= null && senha.length()>0 /*&& email != null && email.length()>0 && cpf != null && cpf.length()>0*/
 		   && ddd>0 && telefone>0
-		   && estado != null && estado.length()>0 && cidade != null && cidade.length()>0 && bairro != null && bairro.length()>0 && endereco != null && endereco.length() > 0 && cep>0){
+		   && estado != null && estado.length()>0 && cidade != null && cidade.length()>0 && bairro != null && bairro.length()>0 && adress != null && adress.length() > 0 && cep>0){
 			
 			/*
 			 *	Um novo usuario eh cadastrado com as informacoes passadas pela view
@@ -150,12 +148,27 @@ public class ControleUsuario {
 			pessoa[qtdPessoas] = new Pessoa();
 			pessoa[qtdPessoas].setNome(nome);
 			pessoa[qtdPessoas].setSenha(senha);
-			
-			
-			
 			pessoa[qtdPessoas].setId(qtdID);
 			
+			tel[qtdPessoas] = new Telefone();
+			tel[qtdPessoas].setDdd(ddd);
+			tel[qtdPessoas].setTelefone(telefone);
+			
+			//ASSOCIA O NOME DA PESSOA AO TELEFONE
+			tel[qtdPessoas].setPessoa(pessoa[qtdPessoas]);
+			
+			endereco[qtdPessoas] = new Endereco();
+			endereco[qtdPessoas].setBairro(bairro);
+			endereco[qtdPessoas].setCep(cep);
+			endereco[qtdPessoas].setCidade(cidade);
+			endereco[qtdPessoas].setEstado(estado);
+			endereco[qtdPessoas].setEndereco(adress);
+			
+			//ASSOCIA O NOME DA PESSOA AO ENDERECO
+			endereco[qtdPessoas].setPessoa(pessoa[qtdPessoas]);
+
 			carrinho[qtdPessoas] = new CarrinhoDeCompra();
+			favorito[qtdPessoas] = new RoupaFavorita();
 			
 			//incrementa o numero de usuarios totais
 			qtdPessoas++;

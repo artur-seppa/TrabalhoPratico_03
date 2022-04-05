@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -85,8 +87,8 @@ public class TelaMenu{
 	 *	variaveis Globais  
 	 */
 	private static int idUser;
-	private static int qtdProdutos;
-	private static int qtdProdutosFavoritos;
+	private static int qtdProdutos = 0;
+	private static int qtdProdutosFavoritos = 0;
 	
 	/*
 	 * JMenu permite instanciar os arquivos clicaveis da
@@ -119,15 +121,18 @@ public class TelaMenu{
 			
 			System.out.println("ddd do user == "+ usuario.getCep(idUser));
 			
-//			for(int i = 0; i<qtd; i++) {
-//				System.out.println(listaUsuarios[i]);
-//			}		
+			String[] user = usuario.escreveUsuarios();
+			int qtdpessoa = usuario.getQtdPessoas();
+			
+			for(int i = 0; i<qtdpessoa; i++) {
+				System.out.println(user[i]);
+			}		
 				
 			
 		}catch(Exception ex){
-			JOptionPane.showMessageDialog(null, 
-			"Erro: " + ex + "\n", null, 
-			JOptionPane.INFORMATION_MESSAGE);
+//			JOptionPane.showMessageDialog(null, 
+//			"Erro: " + ex + "\n", null, 
+//			JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 		/*
@@ -140,13 +145,24 @@ public class TelaMenu{
 		JlistCarrinho = new JList<String>(model);
 		srollCarrinho = new JScrollPane(JlistCarrinho);
 		
-		qtdProdutos = usuario.QtdProduto(idUser);
-		
-		System.out.println("qtd produtos inicial "+ qtdProdutos);
-		
-		for(int i=0; i<qtdProdutos; i++) {
-			model.addElement(usuario.getProdutoCarrinho(idUser, i));
+		try {
+			if(usuario.QtdProduto(idUser) != 0) {
+				
+				qtdProdutos = usuario.QtdProduto(idUser);
+				
+				System.out.println("qtd produtos inicial "+ qtdProdutos);
+				
+				for(int i=0; i<qtdProdutos; i++) {
+					model.addElement(usuario.getProdutoCarrinho(idUser, i));
+				}
+				
+			}
+		}catch(Exception ex){
+//			JOptionPane.showMessageDialog(null, 
+//			"Erro: " + ex + "\n", null, 
+//			JOptionPane.INFORMATION_MESSAGE);
 		}
+		
 		
 		/*
 		 *	O usuario ao logar ja tem a sua lista de favoritos atualizada com 
@@ -158,13 +174,25 @@ public class TelaMenu{
 		JlistFavorito = new JList<String>(modelFavorito);
 		srollFavorito = new JScrollPane(JlistFavorito);
 		
-		qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);
+		try {
 		
-		for(int i=0; i<qtdProdutosFavoritos; i++) {
+			if(usuario.QtdProdutoFavorito(idUser) != 0) {
+		
+			qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);
 			
-			System.out.println("favoritos ===== "+ usuario.getProdutoFavorito(idUser, i));
+			for(int i=0; i<qtdProdutosFavoritos; i++) {
+				
+				System.out.println("favoritos ===== "+ usuario.getProdutoFavorito(idUser, i));
+				
+				modelFavorito.addElement(usuario.getProdutoFavorito(idUser, i));
+			}
 			
-			modelFavorito.addElement(usuario.getProdutoFavorito(idUser, i));
+			}
+		
+		}catch(Exception ex){
+//			JOptionPane.showMessageDialog(null, 
+//			"Erro: " + ex + "\n", null, 
+//			JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 		/*-------------------INSTANCIA A JANELA------------------*/
@@ -314,7 +342,7 @@ public class TelaMenu{
 		 * Instancia o scroll do Jlist carrinho no panel 
 		 */
 		
-		srollCarrinho.setBounds(40, 50, 500, 200);
+		srollCarrinho.setBounds(40, 50, 250, 200);
 		panelCarrinho.add(srollCarrinho);
 		
 		
@@ -322,10 +350,49 @@ public class TelaMenu{
 		  compra.setBounds(40, 270, 140, 35);
 		  panelCarrinho.add(compra);
 		  
+		  
+		  JTextField qtdTotalItens = new JTextField(20);
+          qtdTotalItens.setText(null);
+          qtdTotalItens.setBounds(320, 40, 200, 30);
+          qtdTotalItens.setEditable(false);
+          panelCarrinho.add(qtdTotalItens);
+		  
+		  JTextField valorTotal = new JTextField(20);
+		  valorTotal.setText(null);
+		  valorTotal.setBounds(320, 80, 200, 30);
+		  valorTotal.setEditable(false);
+          panelCarrinho.add(valorTotal);
+          
+          JTextField endereco = new JTextField(120);
+          endereco.setText(null);
+          endereco.setBounds(320, 120, 200, 30);
+          endereco.setEditable(false);
+          panelCarrinho.add(endereco);
+          
+          JTextField enderecoLabel = new JTextField(120);
+          enderecoLabel.setText(null);
+          enderecoLabel.setBounds(320, 160, 200, 30);
+          enderecoLabel.setEditable(false);
+          panelCarrinho.add(enderecoLabel);
+          
+          JTextField frete = new JTextField(120);
+          frete.setText(null);
+          frete.setBounds(320, 200, 200, 30);
+          frete.setEditable(false);
+          panelCarrinho.add(frete);
+          
+          
+          //instância um objeto da classe Random usando o construtor básico
+          Random geradorAleatorio = new Random();
+
+          //gera um numero inteiro aleatorio de 1 a 15
+          int aleatorio = geradorAleatorio.nextInt(14) +1;
+          
+		  
 		  compra.addActionListener(
 			      new ActionListener(){
 			        public void actionPerformed(ActionEvent e){
-
+			        	
 			        	int size = model.getSize();
 			        	float total = 0;
 			        	System.out.println("size === "+ size );
@@ -333,22 +400,35 @@ public class TelaMenu{
 //			        	model.getElementAt(size);
 			        	
 
+			        	if(size != 0) {
 			        	
+				        	for(int i=0; i<size; i++) {
+//								System.out.println("PRODUTO a ser comprado " + usuario.getProdutoCarrinho(idUser, i));
+//								System.out.println("preco === " + usuario.getProdutoValor(idUser, i));
+								total = total + usuario.getProdutoValor(idUser, i);
+				        	}
+//				        	
+//				        	System.out.println("endereco : " + usuario.getEndereco(idUser));
+//				        	
+//				        	System.out.println("total == " + total);
+				        	
+				        	
+				        	qtdTotalItens.setText("Quantidade total de itens: " + size);
+				        	valorTotal.setText("Valor total: R$" + total);
+				        	endereco.setText("Endereco de entrega :");
+				        	enderecoLabel.setText( usuario.getEndereco(idUser));
+				        	frete.setText("Valor de frete : " + aleatorio);
+				      			        	
+				        	new TelaCompra().imprimirTelaCompra(/*usuario, idUser, size*/);
 			        	
-			        	for(int i=0; i<size; i++) {
-							System.out.println("PRODUTO a ser comprado " + usuario.getProdutoCarrinho(idUser, i));
-							System.out.println("preco === " + usuario.getProdutoValor(idUser, i));
-							total = total + usuario.getProdutoValor(idUser, i);
+			        	}else {
+			        		
+			        		JOptionPane.showMessageDialog(null, 
+					    	"Insira produtos no carrinho para efetuar a compra\n", null, 
+					    	JOptionPane.INFORMATION_MESSAGE);
+			        		
 			        	}
 			        	
-			        	System.out.println("endereco : " + usuario.getEndereco(idUser));
-			        	
-			        	System.out.println("total == " + total);
-			        	
-			        	
-			        	
-			        	new TelaCompra().imprimirTelaCompra(usuario, idUser, size);
-			   	    
 			        }
 			      }
 			    );
@@ -383,7 +463,35 @@ public class TelaMenu{
 				        	
 				        	System.out.println("qtd produtosa agora == " + qtdProdutos);
 				        	System.out.println("indice remover agora == " + remover);
-			        	
+				        	
+				        	/*
+				        	 * AO EXCLUIR UM PRODUTO, ATUALIZA O FECHAMENTO DA COMPRA
+				        	 */
+				        	
+				        	int size = model.getSize();
+				        	float total = 0;
+				        	
+				        	if(size != 0) {
+					        	
+						        	for(int i=0; i<size; i++) {
+		//								System.out.println("PRODUTO a ser comprado " + usuario.getProdutoCarrinho(idUser, i));
+		//								System.out.println("preco === " + usuario.getProdutoValor(idUser, i));
+										total = total + usuario.getProdutoValor(idUser, i);
+						        	}
+						        	
+						        	//instancia o valor total dos produto
+						        	valorTotal.setText("total == " + total);
+						        	valorTotal.setText("Valor total: R$" + total);
+						        	endereco.setText("Endereco de entrega :");
+						        	enderecoLabel.setText( usuario.getEndereco(idUser));
+						        	frete.setText("Valor de frete : " + aleatorio);
+						        	
+						        	new TelaCompra().imprimirTelaCompra(/*usuario, idUser, size*/);
+				        	}else {
+					        		
+				        	}
+				        	
+				        	
 			        	}catch(Exception ex){
 //			    			JOptionPane.showMessageDialog(null, 
 //			    					"Erro: " + ex + "\n", null, 
@@ -481,7 +589,7 @@ public class TelaMenu{
 						        	qtdProdutosFavoritos--;
 						        	
 						        	//garante que todos os produtos sejam removidos do carrinho
-						         	if(qtdProdutosFavoritos == 0) {
+						         	if(qtdProdutosFavoritos == 1) {
 						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser);
 						        	}
 						        	

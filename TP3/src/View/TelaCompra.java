@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  */
 
 import javax.swing.JButton;
-
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -41,14 +41,6 @@ public class TelaCompra{
 	private static JFrame janela = new JFrame("Compra");
 	private static JPanel panel = new JPanel();
 	
-	private static JLabel descricao = new JLabel();
-	private static JLabel tamanho = new JLabel();
-	private static JLabel cor = new JLabel();
-	private static JLabel estilo = new JLabel();
-	private static JLabel tecido = new JLabel();
-	private static JLabel genero = new JLabel();
-	private static JLabel preco = new JLabel();
-	
 	private static JTextField nomeText = new JTextField(20);
 	private static JPasswordField passwordText = new JPasswordField(20);
 	private static JTextField telefoneText = new JTextField(9);
@@ -60,19 +52,19 @@ public class TelaCompra{
 	private static int idUser;
 	private static int qtdProdutos;
 	
-	public void imprimirTelaCompra(ControleUsuario u, int id, int size){
+	public void imprimirTelaCompra(/*ControleUsuario u, int id, int size*/){
 	    
-		/*
-		 * Obtem o "BD" criado na tela anterior, com seus users ja pre fabricados,
-		 * e passa essa configuracao ao obj usuario de mesmo tipo ControleUsuario
-		 */
-		usuario = u;
-		idUser = id;
-		qtdProdutos = size;
+//		/*
+//		 * Obtem o "BD" criado na tela anterior, com seus users ja pre fabricados,
+//		 * e passa essa configuracao ao obj usuario de mesmo tipo ControleUsuario
+//		 */
+//		usuario = u;
+//		idUser = id;
+//		qtdProdutos = size;
 		
 		janela.setVisible(true);
 		
-		janela.setSize(300, 350);
+		janela.setSize(300, 300);
 		janela.add(panel);
 		placeComponents(panel);
 		
@@ -91,29 +83,58 @@ public class TelaCompra{
 		
 		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
 		
-		Roupa roupa[] = new Roupa[100];
+		/*=========Compra==========*/
+		JLabel titulo = new JLabel("Finalizando Compra");
+		titulo.setBounds(80, 20, 160, 30);
+		panel.add(titulo);
 		
-		for(int i=0; i<qtdProdutos; i++) {
-			System.out.println("PRODUTO DENTRO DA TELA " + usuario.getProdutoCarrinho(idUser, i));
-		}
+		JLabel pagamentoLabel = new JLabel("Forma de pagamento : ");
+		pagamentoLabel.setBounds(30, 60, 180, 30);
+		panel.add(pagamentoLabel);
+		
+		String vetor[] = {"cartao de credito", "cartao de debito"};
+		
+		JComboBox combobox = new JComboBox(vetor);
+		combobox.setBounds(30, 100, 160, 30);
+		panel.add(combobox);
+		
+		JTextField pagamento = new JTextField();
+		pagamento.setBounds(30, 140, 160, 30);
+		panel.add(pagamento);
+		
+		JButton FinalizaPagamento = new JButton("Finalizar Pagamento");
+		FinalizaPagamento.setBounds(30, 180, 160, 30);
+		panel.add(FinalizaPagamento);
+		
+		FinalizaPagamento.addActionListener(
+				new ActionListener() {
+		            public void actionPerformed(ActionEvent e) {
+		            	if(pagamento.getText() != null && pagamento.getText().length()>0) {
+		            		
+		            	
+			            	JOptionPane.showMessageDialog(null, 
+			    			"Obrigado pela compra, volte sempre !! \n", null, 
+			    			JOptionPane.INFORMATION_MESSAGE);
+			            	
+			            	janela.setVisible(false);
+		            	
+		            	}else {
+		            		
+		            		JOptionPane.showMessageDialog(null, 
+					    	"Por favor, insira a forma de pagamento\n", null, 
+					    	JOptionPane.INFORMATION_MESSAGE);
+		            		
+		            	}
+		            	
+		            }
+		        });
+
 		
 	}
-		
-//		descricao = new JLabel(roupa[cont].getDescricao());
-//		descricao.setFont(new Font("Arial", Font.BOLD, 14));
-//		descricao.setBounds(100, 10, 250, 30);		
-//		panel.add(descricao);
-//		
-////		TALVEZ  EU USE nomeText.setEditable(false);
-//
-//		/*=========Tamanho==========*/
-//		JLabel fraseTamanho = new JLabel("tamanho :");
-//		fraseTamanho.setBounds(20, 50, 160, 30);
-//		panel.add(fraseTamanho);
-//		
-//		tamanho = new JLabel(roupa[cont].getTamanho());
-//		tamanho.setBounds(100, 50, 160, 30);
-//		panel.add(tamanho);
+
+
+
+	
 //
 //		/*=========Cor==========*/
 //		JLabel fraseCor = new JLabel("cor :");
