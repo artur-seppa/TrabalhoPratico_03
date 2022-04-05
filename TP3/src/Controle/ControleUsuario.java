@@ -205,7 +205,7 @@ public class ControleUsuario {
 		return false;
 	}
 	
-	public int logarUsuario( String nome, String senha) {
+	public int logarUsuario(String nome, String senha) {
 		
 		//procura pelo mesmo nome e senha nos usuarios cadastrados
 		for(int i = 0; i <qtdPessoas; i++) {
@@ -255,9 +255,49 @@ public class ControleUsuario {
 	
 	/*
 	 * return da Peça 
-	 * */
+	 */
 	public Roupa getRoupa(int i) {
 		return roupa[i];
+	}
+	
+	public String getRoupaDescricao(int i) {
+		return roupa[i].getDescricao();
+	}
+	
+	public boolean cadastrarRoupa(int idUser, String descricao , String marca, float preco, String condicao,
+			String categoria, String estilo, String cor, String tecido, String tamanho ) {
+		
+		if(descricao != null && descricao.length()>0 && marca!= null && marca.length()>0 && preco>0 && condicao != null && condicao.length()>0
+		  && categoria != null && categoria.length()>0 && estilo != null && estilo.length()>0 && cor != null && cor.length()>0 &&
+		  tecido != null && tecido.length()>0 && tamanho != null && tamanho.length()>0) {
+			
+			roupa[qtdRoupas] = new Roupa();
+			roupa[qtdRoupas].setDescricao(descricao);
+			roupa[qtdRoupas].setMarca(marca);
+			roupa[qtdRoupas].setPreco(preco);
+			roupa[qtdRoupas].setCondicao(condicao);
+			
+			roupa[qtdRoupas].setCategoria(categoria);
+			roupa[qtdRoupas].setEstilo(estilo);
+			roupa[qtdRoupas].setCor(cor);
+			roupa[qtdRoupas].setTecido(tecido);
+			roupa[qtdRoupas].setTamanho(tamanho);
+			
+			
+			//ASSOCIA O NOME DA PESSOA AO PRODUTO
+			roupa[qtdRoupas].setPessoa(pessoa[idUser]);
+			
+			//ASSOCIA O PRODUTO A PESSOA
+			pessoa[idUser].adicionarProduto(roupa[qtdRoupas]);
+			
+			//incrementa o numero de roupas totais
+			qtdRoupas++;
+			
+			return true;
+		}
+		
+		return false;
+		
 	}
 	
 	/*==========================CARRINHO===============================*/

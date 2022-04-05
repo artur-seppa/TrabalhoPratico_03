@@ -54,6 +54,9 @@ public class TelaMenu{
 	private static JPanel panelPerfil = new JPanel();
 	private static JLabel tituloPerfil = new JLabel("Editar perfil");
 	
+	private static JPanel panelAddProdutos = new JPanel();
+	private static JLabel tituloAddProdutos = new JLabel("Adicionar produtos");
+	
 	private static JPanel panelProduto = new JPanel();
 	private static JLabel tituloProduto = new JLabel("Inserir produto");
 	
@@ -65,6 +68,8 @@ public class TelaMenu{
 	 */
 	private static String[] listaProdutos = new String[100];
 	private JList<String> JlistProdutos;
+	private DefaultListModel modelProdutos = new DefaultListModel();
+	private JScrollPane srollProdutos = new JScrollPane();
 	
 	private static String[] ListaCarrinho = new String[100];
 	private JList<String> JlistCarrinho;
@@ -93,6 +98,7 @@ public class TelaMenu{
 	 *	variaveis Globais  
 	 */
 	private static int idUser;
+	private static int qtdRoupas = 0;
 	private static int qtdProdutos = 0;
 	private static int qtdProdutosFavoritos = 0;
 	
@@ -117,29 +123,48 @@ public class TelaMenu{
 		
 		
 		/*
-		 * Pega os usuarios instanciados dentro do BD e passa para 
-		 * o JList usuarios
+		 * Pega as ROUPAS instanciadas dentro do BD e passa para 
+		 * o JList produtos
 		 */
-		try {
-			
-			int qtd = usuario.getQtdRoupas();
-			listaProdutos = usuario.escreveProdutos();
-			
-			System.out.println("ddd do user == "+ usuario.getCep(idUser));
-			
-			String[] user = usuario.escreveUsuarios();
-			int qtdpessoa = usuario.getQtdPessoas();
-			
-			for(int i = 0; i<qtdpessoa; i++) {
-				System.out.println(user[i]);
-			}		
+			modelProdutos = new DefaultListModel();
+			JlistProdutos = new JList<String>(modelProdutos);
+			srollProdutos = new JScrollPane(JlistProdutos);
 				
-			
-		}catch(Exception ex){
-//			JOptionPane.showMessageDialog(null, 
-//			"Erro: " + ex + "\n", null, 
-//			JOptionPane.INFORMATION_MESSAGE);
-		}
+				try {
+						
+						qtdRoupas = usuario.getQtdRoupas();
+						
+						System.out.println("qtd roupas inicial "+ qtdRoupas);
+						
+						for(int i=0; i<qtdRoupas; i++) {
+							modelProdutos.addElement(usuario.getRoupaDescricao(i));
+							System.out.println("ROUPAS ===  "+ usuario.getRoupaDescricao(i));
+						}
+						
+				}catch(Exception ex){
+//					JOptionPane.showMessageDialog(null, 
+//					"Erro: " + ex + "\n", null, 
+//					JOptionPane.INFORMATION_MESSAGE);
+				}
+		
+//		try {
+//			
+//			int qtd = usuario.getQtdRoupas();
+//			listaProdutos = usuario.escreveProdutos();
+//			
+//			String[] user = usuario.escreveUsuarios();
+//			int qtdpessoa = usuario.getQtdPessoas();
+//			
+//			for(int i = 0; i<qtdpessoa; i++) {
+//				System.out.println(user[i]);
+//			}		
+//				
+//			
+//		}catch(Exception ex){
+////			JOptionPane.showMessageDialog(null, 
+////			"Erro: " + ex + "\n", null, 
+////			JOptionPane.INFORMATION_MESSAGE);
+//		}
 		
 		/*
 		 *	O usuario ao logar ja tem o seu carrinho atualizado com 
@@ -234,12 +259,12 @@ public class TelaMenu{
 		 * Criacao do Jlist com scroll no panel 
 		 */
 		
-		JlistProdutos = new JList(listaProdutos);
-				
-		JScrollPane scrollPane = new JScrollPane(JlistProdutos);
-		scrollPane.setBounds(40, 50, 500, 200);
+//		JlistProdutos = new JList(listaProdutos);
 		
-		panelHome.add(scrollPane);
+		srollProdutos = new JScrollPane(JlistProdutos);
+		srollProdutos.setBounds(40, 50, 500, 200);
+		
+		panelHome.add(srollProdutos);
 		
 		/*---------------Buttons---------------*/
 		buttonDetalhes.setBounds(40, 270, 140, 35);
@@ -746,6 +771,186 @@ public class TelaMenu{
 	}
 	
 	
+/*####################### PAINEL ADD PRODUTOS ############################*/
+	
+	public void divAddProdutos() {
+		
+		janela.add(panelAddProdutos);
+		panelAddProdutos.setVisible(true);
+		
+		panelAddProdutos.setLayout(null);
+		janela.setSize(600, 500);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloAddProdutos.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloAddProdutos.setBounds(25, 15, 250, 30);		
+		panelAddProdutos.add(tituloAddProdutos);
+		
+		
+		/*--------------------LABELS E TEXTFILELDS---------------------*/
+		
+			/***************PRODUTO********************/
+			JLabel descricao = new JLabel("Descricao :");
+			descricao.setFont(new Font("Arial", Font.BOLD, 15));
+			descricao.setBounds(25, 45, 120, 30);
+			panelAddProdutos.add(descricao);
+		
+			JTextField descricaoText = new JTextField(120);
+			descricaoText.setBounds(25, 75, 200, 30);
+			panelAddProdutos.add(descricaoText);
+			
+			JLabel marca = new JLabel("Marca :");
+			marca.setFont(new Font("Arial", Font.BOLD, 15));
+			marca.setBounds(25, 185, 120, 30);
+			panelAddProdutos.add(marca);
+		
+			JTextField marcaText = new JTextField(120);
+			marcaText.setBounds(25, 215, 200, 30);
+			panelAddProdutos.add(marcaText);
+			
+			JLabel preco = new JLabel("Preco :");
+			preco.setFont(new Font("Arial", Font.BOLD, 15));
+			preco.setBounds(255, 45, 120, 30);
+			panelAddProdutos.add(preco);
+		
+			JTextField precoText = new JTextField(120);
+//			precoText.setText(Integer.toString(usuario.getTelefone(idUser)) );
+			precoText.setBounds(255, 75, 200, 30);
+			panelAddProdutos.add(precoText);
+			
+			JLabel condicao = new JLabel("Condicao :");
+			condicao.setFont(new Font("Arial", Font.BOLD, 15));
+			condicao.setBounds(255, 115, 120, 30);
+			panelAddProdutos.add(condicao);
+		
+			JTextField condicaoText = new JTextField(120);
+			condicaoText.setBounds(255, 145, 200, 30);
+			panelAddProdutos.add(condicaoText);
+			
+			/***********************************/
+			
+			JLabel categoria = new JLabel("Categoria :");
+			categoria.setFont(new Font("Arial", Font.BOLD, 15));
+			categoria.setBounds(25, 115, 120, 30);
+			panelAddProdutos.add(categoria);
+			
+			String vetor[] = {"Roupa"};
+			
+			JComboBox combobox = new JComboBox(vetor);
+			combobox.setBounds(25, 145, 200, 30);
+			panelAddProdutos.add(combobox);
+			
+			JLabel estilo = new JLabel("Estilo :");
+			estilo.setFont(new Font("Arial", Font.BOLD, 15));
+			estilo.setBounds(25, 255, 120, 30);
+			panelAddProdutos.add(estilo);
+		
+			JTextField estiloText = new JTextField(120);
+			estiloText.setBounds(25, 285, 200, 30);
+			panelAddProdutos.add(estiloText);
+			
+			JLabel cor = new JLabel("Cor :");
+			cor.setFont(new Font("Arial", Font.BOLD, 15));
+			cor.setBounds(25, 325, 120, 30);
+			panelAddProdutos.add(cor);
+		
+			JTextField corText = new JTextField(120);
+			corText.setBounds(25, 355, 200, 30);
+			panelAddProdutos.add(corText);
+			
+			JLabel tecido = new JLabel("Tecido :");
+			tecido.setFont(new Font("Arial", Font.BOLD, 15));
+			tecido.setBounds(255, 185, 120, 30);
+			panelAddProdutos.add(tecido);
+		
+			JTextField tecidoText = new JTextField(120);
+			tecidoText.setBounds(255, 215, 200, 30);
+			panelAddProdutos.add(tecidoText);
+			
+			JLabel tamanho = new JLabel("Tamanho :");
+			tamanho.setFont(new Font("Arial", Font.BOLD, 15));
+			tamanho.setBounds(255, 255, 120, 30);
+			panelAddProdutos.add(tamanho);
+		
+			String tam[] = {"P", "M", "G"};
+			
+			JComboBox comboTam = new JComboBox(tam);
+			comboTam.setBounds(255, 285, 200, 30);
+			panelAddProdutos.add(comboTam);
+			
+//			JTextField tamanhoText = new JTextField(120);
+//			tamanhoText.setBounds(255, 285, 200, 30);
+//			panelAddProdutos.add(tamanhoText);
+			
+			/*--------------------BUTTONS---------------------*/
+		
+		  JButton AddRoupa = new JButton("Adicionar roupa");
+		  AddRoupa.setBounds(255, 345, 200, 35);
+		  panelAddProdutos.add(AddRoupa);
+		  
+		  AddRoupa.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){
+							
+					try {
+							boolean sucesso;
+						
+							int valor = Integer.parseInt(precoText.getText());
+							int itemCombo = combobox.getSelectedIndex();
+							int itemcomboTam = comboTam.getSelectedIndex();
+							
+							String category = null;
+							String tam = null;
+							
+							if(itemCombo == 0) {
+								category = "roupa";
+							}
+							
+							if(itemcomboTam != -1) {
+								if(itemcomboTam == 0) {
+									tam = "P";
+								}
+								if(itemcomboTam == 1) {
+									tam = "M";
+								}
+								if(itemcomboTam == 2) {
+									tam = "G";
+								}
+							}
+							
+							sucesso = usuario.cadastrarRoupa(idUser, descricaoText.getText(), marcaText.getText(), valor, condicaoText.getText(), category, estiloText.getText(), corText.getText(), tecidoText.getText(), tam);
+									
+								if(sucesso == true) {
+									JOptionPane.showMessageDialog(null, 
+									"Roupa adicionada com sucesso\n", null, 
+									JOptionPane.INFORMATION_MESSAGE);
+									
+									//obtem a qtd roupas atualizada
+									qtdRoupas = usuario.getQtdRoupas();
+									
+									//adiciona a nova roupa no JList do home
+									modelProdutos.addElement(usuario.getRoupaDescricao(qtdRoupas-1));
+									
+								}
+							
+					}catch(Exception ex){
+								JOptionPane.showMessageDialog(null, 
+								"Os campos nao foram preenchidos corretamente\n", null, 
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+					        	
+						}
+					  }
+				   );
+		  
+	}
+	
+	
 	/*====================Metodos SETVISIBLE(FALSE)=======================*/
 	
 	public void divHomeNotVisible(){
@@ -763,6 +968,11 @@ public class TelaMenu{
 	
 	public void panelPerfilNotVisible(){
 		panelPerfil.setVisible(false);
+		janela.setSize(600, 400);
+	}
+	
+	public void panelAddProdutosNotVisible(){
+		panelAddProdutos.setVisible(false);
 		janela.setSize(600, 400);
 	}
 	
@@ -788,10 +998,12 @@ public class TelaMenu{
 		
 		//isntancia os itens submenu
 		JMenuItem itemPerfil = new JMenuItem("Perfil");
+		JMenuItem itemAddProdutos = new JMenuItem("Adicionar produtos");
 		JMenuItem itemSair = new JMenuItem("Sair");
 		
 		//adiciona os itens submenu em cada componente do menu
 		perfil.add(itemPerfil);
+		perfil.add(itemAddProdutos);
 		perfil.add(itemSair);
 		
 		//acrescenta os componentes na barra de menu
@@ -810,14 +1022,25 @@ public class TelaMenu{
 		
 		itemPerfil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//            	JOptionPane.showMessageDialog(null, 
-//    			"Entrou\n", null, 
-//    			JOptionPane.INFORMATION_MESSAGE);
+
             	divHomeNotVisible();
             	panelFavoritoNotVisible();
             	panelCarrinhoNotVisible();
+            	panelAddProdutosNotVisible();
 
             	divPerfil();
+            }
+        });
+		
+		itemAddProdutos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            	divHomeNotVisible();
+            	panelFavoritoNotVisible();
+            	panelCarrinhoNotVisible();
+            	panelPerfilNotVisible();
+
+            	divAddProdutos();
             }
         });
 		
@@ -860,6 +1083,7 @@ public class TelaMenu{
 	        	divHomeNotVisible();
 	        	panelFavoritoNotVisible();
 	        	panelPerfilNotVisible();
+	        	panelAddProdutosNotVisible();
 	        	
 	        	//aloca o panel Carrinho
             	painelCarrinho();
@@ -871,6 +1095,7 @@ public class TelaMenu{
 	        	divHomeNotVisible();
 	        	panelCarrinhoNotVisible();
 	        	panelPerfilNotVisible();
+	        	panelAddProdutosNotVisible();
 	        	
 	        	//aloca o panel Favoritos
 	        	divFavorito();
@@ -882,6 +1107,7 @@ public class TelaMenu{
 	        	panelCarrinhoNotVisible();
 	        	panelFavoritoNotVisible();
 	        	panelPerfilNotVisible();
+	        	panelAddProdutosNotVisible();
 	        	
 	        	//instancia a visibilidade do panelHome
 	        	panelHome.setVisible(true);
