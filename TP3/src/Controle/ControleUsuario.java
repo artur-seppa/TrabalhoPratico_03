@@ -219,22 +219,28 @@ public class ControleUsuario {
 		return -1;
 	}
 	
-	public int DeletarUsuario(String nome, String senha) {
-		
-		//procura pelo mesmo nome e senha nos usuarios cadastrados
-		for(int i = 0; i <qtdPessoas; i++) {
-			if(nome.equals(pessoa[i].getNome()) ) {
-				if(senha.equals(pessoa[i].getSenha()) ) {
-					
-//					for(int i)
-					
-				}
-			}
-		}
-		
-		//caso nao encontre o nome e nem a senha retorna false
-		return -1;
-	}
+//	public void DeletarUsuario(String nome, String senha) {
+//		
+//		//procura pelo mesmo nome e senha nos usuarios cadastrados
+//		for(int i = 0; i <qtdPessoas; i++) {
+//			if(nome.equals(pessoa[i].getNome()) ) {
+//				if(senha.equals(pessoa[i].getSenha()) ) {
+//					
+//					for(int j=i; j<qtdPessoas; j++) {
+////						System.out.println(pessoa[j].getNome());
+//						pessoa[j] = pessoa[j+1];
+//						
+//						System.out.println("ANTES ===== "+ pessoa[j].getNome());
+//					}
+//					
+//					
+//				}
+//			}
+//		}
+//		
+//		qtdPessoas-- ;		
+//		
+//	}
 	
 	/*==========================PRODUTOS===============================*/
 	
@@ -263,6 +269,22 @@ public class ControleUsuario {
 	public String getRoupaDescricao(int i) {
 		return roupa[i].getDescricao();
 	}
+	
+	
+	public String getProdutoPessoa(int i, int r) {
+		return pessoa[i].getProduto(r).getDescricao();
+	}
+	
+	public int getQuantidadeProdutosPessoa(int i) {
+		return pessoa[i].quantidadeProdutos();
+	}
+	
+//	public boolean getRoupaUsuario(int i, int r) {
+//		if(roupa[i].getDescricao().equals(roupa[r].getDescricao())) {
+//			return false;
+//		}
+//			return true;
+//	}
 	
 	public boolean cadastrarRoupa(int idUser, String descricao , String marca, float preco, String condicao,
 			String categoria, String estilo, String cor, String tecido, String tamanho ) {
@@ -339,6 +361,17 @@ public class ControleUsuario {
 	public float getProdutoValor(int c, int i) {
 		return carrinho[c].getProduto(i).getPreco();
 	}
+	
+//	//ao finalizar a compra o boolean eh acionado
+//	boolean sucesso;
+//	
+//	public void setCompraFinalizada(boolean b) {
+//		sucesso = b;
+//	}
+//	
+//	public boolean getCompraFinalizada() {
+//		return sucesso;
+//	}
 	
 /*==========================LISTA DE FAVORITOS===============================*/
 	

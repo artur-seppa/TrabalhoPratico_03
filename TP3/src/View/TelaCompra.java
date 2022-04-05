@@ -51,6 +51,7 @@ public class TelaCompra{
 	private static DetalheProduto objCadastro = new DetalheProduto();
 	private static int idUser;
 	private static int qtdProdutos;
+	private static boolean sucesso;
 	
 	public void imprimirTelaCompra(/*ControleUsuario u, int id, int size*/){
 	    
@@ -128,9 +129,7 @@ public class TelaCompra{
 		            	}
 		            	
 		            }
-		        });
-
-		
+		        });	
 	}
 
 }

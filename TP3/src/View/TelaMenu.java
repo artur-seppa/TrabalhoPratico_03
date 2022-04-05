@@ -57,6 +57,9 @@ public class TelaMenu{
 	private static JPanel panelAddProdutos = new JPanel();
 	private static JLabel tituloAddProdutos = new JLabel("Adicionar produtos");
 	
+	private static JPanel panelEditarProdutos = new JPanel();
+	private static JLabel tituloEditarProdutos = new JLabel("Editar produtos");
+	
 	private static JPanel panelProduto = new JPanel();
 	private static JLabel tituloProduto = new JLabel("Inserir produto");
 	
@@ -80,6 +83,11 @@ public class TelaMenu{
 	private JList<String> JlistFavorito;
 	private DefaultListModel modelFavorito = new DefaultListModel();
 	private JScrollPane srollFavorito = new JScrollPane();
+	
+	private static String[] ListaEditarProdutos = new String[100];
+	private JList<String> JlistEditarProdutos;
+	private DefaultListModel modelEditarProdutos = new DefaultListModel();
+	private JScrollPane srollEditarProdutos = new JScrollPane();
 	
 	/*
 	 * Criacao dos Buttons associados ao JList
@@ -147,25 +155,6 @@ public class TelaMenu{
 //					JOptionPane.INFORMATION_MESSAGE);
 				}
 		
-//		try {
-//			
-//			int qtd = usuario.getQtdRoupas();
-//			listaProdutos = usuario.escreveProdutos();
-//			
-//			String[] user = usuario.escreveUsuarios();
-//			int qtdpessoa = usuario.getQtdPessoas();
-//			
-//			for(int i = 0; i<qtdpessoa; i++) {
-//				System.out.println(user[i]);
-//			}		
-//				
-//			
-//		}catch(Exception ex){
-////			JOptionPane.showMessageDialog(null, 
-////			"Erro: " + ex + "\n", null, 
-////			JOptionPane.INFORMATION_MESSAGE);
-//		}
-		
 		/*
 		 *	O usuario ao logar ja tem o seu carrinho atualizado com 
 		 *	pedidos anteriores 
@@ -226,6 +215,35 @@ public class TelaMenu{
 //			JOptionPane.INFORMATION_MESSAGE);
 		}
 		
+		/*
+		 *	O usuario ao logar ja tem o seu editar produtos atualizado com 
+		 *	produtos anteriores 
+		 */
+		
+		//Instancia o Jlist de Produtos cadastardos pelo usuario
+		modelEditarProdutos = new DefaultListModel();
+		JlistEditarProdutos = new JList<String>(modelEditarProdutos);
+		srollEditarProdutos = new JScrollPane(JlistEditarProdutos);
+		
+		try {
+			if(usuario.getQuantidadeProdutosPessoa(idUser) != 0) {
+				
+				int qtdP = usuario.getQuantidadeProdutosPessoa(idUser);
+				
+				System.out.println("qPRODUTOS DA PESSOA ==== "+ qtdP);
+				
+				for(int i=0; i<qtdP; i++) {
+					System.out.println("PRODUTOS DA PESSOA ===== "+ usuario.getProdutoPessoa(idUser, i));
+					modelEditarProdutos.addElement(usuario.getProdutoPessoa(idUser, i));
+				}
+				
+			}
+		}catch(Exception ex){
+//			JOptionPane.showMessageDialog(null, 
+//			"Erro: " + ex + "\n", null, 
+//			JOptionPane.INFORMATION_MESSAGE);
+		}
+		
 		/*-------------------INSTANCIA A JANELA------------------*/
 		
 		janela.setVisible(true);
@@ -258,8 +276,6 @@ public class TelaMenu{
 		/*
 		 * Criacao do Jlist com scroll no panel 
 		 */
-		
-//		JlistProdutos = new JList(listaProdutos);
 		
 		srollProdutos = new JScrollPane(JlistProdutos);
 		srollProdutos.setBounds(40, 50, 500, 200);
@@ -768,6 +784,32 @@ public class TelaMenu{
 					  }
 				   );
 		  
+//		  JButton ButtonDeletar = new JButton("Deletar user");
+//		  ButtonDeletar.setBounds(255, 385, 200, 35);
+//		  panelPerfil.add(ButtonDeletar);
+//		  
+//		  ButtonDeletar.addActionListener(
+//				  new ActionListener(){
+//						 public void actionPerformed(ActionEvent e){							 
+//							try {
+//							 usuario.DeletarUsuario(nomeText.getText(), senhaText.getText());
+//					        
+//							 String user[] = usuario.escreveUsuarios();
+//							 int qtd = usuario.getQtdPessoas();
+//							 
+//							 for(int i=0; i<qtd; i++) {
+//								 System.out.println("usuarios AGORA ===" + user[i]);
+//							 }
+//							}catch(Exception ex){
+////				    			JOptionPane.showMessageDialog(null, 
+////		    					"Erro: " + ex + "\n", null, 
+////		    					JOptionPane.INFORMATION_MESSAGE);
+//							}
+//						
+//						}
+//					  }
+//				   );
+		  
 	}
 	
 	
@@ -936,6 +978,15 @@ public class TelaMenu{
 									//adiciona a nova roupa no JList do home
 									modelProdutos.addElement(usuario.getRoupaDescricao(qtdRoupas-1));
 									
+									//passa o valor null para os inputs ao finalizar a operacao
+									descricaoText.setText(null);
+									marcaText.setText(null);
+									precoText.setText(null);
+									condicaoText.setText(null);
+									estiloText.setText(null);
+									corText.setText(null);
+									tecidoText.setText(null);
+									
 								}
 							
 					}catch(Exception ex){
@@ -949,6 +1000,57 @@ public class TelaMenu{
 				   );
 		  
 	}
+	
+	
+/*####################### PAINEL EDITAR PRODUTOS ############################*/
+	
+	public void divEditarProdutos() {
+		
+		janela.add(panelEditarProdutos);
+		panelEditarProdutos.setVisible(true);
+		
+		panelEditarProdutos.setLayout(null);
+		janela.setSize(600, 500);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloEditarProdutos.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloEditarProdutos.setBounds(25, 15, 250, 30);		
+		panelEditarProdutos.add(tituloEditarProdutos);
+		
+		/*----------------JList---------------*/
+		/*
+		 * Criacao do Jlist com scroll no panel 
+		 */
+		
+		srollEditarProdutos = new JScrollPane(JlistEditarProdutos);
+		srollEditarProdutos.setBounds(40, 50, 500, 200);
+		
+		panelEditarProdutos.add(srollEditarProdutos);
+		
+			
+			/*--------------------BUTTONS---------------------*/
+		
+		  JButton EditarRoupa = new JButton("Editar roupa");
+		  EditarRoupa.setBounds(255, 345, 200, 35);
+		  panelEditarProdutos.add(EditarRoupa);
+		  
+		  EditarRoupa.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){
+					
+					        	
+						}
+					  }
+				   );
+		  
+	}
+	
+	
 	
 	
 	/*====================Metodos SETVISIBLE(FALSE)=======================*/
@@ -976,6 +1078,11 @@ public class TelaMenu{
 		janela.setSize(600, 400);
 	}
 	
+	public void panelEditarProdutosNotVisible(){
+		panelEditarProdutos.setVisible(false);
+		janela.setSize(600, 400);
+	}
+	
 	/*=======================CONSTRUTOR DA TELA===========================*/
 	
 	/*
@@ -999,12 +1106,12 @@ public class TelaMenu{
 		//isntancia os itens submenu
 		JMenuItem itemPerfil = new JMenuItem("Perfil");
 		JMenuItem itemAddProdutos = new JMenuItem("Adicionar produtos");
-		JMenuItem itemSair = new JMenuItem("Sair");
+		JMenuItem itemEditarProdutos = new JMenuItem("Editar produtos");
 		
 		//adiciona os itens submenu em cada componente do menu
 		perfil.add(itemPerfil);
 		perfil.add(itemAddProdutos);
-		perfil.add(itemSair);
+		perfil.add(itemEditarProdutos);
 		
 		//acrescenta os componentes na barra de menu
 		barraMenu.add(home);
@@ -1027,6 +1134,7 @@ public class TelaMenu{
             	panelFavoritoNotVisible();
             	panelCarrinhoNotVisible();
             	panelAddProdutosNotVisible();
+            	panelEditarProdutosNotVisible();
 
             	divPerfil();
             }
@@ -1039,19 +1147,21 @@ public class TelaMenu{
             	panelFavoritoNotVisible();
             	panelCarrinhoNotVisible();
             	panelPerfilNotVisible();
+            	panelEditarProdutosNotVisible();
 
             	divAddProdutos();
             }
         });
 		
-		itemSair.addActionListener(new ActionListener() {
+		itemEditarProdutos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-//            	JOptionPane.showMessageDialog(null, 
-//    			"Entrou\n", null, 
-//    			JOptionPane.INFORMATION_MESSAGE);
-            	divHomeNotVisible();
             	
-            	painelCarrinho();
+            	divHomeNotVisible();
+            	panelFavoritoNotVisible();
+            	panelCarrinhoNotVisible();
+            	panelPerfilNotVisible();
+            	
+            	divEditarProdutos();
             }
         });
 		
@@ -1084,6 +1194,7 @@ public class TelaMenu{
 	        	panelFavoritoNotVisible();
 	        	panelPerfilNotVisible();
 	        	panelAddProdutosNotVisible();
+	        	panelEditarProdutosNotVisible();
 	        	
 	        	//aloca o panel Carrinho
             	painelCarrinho();
@@ -1096,6 +1207,7 @@ public class TelaMenu{
 	        	panelCarrinhoNotVisible();
 	        	panelPerfilNotVisible();
 	        	panelAddProdutosNotVisible();
+	        	panelEditarProdutosNotVisible();
 	        	
 	        	//aloca o panel Favoritos
 	        	divFavorito();
@@ -1108,6 +1220,7 @@ public class TelaMenu{
 	        	panelFavoritoNotVisible();
 	        	panelPerfilNotVisible();
 	        	panelAddProdutosNotVisible();
+	        	panelEditarProdutosNotVisible();
 	        	
 	        	//instancia a visibilidade do panelHome
 	        	panelHome.setVisible(true);
