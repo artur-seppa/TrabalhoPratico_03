@@ -1,5 +1,6 @@
 package View;
 import Controle.*;
+import Modelo.Pessoa;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -38,6 +39,8 @@ public class TelaPrincipal implements ActionListener{
 	
 	/*Banco de dados instanciado*/
 	private static ControleUsuario usuario = new ControleUsuario();
+//	private static ControleDados dados = new ControleDados();
+//	private static ControlePessoaTeste cpessoa = new ControlePessoaTeste(dados);
 	
 	private static JFrame janela = new JFrame("Menu");
 	private static JButton cadastroUsuario = new JButton("Cadastrar");
@@ -125,26 +128,33 @@ public class TelaPrincipal implements ActionListener{
 			//TEM QUE PASSAR O BD PARA NAO PERDER A CONFIGURACAO do construtor
 			//e usuarios ja fabricados
 			new CadastroUsuario().imprimirTelaCadastro(usuario);
+//			new CadastroUsuario().imprimirTelaCadastro(dados);
 		}
 		
 		if(src == loginButton) {
-			boolean sucesso;
+			int sucesso;
 			
 			try {
 				String password = String.valueOf(passwordText.getPassword());
 				sucesso = usuario.logarUsuario(userText.getText(), /*sexo,*/ password/*, email, cpf, ddd, telefone, estado, cidade, endereco*/);
-				if(sucesso == true) {
-//					JOptionPane.showMessageDialog(null, 
-//					"usuario: "+ userText.getText() +"\n" +
-//					"usuario: "+ password +"\n", null, 
-//					JOptionPane.INFORMATION_MESSAGE);
+
+				if(sucesso != -1) {
 					
 					//fecha a janela quando logar o usuario
 					janela.setVisible(false);
 					
 					//TEM QUE PASSAR O BD PARA NAO PERDER A CONFIGURACAO do construtor
 					//e usuarios ja fabricados
-					new TelaMenu().imprimirTelaMenu(usuario);
+					new TelaMenu().imprimirTelaMenu(usuario, sucesso);
+					
+//					String teste;
+//					Pessoa pessoa[] = new Pessoa[100]; 
+//					pessoa = usuario.retornaStringPessoa();
+//					int qtd = usuario.getQtdPessoas();
+//					
+//					for(int i = 0; i<qtd; i++) {
+//						System.out.println(pessoa[i].getNome());
+//					}
 					
 					
 				}else{
