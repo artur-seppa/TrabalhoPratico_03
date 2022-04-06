@@ -904,10 +904,9 @@ public class TelaMenu{
 			categoria.setBounds(25, 115, 120, 30);
 			panelAddProdutos.add(categoria);
 			
-			String vetor[] = {"Roupa"};
-			String vetorS[] = {"Sapato"};
+			String vetor[] = {"Roupa", "Sapato"};
 			
-			
+		
 			JComboBox combobox = new JComboBox(vetor);
 			combobox.setBounds(25, 145, 200, 30);
 			panelAddProdutos.add(combobox);
@@ -944,7 +943,7 @@ public class TelaMenu{
 			tamanho.setBounds(255, 255, 120, 30);
 			panelAddProdutos.add(tamanho);
 		
-			String tam[] = {"P", "M", "G"};
+			String tam[] = {"P", "M", "G","35", "36", "37","38", "39", "40","41","42","43","44","45","46","47","48","49","50","51","52"};
 			
 			JComboBox comboTam = new JComboBox(tam);
 			comboTam.setBounds(255, 285, 200, 30);
@@ -1359,16 +1358,13 @@ public class TelaMenu{
 		tamanho.setBounds(255, 255, 120, 30);
 		panelEditarProdutos.add(tamanho);
 	
-		String tam[] = {"P", "M", "G"};
-		String tam1[] = {"35", "36", "37","38", "39", "40","41","42","43","44","45","46","47","48","49","50","51","52"};
+		String tam[] = {"P", "M", "G","35", "36", "37","38", "39", "40","41","42","43","44","45","46","47","48","49","50","51","52"};
+		
 		
 		JComboBox comboTam = new JComboBox(tam);
 		comboTam.setBounds(255, 285, 200, 30);
 		panelEditarProdutos.add(comboTam);
 		
-		JComboBox comboTam1 = new JComboBox(tam1);
-		comboTam1.setBounds(255, 285, 200, 30);
-		panelEditarProdutos.add(comboTam1);
 		
 			
 		/*--------------------BUTTONS---------------------*/
