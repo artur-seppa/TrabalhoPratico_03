@@ -60,6 +60,9 @@ public class TelaMenu{
 	private static JPanel panelEditarProdutos = new JPanel();
 	private static JLabel tituloEditarProdutos = new JLabel("Editar produtos");
 	
+	private static JPanel panelEditarExcluirProdutos = new JPanel();
+	private static JLabel tituloEditarExcluirProdutos = new JLabel("Seus produtos");
+	
 	private static JPanel panelProduto = new JPanel();
 	private static JLabel tituloProduto = new JLabel("Inserir produto");
 	
@@ -109,6 +112,7 @@ public class TelaMenu{
 	private static int qtdRoupas = 0;
 	private static int qtdProdutos = 0;
 	private static int qtdProdutosFavoritos = 0;
+	private static int indiceRoupa = 0;
 	
 	/*
 	 * JMenu permite instanciar os arquivos clicaveis da
@@ -233,8 +237,8 @@ public class TelaMenu{
 				System.out.println("qPRODUTOS DA PESSOA ==== "+ qtdP);
 				
 				for(int i=0; i<qtdP; i++) {
-					System.out.println("PRODUTOS DA PESSOA ===== "+ usuario.getProdutoPessoa(idUser, i));
-					modelEditarProdutos.addElement(usuario.getProdutoPessoa(idUser, i));
+					System.out.println("PRODUTOS DA PESSOA ===== "+ usuario.getProdutoDescricaoPessoa(idUser, i));
+					modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, i));
 				}
 				
 			}
@@ -446,7 +450,8 @@ public class TelaMenu{
 			        	
 //			        	model.getElementAt(size);
 			        	
-
+			        try {
+			        	
 			        	if(size != 0) {
 			        	
 				        	for(int i=0; i<size; i++) {
@@ -468,6 +473,16 @@ public class TelaMenu{
 				      			        	
 				        	new TelaCompra().imprimirTelaCompra();
 				        	
+				        	/*
+				        	 *	Remove todos os produtos do carrinho apos efetuar a compra
+				        	 */
+				        	model.removeAllElements();
+				        	
+				        	//todos os produtos sao removidos do obj carrinho
+				         	usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
+				         	
+				        	qtdProdutos--;	        
+				        	
 			        	}else {
 			        		
 			        		JOptionPane.showMessageDialog(null, 
@@ -475,6 +490,12 @@ public class TelaMenu{
 					    	JOptionPane.INFORMATION_MESSAGE);
 			        		
 			        	}
+			        }catch(Exception ex){
+//			    			JOptionPane.showMessageDialog(null, 
+//			    					"Erro: " + ex + "\n", null, 
+//			    					JOptionPane.INFORMATION_MESSAGE);
+			    	}
+			        	
 			        	
 			        }
 			      }
@@ -768,12 +789,13 @@ public class TelaMenu{
 							int telefone = Integer.parseInt(telefoneText.getText());
 							int cep = Integer.parseInt(cepText.getText());
 							
-							sucesso = usuario.cadastrarUsuario(nomeText.getText(), /*sexo,*/ senhaText.getText(), ddd, telefone, estadoText.getText(), cidadeText.getText(), bairroText.getText(), enderecoText.getText(), cep);
+							sucesso = usuario.editarUsuario(idUser, nomeText.getText(), senhaText.getText(), ddd, telefone, estadoText.getText(), cidadeText.getText(), bairroText.getText(), enderecoText.getText(), cep);
 									
 								if(sucesso == true) {
 									JOptionPane.showMessageDialog(null, 
 									"Informacoes editadas com sucesso\n", null, 
 									JOptionPane.INFORMATION_MESSAGE);
+									
 								}else{
 									JOptionPane.showMessageDialog(null, 
 											"Os campos nao foram preenchidos corretamente\n", null, 
@@ -978,6 +1000,13 @@ public class TelaMenu{
 									//adiciona a nova roupa no JList do home
 									modelProdutos.addElement(usuario.getRoupaDescricao(qtdRoupas-1));
 									
+									//adiciona a nova roupa no JList de ROUPA DE USUARIO
+									int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
+									
+									System.out.println("quantodadeeee = "+ qtd);
+									
+									modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, qtd-1));
+									
 									//passa o valor null para os inputs ao finalizar a operacao
 									descricaoText.setText(null);
 									marcaText.setText(null);
@@ -1002,6 +1031,80 @@ public class TelaMenu{
 	}
 	
 	
+/*####################### PAINEL EDITAR/EXCLUIR PRODUTOS ############################*/
+	
+	public void divEditarExcluirProdutos() {
+		
+		janela.add(panelEditarExcluirProdutos);
+		panelEditarExcluirProdutos.setVisible(true);
+		
+		panelEditarExcluirProdutos.setLayout(null);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloEditarExcluirProdutos.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloEditarExcluirProdutos.setBounds(40, 10, 140, 30);		
+		panelEditarExcluirProdutos.add(tituloEditarExcluirProdutos);
+		
+		/*----------------JList---------------*/
+		/*
+		 * Criacao do Jlist com scroll no panel 
+		 */
+		
+		srollEditarProdutos = new JScrollPane(JlistEditarProdutos);
+		srollEditarProdutos.setBounds(40, 50, 500, 200);
+		
+		panelEditarExcluirProdutos.add(srollEditarProdutos);
+			
+		/*--------------------BUTTONS---------------------*/
+		
+		  JButton EditarRoupa = new JButton("Editar roupa");
+		  EditarRoupa.setBounds(155, 280, 180, 35);
+		  panelEditarExcluirProdutos.add(EditarRoupa);
+		  
+		  EditarRoupa.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){
+							
+							// Um botão que permite obter o índice do item selecionado
+					        indiceRoupa = JlistEditarProdutos.getSelectedIndex(); 
+							 
+							divHomeNotVisible();
+				            panelFavoritoNotVisible();
+				            panelCarrinhoNotVisible();
+				            panelAddProdutosNotVisible();
+				            panelPerfilNotVisible();
+				            panelEditarExcluirProdutosNotVisible();
+				            	
+				            
+				            divEditarProdutos();
+					        
+					        										        									
+							
+						}
+					  }
+				   );
+		  
+//		  JButton ExcluirRoupa = new JButton("Excluir roupa");
+//		  ExcluirRoupa.setBounds(240, 300, 180, 35);
+//		  panelEditarExcluirProdutos.add(ExcluirRoupa);
+//		  
+//		  ExcluirRoupa.addActionListener(
+//				  new ActionListener(){
+//						 public void actionPerformed(ActionEvent e){
+//					
+//					        	
+//						}
+//					  }
+//				   );
+		  
+	}
+	
+	
 /*####################### PAINEL EDITAR PRODUTOS ############################*/
 	
 	public void divEditarProdutos() {
@@ -1022,34 +1125,200 @@ public class TelaMenu{
 		tituloEditarProdutos.setBounds(25, 15, 250, 30);		
 		panelEditarProdutos.add(tituloEditarProdutos);
 		
-		/*----------------JList---------------*/
-		/*
-		 * Criacao do Jlist com scroll no panel 
-		 */
+		/*--------------------LABELS E TEXTFILELDS---------------------*/		
 		
-		srollEditarProdutos = new JScrollPane(JlistEditarProdutos);
-		srollEditarProdutos.setBounds(40, 50, 500, 200);
+		/****************PRODUTO*******************/
+		JLabel descricao = new JLabel("Descricao :");
+		descricao.setFont(new Font("Arial", Font.BOLD, 15));
+		descricao.setBounds(25, 45, 120, 30);
+		panelEditarProdutos.add(descricao);
+	
+		JTextField descricaoText = new JTextField(120);
+		descricaoText.setText(usuario.getProdutoDescricaoPessoa(idUser, indiceRoupa));
+		descricaoText.setBounds(25, 75, 200, 30);
+		panelEditarProdutos.add(descricaoText);
 		
-		panelEditarProdutos.add(srollEditarProdutos);
+		JLabel marca = new JLabel("Marca :");
+		marca.setFont(new Font("Arial", Font.BOLD, 15));
+		marca.setBounds(25, 185, 120, 30);
+		panelEditarProdutos.add(marca);
+	
+		JTextField marcaText = new JTextField(120);
+		marcaText.setText(usuario.getProdutoMarcaPessoa(idUser, indiceRoupa));
+		marcaText.setBounds(25, 215, 200, 30);
+		panelEditarProdutos.add(marcaText);
+		
+		JLabel preco = new JLabel("Preco :");
+		preco.setFont(new Font("Arial", Font.BOLD, 15));
+		preco.setBounds(255, 45, 120, 30);
+		panelEditarProdutos.add(preco);
+	
+		JTextField precoText = new JTextField(120);
+		precoText.setText(Float.toString(usuario.getProdutoPrecoPessoa(idUser, indiceRoupa)) );
+		precoText.setBounds(255, 75, 200, 30);
+		panelEditarProdutos.add(precoText);
+		
+		JLabel condicao = new JLabel("Condicao :");
+		condicao.setFont(new Font("Arial", Font.BOLD, 15));
+		condicao.setBounds(255, 115, 120, 30);
+		panelEditarProdutos.add(condicao);
+	
+		JTextField condicaoText = new JTextField(120);
+		condicaoText.setText(usuario.getProdutoCondicaoPessoa(idUser, indiceRoupa));
+		condicaoText.setBounds(255, 145, 200, 30);
+		panelEditarProdutos.add(condicaoText);
+		
+		/***********************************/
+		
+		Roupa roupa = (Roupa) usuario.getProdutoPessoa(idUser, indiceRoupa);
+		String desc = roupa.getDescricao();
+		
+		System.out.println("cor==== " + roupa.getCor());
+		
+		JLabel categoria = new JLabel("Categoria :");
+		categoria.setFont(new Font("Arial", Font.BOLD, 15));
+		categoria.setBounds(25, 115, 120, 30);
+		panelEditarProdutos.add(categoria);
+		
+		String vetor[] = {"Roupa"};
+		
+		JComboBox combobox = new JComboBox(vetor);
+		combobox.setBounds(25, 145, 200, 30);
+		panelEditarProdutos.add(combobox);
+		
+		JLabel estilo = new JLabel("Estilo :");
+		estilo.setFont(new Font("Arial", Font.BOLD, 15));
+		estilo.setBounds(25, 255, 120, 30);
+		panelEditarProdutos.add(estilo);
+	
+		JTextField estiloText = new JTextField(120);
+		estiloText.setText(roupa.getEstilo());
+		estiloText.setBounds(25, 285, 200, 30);
+		panelEditarProdutos.add(estiloText);
+		
+		JLabel cor = new JLabel("Cor :");
+		cor.setFont(new Font("Arial", Font.BOLD, 15));
+		cor.setBounds(25, 325, 120, 30);
+		panelEditarProdutos.add(cor);
+	
+		JTextField corText = new JTextField(120);
+		corText.setText(roupa.getCor());
+		corText.setBounds(25, 355, 200, 30);
+		panelEditarProdutos.add(corText);
+		
+		JLabel tecido = new JLabel("Tecido :");
+		tecido.setFont(new Font("Arial", Font.BOLD, 15));
+		tecido.setBounds(255, 185, 120, 30);
+		panelEditarProdutos.add(tecido);
+	
+		JTextField tecidoText = new JTextField(120);
+		tecidoText.setText(roupa.getTecido());
+		tecidoText.setBounds(255, 215, 200, 30);
+		panelEditarProdutos.add(tecidoText);
+		
+		JLabel tamanho = new JLabel("Tamanho :");
+		tamanho.setFont(new Font("Arial", Font.BOLD, 15));
+		tamanho.setBounds(255, 255, 120, 30);
+		panelEditarProdutos.add(tamanho);
+	
+		String tam[] = {"P", "M", "G"};
+		
+		JComboBox comboTam = new JComboBox(tam);
+		comboTam.setBounds(255, 285, 200, 30);
+		panelEditarProdutos.add(comboTam);
 		
 			
-			/*--------------------BUTTONS---------------------*/
+		/*--------------------BUTTONS---------------------*/
 		
-		  JButton EditarRoupa = new JButton("Editar roupa");
-		  EditarRoupa.setBounds(255, 345, 200, 35);
-		  panelEditarProdutos.add(EditarRoupa);
+		  JButton SalvarRoupa = new JButton("Salvar roupa");
+		  SalvarRoupa.setBounds(255, 345, 200, 35);
+		  panelEditarProdutos.add(SalvarRoupa);
 		  
-		  EditarRoupa.addActionListener(
+		  SalvarRoupa.addActionListener(
 				  new ActionListener(){
 						 public void actionPerformed(ActionEvent e){
-					
+							 
+							 try {
+									boolean sucesso;
+								
+									float valor = Float.parseFloat(precoText.getText());
+									int itemCombo = combobox.getSelectedIndex();
+									int itemcomboTam = comboTam.getSelectedIndex();
+									
+									String category = null;
+									String tam = null;
+									
+									if(itemCombo == 0) {
+										category = "roupa";
+									}
+									
+									if(itemcomboTam != -1) {
+										if(itemcomboTam == 0) {
+											tam = "P";
+										}
+										if(itemcomboTam == 1) {
+											tam = "M";
+										}
+										if(itemcomboTam == 2) {
+											tam = "G";
+										}
+									}
+									
+									//obtem a qtd roupas atualizada
+									qtdRoupas = usuario.getQtdRoupas();;
+									System.out.println("size === "+ qtdRoupas);
+									int indice;
+									
+									for(indice = 0; indice < qtdRoupas; indice++) {
+										
+										System.out.println("elemento no home === "+ usuario.getRoupaDescricao(indice) );
+																				
+										if(desc.equals(usuario.getRoupaDescricao(indice)) )
+										{
+											break;
+										}
+									}
+									
+									System.out.println("indiceeeeeeee " + indice);
+									
+									sucesso = usuario.editarRoupa(indice, descricaoText.getText(), marcaText.getText(), valor, condicaoText.getText(), category, estiloText.getText(), corText.getText(), tecidoText.getText(), tam);
+											
+										if(sucesso == true) {
+											JOptionPane.showMessageDialog(null, 
+											"Roupa editada com sucesso\n", null, 
+											JOptionPane.INFORMATION_MESSAGE);							
+											
+											
+											modelEditarProdutos.setElementAt(usuario.getProdutoDescricaoPessoa(idUser, indiceRoupa), 0);
+											for(int i=0; i<=indiceRoupa; i++) {
+												System.out.println( "teste de bug == " +usuario.getProdutoDescricaoPessoa(idUser, i) );
+											}
+											
+											//Atualiza o painel home da mudanca de roupa
+											modelProdutos.setElementAt(usuario.getProdutoDescricaoPessoa(idUser, indiceRoupa), indice);
+											
+											//passa o valor null para os inputs ao finalizar a operacao
+											descricaoText.setText(null);
+											marcaText.setText(null);
+											precoText.setText(null);
+											condicaoText.setText(null);
+											estiloText.setText(null);
+											corText.setText(null);
+											tecidoText.setText(null);
+											
+										}
+									
+							}catch(Exception ex){
+										JOptionPane.showMessageDialog(null, 
+										"Os campos nao foram preenchidos corretamente\n", null, 
+										JOptionPane.INFORMATION_MESSAGE);
+							}
 					        	
 						}
 					  }
 				   );
 		  
 	}
-	
 	
 	
 	
@@ -1076,6 +1345,10 @@ public class TelaMenu{
 	public void panelAddProdutosNotVisible(){
 		panelAddProdutos.setVisible(false);
 		janela.setSize(600, 400);
+	}
+	
+	public void panelEditarExcluirProdutosNotVisible(){
+		panelEditarExcluirProdutos.setVisible(false);
 	}
 	
 	public void panelEditarProdutosNotVisible(){
@@ -1134,6 +1407,7 @@ public class TelaMenu{
             	panelFavoritoNotVisible();
             	panelCarrinhoNotVisible();
             	panelAddProdutosNotVisible();
+            	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
 
             	divPerfil();
@@ -1147,6 +1421,7 @@ public class TelaMenu{
             	panelFavoritoNotVisible();
             	panelCarrinhoNotVisible();
             	panelPerfilNotVisible();
+            	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
 
             	divAddProdutos();
@@ -1159,9 +1434,12 @@ public class TelaMenu{
             	divHomeNotVisible();
             	panelFavoritoNotVisible();
             	panelCarrinhoNotVisible();
+            	panelAddProdutosNotVisible();
             	panelPerfilNotVisible();
+            	panelEditarProdutosNotVisible();
             	
-            	divEditarProdutos();
+            	
+            	divEditarExcluirProdutos();
             }
         });
 		
@@ -1194,7 +1472,8 @@ public class TelaMenu{
 	        	panelFavoritoNotVisible();
 	        	panelPerfilNotVisible();
 	        	panelAddProdutosNotVisible();
-	        	panelEditarProdutosNotVisible();
+	        	panelEditarExcluirProdutosNotVisible();
+            	panelEditarProdutosNotVisible();
 	        	
 	        	//aloca o panel Carrinho
             	painelCarrinho();
@@ -1207,7 +1486,8 @@ public class TelaMenu{
 	        	panelCarrinhoNotVisible();
 	        	panelPerfilNotVisible();
 	        	panelAddProdutosNotVisible();
-	        	panelEditarProdutosNotVisible();
+	        	panelEditarExcluirProdutosNotVisible();
+            	panelEditarProdutosNotVisible();
 	        	
 	        	//aloca o panel Favoritos
 	        	divFavorito();
@@ -1220,7 +1500,8 @@ public class TelaMenu{
 	        	panelFavoritoNotVisible();
 	        	panelPerfilNotVisible();
 	        	panelAddProdutosNotVisible();
-	        	panelEditarProdutosNotVisible();
+	        	panelEditarExcluirProdutosNotVisible();
+            	panelEditarProdutosNotVisible();
 	        	
 	        	//instancia a visibilidade do panelHome
 	        	panelHome.setVisible(true);
