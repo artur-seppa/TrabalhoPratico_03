@@ -1002,7 +1002,7 @@ public class TelaMenu{
 									//adiciona a nova roupa no JList de ROUPA DE USUARIO
 									int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
 									
-									System.out.println("quantodadeeee = "+ qtd);
+									System.out.println("quantidadeeee = "+ qtd);
 									
 									modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, qtd-1));
 									
@@ -1027,8 +1027,128 @@ public class TelaMenu{
 					  }
 				   );
 		  
-	}
-	
+			JButton AddSapato = new JButton("Adicionar sapato");
+			  AddSapato.setBounds(255, 345, 200, 35);
+			  panelAddProdutos.add(AddSapato);
+			  
+			  AddSapato.addActionListener(
+					  new ActionListener(){
+							 public void actionPerformed(ActionEvent e){
+								
+						try {
+								boolean sucesso;
+							
+								float valor = Float.parseFloat(precoText.getText());
+								int itemCombo = combobox.getSelectedIndex();
+								int itemcomboTam = comboTam.getSelectedIndex();
+								
+								String category = null;
+								String tam = null;
+								int qtdSapatos = 0;
+								
+								if(itemCombo == 2) {
+									category = "sapato";
+								}
+								if(itemcomboTam != 34) {
+									if(itemcomboTam == 35) {
+										tam = "35";
+									}
+									if(itemcomboTam == 36) {
+										tam = "36";
+									}
+									if(itemcomboTam == 37) {
+										tam = "37";
+									}
+									if(itemcomboTam == 38) {
+										tam = "38";
+									}
+									if(itemcomboTam == 39) {
+										tam = "39";
+									}
+									if(itemcomboTam == 40) {
+										tam = "40";
+									}
+									if(itemcomboTam == 41) {
+										tam = "41";
+									}
+									if(itemcomboTam == 42) {
+										tam = "42";
+									}
+									if(itemcomboTam == 43) {
+										tam = "43";
+									}
+									if(itemcomboTam == 44) {
+										tam = "44";
+									}
+									if(itemcomboTam == 45) {
+										tam = "45";
+									}
+									if(itemcomboTam == 46) {
+										tam = "46";
+									}
+									if(itemcomboTam == 47) {
+										tam = "47";
+									}
+									if(itemcomboTam == 48) {
+										tam = "48";
+									}
+									if(itemcomboTam == 49) {
+										tam = "49";
+									}
+									if(itemcomboTam == 50) {
+										tam = "50";
+									}
+									if(itemcomboTam == 51) {
+										tam = "51";
+									}
+									if(itemcomboTam == 52) {
+										tam = "52";
+								}
+									
+								
+								sucesso = usuario.cadastrarSapato(idUser, descricaoText.getText(), marcaText.getText(), valor, condicaoText.getText(), category, estiloText.getText(), corText.getText(), tam, tam);
+										
+									if(sucesso == true) {
+										JOptionPane.showMessageDialog(null, 
+										"Sapato adicionada com sucesso\n", null, 
+										JOptionPane.INFORMATION_MESSAGE);
+										
+										//obtem a qtd Sapatos atualizada
+										Object qtdSapatos1 = usuario.getQtdSapatos();
+										
+										//adiciona a novo sapato no JList do home
+										modelProdutos.addElement(usuario.getSapatoDescricao(qtdSapatos + 1));
+										
+										//adiciona a nova sapato no JList de SAPATO DE USUARIO
+										int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
+										
+										System.out.println("quantodadeeee = "+ qtd);
+										
+										modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, qtd-1));
+										
+										//passa o valor null para os inputs ao finalizar a operacao
+										descricaoText.setText(null);
+										marcaText.setText(null);
+										precoText.setText(null);
+										condicaoText.setText(null);
+										estiloText.setText(null);
+										corText.setText(null);
+										tecidoText.setText(null);
+									}
+								}
+									
+										}catch(Exception ex){
+										JOptionPane.showMessageDialog(null, 
+										"Os campos nao foram preenchidos corretamente\n", null, 
+										JOptionPane.INFORMATION_MESSAGE);
+										}
+										
+						  }
+						        	
+						  }
+					   );
+	  
+}
 	
 /*####################### PAINEL EDITAR/EXCLUIR PRODUTOS ############################*/
 	

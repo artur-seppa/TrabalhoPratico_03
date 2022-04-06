@@ -11,6 +11,7 @@ public class ControleUsuario {
 	//Produtos
 	private Produto produto[] = new Produto[100]; 
 	private Roupa roupa[] = new Roupa[100]; 
+	private Sapato sapato[] = new Sapato[100]; 
 	
 	//Carrinho e Favoritos
 	private CarrinhoDeCompra carrinho[] = new CarrinhoDeCompra[100];
@@ -18,11 +19,12 @@ public class ControleUsuario {
 	
 	//quantidade inicial
 	private int qtdPessoas = 0;
+	private int qtdSapatos = 0;
 	private int qtdRoupas = 0;
 	private int qtdID = 0;
 	
 	/*
-	 * Contrutor de usuarios, 
+	 * Construtor de usuarios, 
 	 * sendo iniciado com a criacao de 3 user
 	 */
 	public ControleUsuario() {
@@ -53,11 +55,22 @@ public class ControleUsuario {
 			roupa[i].setGenero("masculino");
 			roupa[i].setPreco(i+1.99f);
 			
+			sapato[i] = new Sapato();
+			sapato[i].setCategoria("sapato");
+			sapato[i].setDescricao("sapatilha"+i);
+			sapato[i].setCor("vermelha");
+			sapato[i].setEstilo("formal");
+			sapato[i].setTamanho("36");
+			sapato[i].setGenero("feminino");
+			sapato[i].setPreco(i+1.99f);
+			
 			//ASSOCIA O NOME DA PESSOA AO PRODUTO
 			roupa[i].setPessoa(pessoa[i]);
+			sapato[i].setPessoa(pessoa[i]);
 			
 			//ASSOCIA O PRODUTO A PESSOA
 			pessoa[i].adicionarProduto(roupa[i]);
+			pessoa[i].adicionarProduto(sapato[i]);
 			
 			//ASSOCIA O NOME DA PESSOA AO TELEFONE
 			tel[i].setPessoa(pessoa[i]);
@@ -68,13 +81,16 @@ public class ControleUsuario {
 			//ASSOCIA O PRODUTO AO CARRINHO E A LISTA DE FAVORITOS
 			carrinho[i] = new CarrinhoDeCompra();
 			carrinho[i].adicionarProduto(roupa[i]);
+			carrinho[i].adicionarProduto(sapato[i]);
 			
 			favorito[i] = new RoupaFavorita();
 			favorito[i].adicionarProduto(roupa[i]);
+			favorito[i].adicionarProduto(sapato[i]);
 		}
 		
 		qtdPessoas = 3;
 		qtdRoupas = 3;
+		qtdSapatos = 3;
 		qtdID = 3;
 	}
 	
@@ -274,6 +290,16 @@ public class ControleUsuario {
 	}
 	
 	/*==========================PRODUTOS===============================*/
+	public String[] escreveProdutosSapatos() {
+		
+		String[] totalS = new String[qtdSapatos];
+		
+		for(int i = 0; i < qtdSapatos; i++) {
+			totalS[i] = sapato[i].getDescricao();
+		}
+		
+		return totalS;
+	}
 	
 	public String[] escreveProdutos() {
 		
@@ -286,6 +312,11 @@ public class ControleUsuario {
 		return totalR;
 	}
 	
+	public int getQtdSapato() {
+		return qtdSapatos;
+	}
+	
+	
 	public int getQtdRoupas() {
 		return qtdRoupas;
 	}
@@ -295,6 +326,9 @@ public class ControleUsuario {
 	 */
 	public Roupa getRoupa(int i) {
 		return roupa[i];
+	}
+	public Sapato getSapatos(int i) {
+		return sapato[i];
 	}
 	
 	/***********PRODUTO***********/
@@ -315,6 +349,23 @@ public class ControleUsuario {
 		return roupa[i].getDescricao();
 	}
 	
+	
+	
+	public String getSapatoMarca(int i) {
+		return roupa[i].getMarca();
+	}
+	
+	public float getSapatoPreco(int i) {
+		return roupa[i].getPreco();
+	}
+	
+	public String getSapaoCondicao(int i) {
+		return roupa[i].getCondicao();
+	}
+	
+	public String getSapatoDescricao(int i) {
+		return roupa[i].getDescricao();
+	}
 	
 	/***********ROUPA***********/
 	
@@ -338,9 +389,6 @@ public class ControleUsuario {
 		return roupa[i].getTamanho();
 	}
 	
-	
-	
-	
 	public String getProdutoMarcaPessoa(int i, int r) {
 		return pessoa[i].getProduto(r).getMarca();
 	}
@@ -357,7 +405,40 @@ public class ControleUsuario {
 		return pessoa[i].getProduto(r).getDescricao();
 	}
 	
-	/***********ROUPA***********/
+	
+	/***********SAPATO***********/
+	
+	public String getSapatoCategoria(int i) {
+		return sapato[i].getCategoria();
+	}
+	
+	public String getSapatoEstilo(int i) {
+		return sapato[i].getEstilo();
+	}
+	
+	public String getSapatoCor(int i) {
+		return sapato[i].getCor();
+	}
+	
+	public String getSapatoTamanho(int i) {
+		return roupa[i].getTamanho();
+	}
+	
+	public String getProdutoSapatoMarcaPessoa(int i, int r) {
+		return pessoa[i].getProduto(r).getMarca();
+	}
+	
+	public float getProdutoSapatoPrecoPessoa(int i, int r) {
+		return pessoa[i].getProduto(r).getPreco();
+	}
+	
+	public String getProdutoSapatoCondicaoPessoa(int i, int r) {
+		return pessoa[i].getProduto(r).getCondicao();
+	}
+	
+	public String getProdutoSapatoDescricaoPessoa(int i, int r) {
+		return pessoa[i].getProduto(r).getDescricao();
+	}
 	
 	
 	public Produto getProdutoPessoa(int i, int r) {
@@ -368,6 +449,7 @@ public class ControleUsuario {
 		return pessoa[i].quantidadeProdutos();
 	}
 	
+	/***********CADASTRAR ROUPAS***********/
 	public boolean cadastrarRoupa(int idUser, String descricao , String marca, float preco, String condicao,
 			String categoria, String estilo, String cor, String tecido, String tamanho ) {
 		
@@ -421,6 +503,67 @@ public class ControleUsuario {
 			roupa[indice].setCor(cor);
 			roupa[indice].setTecido(tecido);
 			roupa[indice].setTamanho(tamanho);
+			
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+	
+	/***********CADASTRAR SAPATOS***********/
+	public boolean cadastrarSapato(int idUser, String descricao , String marca, float preco, String condicao,
+			String categoria, String estilo, String cor, String tamanho ) {
+		
+		if(descricao != null && descricao.length()>0 && marca!= null && marca.length()>0 && preco>0 && condicao != null && condicao.length()>0
+		  && categoria != null && categoria.length()>0 && estilo != null && estilo.length()>0 && cor != null && cor.length()>0 &&
+		   tamanho != null && tamanho.length()>0) {
+			
+			sapato[qtdSapatos] = new Sapato();
+			sapato[qtdSapatos].setDescricao(descricao);
+			sapato[qtdSapatos].setMarca(marca);
+			sapato[qtdSapatos].setPreco(preco);
+			sapato[qtdSapatos].setCondicao(condicao);
+			
+			sapato[qtdSapatos].setCategoria(categoria);
+			sapato[qtdSapatos].setEstilo(estilo);
+			sapato[qtdSapatos].setCor(cor);
+			sapato[qtdSapatos].setTamanho(tamanho);
+			
+			
+			//ASSOCIA O NOME DA PESSOA AO PRODUTO
+			sapato[qtdSapatos].setPessoa(pessoa[idUser]);
+			
+			//ASSOCIA O PRODUTO A PESSOA
+			pessoa[idUser].adicionarProduto(sapato[qtdSapatos]);
+			
+			//incrementa o numero de SAPATOS totais
+			qtdSapatos++;
+			
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
+	public boolean editarSapato(int indice, String descricao , String marca, float preco, String condicao,
+			String categoria, String estilo, String cor, String tamanho ) {
+		
+		if(descricao != null && descricao.length()>0 && marca!= null && marca.length()>0 && preco>0 && condicao != null && condicao.length()>0
+		  && categoria != null && categoria.length()>0 && estilo != null && estilo.length()>0 && cor != null && cor.length()>0 &&
+		   tamanho != null && tamanho.length()>0) {
+			
+			sapato[indice].setDescricao(descricao);
+			sapato[indice].setMarca(marca);
+			sapato[indice].setPreco(preco);
+			sapato[indice].setCondicao(condicao);
+			
+			sapato[indice].setCategoria(categoria);
+			sapato[indice].setEstilo(estilo);
+			sapato[indice].setCor(cor);
+			sapato[indice].setTamanho(tamanho);
 			
 			return true;
 		}
@@ -515,6 +658,16 @@ public class ControleUsuario {
 	public String getProdutoFavorito(int c, int i) {
 		return favorito[c].getProduto(i).getDescricao();
 	}
-	
+
+	public Object getQtdSapatos() {
+		return null;
+	}
+
+
+	public boolean cadastrarSapato(int idUser, String text, String text2, float valor, String text3, String category,
+			String text4, String text5, String tam, String tam2) {
+		return false;
+	}
+
 }
 
