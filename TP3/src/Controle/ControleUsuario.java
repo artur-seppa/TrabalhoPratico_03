@@ -352,19 +352,19 @@ public class ControleUsuario {
 	
 	
 	public String getSapatoMarca(int i) {
-		return roupa[i].getMarca();
+		return sapato[i].getMarca();
 	}
 	
 	public float getSapatoPreco(int i) {
-		return roupa[i].getPreco();
+		return sapato[i].getPreco();
 	}
 	
-	public String getSapaoCondicao(int i) {
-		return roupa[i].getCondicao();
+	public String getSapatoCondicao(int i) {
+		return sapato[i].getCondicao();
 	}
 	
 	public String getSapatoDescricao(int i) {
-		return roupa[i].getDescricao();
+		return sapato[i].getDescricao();
 	}
 	
 	/***********ROUPA***********/
