@@ -883,7 +883,6 @@ public class TelaMenu{
 			panelAddProdutos.add(preco);
 		
 			JTextField precoText = new JTextField(120);
-//			precoText.setText(Integer.toString(usuario.getTelefone(idUser)) );
 			precoText.setBounds(255, 75, 200, 30);
 			panelAddProdutos.add(precoText);
 			
@@ -964,7 +963,7 @@ public class TelaMenu{
 					try {
 							boolean sucesso;
 						
-							int valor = Integer.parseInt(precoText.getText());
+							float valor = Float.parseFloat(precoText.getText());
 							int itemCombo = combobox.getSelectedIndex();
 							int itemcomboTam = comboTam.getSelectedIndex();
 							

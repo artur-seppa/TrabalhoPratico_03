@@ -49,8 +49,11 @@ public class DetalheProduto{
 	private static JLabel cor = new JLabel();
 	private static JLabel estilo = new JLabel();
 	private static JLabel tecido = new JLabel();
-	private static JLabel genero = new JLabel();
+	private static JLabel user = new JLabel();
 	private static JLabel preco = new JLabel();
+	private static JLabel categoria = new JLabel();
+	private static JLabel marca = new JLabel();
+	private static JLabel condicao = new JLabel();
 	
 	private static JTextField nomeText = new JTextField(20);
 	private static JPasswordField passwordText = new JPasswordField(20);
@@ -73,7 +76,7 @@ public class DetalheProduto{
 		
 		janela.setVisible(true);
 		
-		janela.setSize(300, 350);
+		janela.setSize(300, 450);
 		janela.add(panel);
 		placeComponents(panel);
 		
@@ -100,8 +103,6 @@ public class DetalheProduto{
 		descricao.setBounds(100, 10, 250, 30);		
 		panel.add(descricao);
 		
-//		TALVEZ  EU USE nomeText.setEditable(false);
-
 		/*=========Tamanho==========*/
 		JLabel fraseTamanho = new JLabel("tamanho :");
 		fraseTamanho.setBounds(20, 50, 160, 30);
@@ -138,14 +139,14 @@ public class DetalheProduto{
 		tecido.setBounds(100, 170, 160, 30);
 		panel.add(tecido);
 		
-		/*=========genero==========*/
-		JLabel fraseGenero = new JLabel("genero :");
-		fraseGenero.setBounds(20, 210, 160, 30);
-		panel.add(fraseGenero);
+		/*=========User==========*/
+		JLabel fraseusuario = new JLabel("Usuario :");
+		fraseusuario.setBounds(20, 210, 160, 30);
+		panel.add(fraseusuario);
 		
-		genero = new JLabel(roupa[cont].getGenero());
-		genero.setBounds(100, 210, 160, 30);
-		panel.add(genero);
+		user = new JLabel(roupa[cont].getPessoa().getNome());
+		user.setBounds(100, 210, 160, 30);
+		panel.add(user);
 		
 		/*=========preco==========*/
 		JLabel frasePreco = new JLabel("preco :");
@@ -155,6 +156,33 @@ public class DetalheProduto{
 		preco = new JLabel("R$ " + roupa[cont].getPreco());
 		preco.setBounds(100, 250, 160, 30);
 		panel.add(preco);
+		
+		/*=========categoria==========*/
+		JLabel fraseCategoria = new JLabel("Categoria:");
+		fraseCategoria.setBounds(20, 290, 160, 30);
+		panel.add(fraseCategoria);
+		
+		categoria = new JLabel(roupa[cont].getCategoria());
+		categoria.setBounds(100, 290, 160, 30);
+		panel.add(categoria);
+		
+		/*=========marca==========*/
+		JLabel fraseMarca = new JLabel("Marca :");
+		fraseMarca.setBounds(20, 330, 160, 30);
+		panel.add(fraseMarca);
+		
+		marca = new JLabel(roupa[cont].getMarca());
+		marca.setBounds(100, 330, 160, 30);
+		panel.add(marca);
+		
+		/*=========condicao==========*/
+		JLabel fraseCondicao = new JLabel("Condicao :");
+		fraseCondicao.setBounds(20, 370, 160, 30);
+		panel.add(fraseCondicao);
+		
+		condicao = new JLabel(roupa[cont].getMarca());
+		condicao.setBounds(100, 370, 160, 30);
+		panel.add(condicao);
 
 	}
 	
@@ -165,8 +193,11 @@ public class DetalheProduto{
 		cor.setText(null);
 		estilo.setText(null);
 		tecido.setText(null);
-		genero.setText(null);
+		user.setText(null);
 		preco.setText(null);
+		categoria.setText(null);
+		marca.setText(null);
+		condicao.setText(null);
 		
 		janela.setVisible(false);
 		
