@@ -3,6 +3,7 @@ import Controle.*;
 import Modelo.Pessoa;
 import Modelo.Produto;
 import Modelo.Roupa;
+import Modelo.Sapato;
 import Modelo.CarrinhoDeCompra;
 
 import java.awt.BorderLayout;
@@ -20,6 +21,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -903,6 +905,8 @@ public class TelaMenu{
 			panelAddProdutos.add(categoria);
 			
 			String vetor[] = {"Roupa"};
+			String vetorS[] = {"Sapato"};
+			
 			
 			JComboBox combobox = new JComboBox(vetor);
 			combobox.setBounds(25, 145, 200, 30);
@@ -952,7 +956,7 @@ public class TelaMenu{
 			
 			/*--------------------BUTTONS---------------------*/
 		
-		  JButton AddRoupa = new JButton("Adicionar roupa");
+		  JButton AddRoupa = new JButton("Adicionar");
 		  AddRoupa.setBounds(255, 345, 200, 35);
 		  panelAddProdutos.add(AddRoupa);
 		  
@@ -1027,7 +1031,7 @@ public class TelaMenu{
 					  }
 				   );
 		  
-			JButton AddSapato = new JButton("Adicionar sapato");
+			JButton AddSapato = new JButton("Adicionar");
 			  AddSapato.setBounds(255, 345, 200, 35);
 			  panelAddProdutos.add(AddSapato);
 			  
@@ -1046,7 +1050,7 @@ public class TelaMenu{
 								String tam = null;
 								int qtdSapatos = 0;
 								
-								if(itemCombo == 2) {
+								if(itemCombo == 1) {
 									category = "sapato";
 								}
 								if(itemcomboTam != 34) {
@@ -1133,7 +1137,6 @@ public class TelaMenu{
 										condicaoText.setText(null);
 										estiloText.setText(null);
 										corText.setText(null);
-										tecidoText.setText(null);
 									}
 								}
 									
@@ -1277,6 +1280,12 @@ public class TelaMenu{
 		precoText.setBounds(255, 75, 200, 30);
 		panelEditarProdutos.add(precoText);
 		
+		JTextField precoText1 = new JTextField(120);
+		int indiceSapato = 0;
+		precoText1.setText(Float.toString(usuario.getProdutoPrecoPessoa(idUser, indiceSapato)) );
+		precoText1.setBounds(255, 75, 200, 30);
+		panelEditarProdutos.add(precoText1);
+		
 		JLabel condicao = new JLabel("Condicao :");
 		condicao.setFont(new Font("Arial", Font.BOLD, 15));
 		condicao.setBounds(255, 115, 120, 30);
@@ -1287,12 +1296,21 @@ public class TelaMenu{
 		condicaoText.setBounds(255, 145, 200, 30);
 		panelEditarProdutos.add(condicaoText);
 		
+		JTextField condicaoText1 = new JTextField(120);
+		condicaoText1.setText(usuario.getProdutoCondicaoPessoa(idUser, indiceSapato));
+		condicaoText1.setBounds(255, 145, 200, 30);
+		panelEditarProdutos.add(condicaoText1);
+		
 		/***********************************/
 		
 		Roupa roupa = (Roupa) usuario.getProdutoPessoa(idUser, indiceRoupa);
 		String desc = roupa.getDescricao();
 		
+		Sapato sapato = (Sapato) usuario.getProdutoPessoa(idUser, indiceSapato);
+		String desc1 = roupa.getDescricao();
+		
 		System.out.println("cor==== " + roupa.getCor());
+		System.out.println("cor==== " + sapato.getCor());
 		
 		JLabel categoria = new JLabel("Categoria :");
 		categoria.setFont(new Font("Arial", Font.BOLD, 15));
@@ -1300,8 +1318,9 @@ public class TelaMenu{
 		panelEditarProdutos.add(categoria);
 		
 		String vetor[] = {"Roupa"};
+		String vetor1[] = {"Sapato"};
 		
-		JComboBox combobox = new JComboBox(vetor);
+		JComboBox combobox = new JComboBox(vetor1);
 		combobox.setBounds(25, 145, 200, 30);
 		panelEditarProdutos.add(combobox);
 		
@@ -1341,10 +1360,15 @@ public class TelaMenu{
 		panelEditarProdutos.add(tamanho);
 	
 		String tam[] = {"P", "M", "G"};
+		String tam1[] = {"35", "36", "37","38", "39", "40","41","42","43","44","45","46","47","48","49","50","51","52"};
 		
 		JComboBox comboTam = new JComboBox(tam);
 		comboTam.setBounds(255, 285, 200, 30);
 		panelEditarProdutos.add(comboTam);
+		
+		JComboBox comboTam1 = new JComboBox(tam1);
+		comboTam1.setBounds(255, 285, 200, 30);
+		panelEditarProdutos.add(comboTam1);
 		
 			
 		/*--------------------BUTTONS---------------------*/
@@ -1353,6 +1377,10 @@ public class TelaMenu{
 		  SalvarRoupa.setBounds(255, 345, 200, 35);
 		  panelEditarProdutos.add(SalvarRoupa);
 		  
+		  JButton SalvarSapato = new JButton("Salvar Sapato");
+		  SalvarSapato.setBounds(255, 345, 200, 35);
+		  panelEditarProdutos.add(SalvarSapato);
+		  
 		  SalvarRoupa.addActionListener(
 				  new ActionListener(){
 						 public void actionPerformed(ActionEvent e){
@@ -1360,7 +1388,7 @@ public class TelaMenu{
 							 try {
 									boolean sucesso;
 								
-									float valor = Float.parseFloat(precoText.getText());
+									float valor = Float.parseFloat(precoText1.getText());
 									int itemCombo = combobox.getSelectedIndex();
 									int itemcomboTam = comboTam.getSelectedIndex();
 									
@@ -1392,7 +1420,7 @@ public class TelaMenu{
 										
 										System.out.println("elemento no home === "+ usuario.getRoupaDescricao(indice) );
 																				
-										if(desc.equals(usuario.getRoupaDescricao(indice)) )
+										if(desc1.equals(usuario.getRoupaDescricao(indice)) )
 										{
 											break;
 										}
@@ -1400,7 +1428,7 @@ public class TelaMenu{
 									
 									System.out.println("indiceeeeeeee " + indice);
 									
-									sucesso = usuario.editarRoupa(indice, descricaoText.getText(), marcaText.getText(), valor, condicaoText.getText(), category, estiloText.getText(), corText.getText(), tecidoText.getText(), tam);
+									sucesso = usuario.editarRoupa(indice, descricaoText.getText(), marcaText.getText(), valor, condicaoText1.getText(), category, estiloText.getText(), corText.getText(), tecidoText.getText(), tam);
 											
 										if(sucesso == true) {
 											JOptionPane.showMessageDialog(null, 
@@ -1419,8 +1447,8 @@ public class TelaMenu{
 											//passa o valor null para os inputs ao finalizar a operacao
 											descricaoText.setText(null);
 											marcaText.setText(null);
-											precoText.setText(null);
-											condicaoText.setText(null);
+											precoText1.setText(null);
+											condicaoText1.setText(null);
 											estiloText.setText(null);
 											corText.setText(null);
 											tecidoText.setText(null);
@@ -1437,8 +1465,137 @@ public class TelaMenu{
 					  }
 				   );
 		  
-	}
 	
+	//----------------------
+	
+	SalvarSapato.addActionListener(
+			  new ActionListener(){
+					 public void actionPerformed(ActionEvent e){
+						 
+						 try {
+								boolean sucesso;
+							
+								float valor = Float.parseFloat(precoText1.getText());
+								int itemCombo = combobox.getSelectedIndex();
+								int itemcomboTam = comboTam.getSelectedIndex();
+								
+								String category = null;
+								String tam = null;
+								
+								if(itemCombo == 1) {
+									category = "sapato";
+								}
+								if(itemcomboTam != 34) {
+									if(itemcomboTam == 35) {
+										tam = "35";
+									}
+									if(itemcomboTam == 36) {
+										tam = "36";
+									}
+									if(itemcomboTam == 37) {
+										tam = "37";
+									}
+									if(itemcomboTam == 38) {
+										tam = "38";
+									}
+									if(itemcomboTam == 39) {
+										tam = "39";
+									}
+									if(itemcomboTam == 40) {
+										tam = "40";
+									}
+									if(itemcomboTam == 41) {
+										tam = "41";
+									}
+									if(itemcomboTam == 42) {
+										tam = "42";
+									}
+									if(itemcomboTam == 43) {
+										tam = "43";
+									}
+									if(itemcomboTam == 44) {
+										tam = "44";
+									}
+									if(itemcomboTam == 45) {
+										tam = "45";
+									}
+									if(itemcomboTam == 46) {
+										tam = "46";
+									}
+									if(itemcomboTam == 47) {
+										tam = "47";
+									}
+									if(itemcomboTam == 48) {
+										tam = "48";
+									}
+									if(itemcomboTam == 49) {
+										tam = "49";
+									}
+									if(itemcomboTam == 50) {
+										tam = "50";
+									}
+									if(itemcomboTam == 51) {
+										tam = "51";
+									}
+									if(itemcomboTam == 52) {
+										tam = "52";
+								}
+								
+								//obtem a qtd sapatos atualizada
+								Object qtdSapatos = usuario.getQtdSapatos();;
+								System.out.println("size === "+ qtdSapatos);
+								int indice;
+								
+								int qtdSapato = 0;
+								for(indice = 0; indice < qtdSapato; indice++) {
+									
+									System.out.println("elemento no home === "+ usuario.getSapatoDescricao(indice) );
+																			
+									if(desc1.equals(usuario.getSapatoDescricao(indice)) )
+									{
+										break;
+									}
+								}
+								
+								System.out.println("indiceeeeeeee " + indice);
+								
+								sucesso = usuario.editarSapato(indice, descricaoText.getText(), marcaText.getText(), valor, condicaoText1.getText(), category, estiloText.getText(), corText.getText(), tam);
+										
+									if(sucesso == true) {
+										JOptionPane.showMessageDialog(null, 
+										"Sapato editada com sucesso\n", null, 
+										JOptionPane.INFORMATION_MESSAGE);							
+										
+										
+										modelEditarProdutos.setElementAt(usuario.getProdutoDescricaoPessoa(idUser, indiceSapato), 0);
+										for(int i=0; i<=indiceSapato; i++) {
+											System.out.println( "teste de bug == " +usuario.getProdutoDescricaoPessoa(idUser, i) );
+										}
+										
+										//Atualiza o painel home da mudanca de sapato
+										modelProdutos.setElementAt(usuario.getProdutoDescricaoPessoa(idUser, indiceSapato), indice);
+										
+										//passa o valor null para os inputs ao finalizar a operacao
+										descricaoText.setText(null);
+										marcaText.setText(null);
+										precoText1.setText(null);
+										condicaoText1.setText(null);
+										estiloText.setText(null);
+										corText.setText(null);
+										
+									}
+								}
+						}catch(Exception ex){
+									JOptionPane.showMessageDialog(null, 
+									"Os campos nao foram preenchidos corretamente\n", null, 
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+				        	
+					}
+				  }
+			   );
+	  
+}
 	
 	
 	/*====================Metodos SETVISIBLE(FALSE)=======================*/
