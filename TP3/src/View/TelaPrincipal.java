@@ -50,6 +50,10 @@ public class TelaPrincipal implements ActionListener{
 	private static JLabel titulo = new JLabel("Roupas e Acessorios");
 	private static JPanel panel = new JPanel();
 	
+	public void VoltarTelaPrincipal(ControleUsuario u) {
+		usuario = u;
+	}
+	
 	public TelaPrincipal(){		
 		janela.setVisible(true);
 		
