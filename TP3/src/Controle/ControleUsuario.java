@@ -464,8 +464,8 @@ public class ControleUsuario {
 		return pessoa[i].getProduto(r).getCondicao();
 	}
 	
-	public String getProdutoDescricaoPessoa(int i, int r) {
-		return pessoa[i].getProduto(r).getDescricao();
+	public String getProdutoDescricaoPessoa(int i, int qtdRoupasUsuario) {
+		return pessoa[i].getProduto(qtdRoupasUsuario).getDescricao();
 	}
 	
 	

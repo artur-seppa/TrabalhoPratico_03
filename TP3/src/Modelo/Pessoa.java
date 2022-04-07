@@ -46,8 +46,8 @@ public class Pessoa {
 		}
 		
 		//pega a posiçao de onde o produto se encontra
-		public Produto getProduto(int posicao) {
-			return produtos.get(posicao);
+		public Produto getProduto(int qtdsapatosusuario) {
+			return produtos.get(qtdsapatosusuario);
 		}
 
 		public String getNome() {
@@ -93,6 +93,10 @@ public class Pessoa {
 		}
 
 		public static Object verificarPessoa(String string) {
+			return null;
+		}
+
+		public Produto getProduto(String qtdsapatosusuario) {
 			return null;
 		}
 		
