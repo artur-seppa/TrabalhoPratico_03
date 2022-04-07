@@ -257,81 +257,115 @@ public class ControleUsuario {
 	
 	public void DeletarUsuario(String nome, String senha, int IdUser) {
 		
+		int qtd = 0;
+		
 		//procura pelo mesmo nome e senha nos usuarios cadastrados
 		for(int i = 0; i <qtdPessoas; i++) {
 			if(nome.equals(pessoa[i].getNome()) ) {
 				if(senha.equals(pessoa[i].getSenha()) ) {
 					
-					//caso o usuario nao seja o ultimo instanciado, entra no if
-					if(i != qtdPessoas-1 ) {
-						
-						/*
-						 * Percorre por todos os usuarios, passando as informacoes
-						 * do indice a frente para o usuario anterior. 
-						 * 
-						 * o vetor inicia no indice no qual queremos deletar o usuario
-						 */
-						for(int p = i; p <=qtdPessoas; p++) {
-							
-							//O usuario anterior recebe as info do usuario a frente
-							pessoa[p].setNome(pessoa[p+1].getNome());
-							pessoa[p].setSenha(pessoa[p+1].getSenha());
-//							pessoa[p].setId(p+1);
-							
-							//o usuario anterior recebe o usuario a sua frente
-							pessoa[p] = pessoa[p+1];
-							
-							//pega a qtd de produtos associado a essa pessoa
-							int qtd = pessoa[p].quantidadeProdutos();
-							
-							for(int j=0; j<qtd; j++) {
-								
-								//pega o produto dessa pessoa :
-								//pessoa[p].getProduto(j).getDescricao();
-								
-								//associa o produto dessa pessoa com a do sistema
-								for(int k=0; k<qtdRoupas; k++) {
-									if(roupa[k].getDescricao().equals(pessoa[p].getProduto(j).getDescricao()) ) {
-										//roupa[k].setDescricao(roupa[k+1].getDescricao());
-										pessoa[p].getProduto(k).setDescricao( pessoa[p+1].getProduto(k).getDescricao());
-										
-									}
-								}
-								
-	//							//exclui o produto associado a pessoa
-	//							pessoa[i].excluirProduto(roupa[j]);
-							}		
-								
-						}												
-					}else {
-						
-						//edita as suas informacoes para null
-						pessoa[i].setNome(null);
+					pessoa[i].setNome(null);
+					pessoa[i].setSenha(null);
+					pessoa[i].getProduto(i).setDescricao(null);
+//					qtd = i;
+					for(int p = i; p <qtdPessoas; p++) {
+						if(pessoa[p+1] == null) {
+							break;
+						}
+						pessoa[p] = pessoa[p+1];
+						pessoa[p].setId(pessoa[p+1].getId());
 						
 						//pega a qtd de produtos associado a essa pessoa
-						int qtd = pessoa[i].quantidadeProdutos();
+						int qtd1 = pessoa[i].quantidadeProdutos();
 						
-						for(int j=0; j<qtd; j++) {
+						for(int j=0; j<qtd1; j++) {
 							
-							//associa o produto dessa pessoa com a do sistema
-							for(int k=0; k<qtdRoupas; k++) {
-								if(roupa[k].getDescricao().equals(pessoa[i].getProduto(j).getDescricao()) ) {
-									roupa[k].setDescricao(roupa[k+1].getDescricao());
-									
-								}
-							}
+							//pega o produto dessa pessoa :
+//							pessoa[i].getProduto(i).setDescricao(null);
 							
 //							//exclui o produto associado a pessoa
 //							pessoa[i].excluirProduto(roupa[j]);
 						}
+						
 					}
 					
 					
+					break;
+					
+					//caso o usuario nao seja o ultimo instanciado, entra no if
+//					if(i != qtdPessoas-1 ) {
+//						
+//						/*
+//						 * Percorre por todos os usuarios, passando as informacoes
+//						 * do indice a frente para o usuario anterior. 
+//						 * 
+//						 * o vetor inicia no indice no qual queremos deletar o usuario
+//						 */
+//						for(int p = i; p <qtdPessoas; p++) {
+//							
+//							//O usuario anterior recebe as info do usuario a frente
+////							pessoa[p].setNome(pessoa[p+1].getNome());
+////							pessoa[p].setSenha(pessoa[p+1].getSenha());
+////							pessoa[p].setId(p+1);
+//							
+////							pessoa[i].setNome(null);
+////							pessoa[i].setSenha(null);
+////							pessoa[i].setId(null);
+//							
+//							//o usuario anterior recebe o usuario a sua frente
+//							pessoa[p] = pessoa[p+2];
+//							
+//							//pega a qtd de produtos associado a essa pessoa
+//							int qtd = pessoa[p].quantidadeProdutos();
+//							
+//							for(int j=0; j<qtd; j++) {
+//								
+//								//pega o produto dessa pessoa :
+//								//pessoa[p].getProduto(j).getDescricao();
+//								
+//								//associa o produto dessa pessoa com a do sistema
+//								for(int k=0; k<qtdRoupas; k++) {
+//									if(roupa[k].getDescricao().equals(pessoa[p].getProduto(j).getDescricao()) ) {
+//										//roupa[k].setDescricao(roupa[k+1].getDescricao());
+//										pessoa[p].getProduto(k).setDescricao( pessoa[p+1].getProduto(k).getDescricao());
+//										
+//									}
+//								}
+//								
+//	//							//exclui o produto associado a pessoa
+//	//							pessoa[i].excluirProduto(roupa[j]);
+//							}		
+//								
+//						}												
+//					}else {
+//						
+//						//edita as suas informacoes para null
+//						pessoa[i].setNome(null);
+//						
+//						//pega a qtd de produtos associado a essa pessoa
+//						int qtd = pessoa[i].quantidadeProdutos();
+//						
+//						for(int j=0; j<qtd; j++) {
+//							
+//							//associa o produto dessa pessoa com a do sistema
+//							for(int k=0; k<qtdRoupas; k++) {
+//								if(roupa[k].getDescricao().equals(pessoa[i].getProduto(j).getDescricao()) ) {
+//									roupa[k].setDescricao(roupa[k+1].getDescricao());
+//									
+//								}
+//							}
+//							
+////							//exclui o produto associado a pessoa
+////							pessoa[i].excluirProduto(roupa[j]);
+//						}
+//					}
+//					
+//					
 				}
 			}
 		}
 		
-		//diminui a quantidade de usuarios
+	//diminui a quantidade de usuarios
 		qtdPessoas-- ;
 		
 	}

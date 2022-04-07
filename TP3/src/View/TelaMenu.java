@@ -142,7 +142,6 @@ public class TelaMenu{
 		 */
 		usuario = u;
 		idUser = idUsuario;
-		System.out.println("IDUSER === "+ idUser);
 		
 		
 		/*
@@ -157,11 +156,8 @@ public class TelaMenu{
 						
 						qtdRoupas = usuario.getQtdRoupas();
 						
-						System.out.println("qtd roupas inicial "+ qtdRoupas);
-						
 						for(int i=0; i<qtdRoupas; i++) {
 							modelProdutos.addElement(usuario.getRoupaDescricao(i));
-							System.out.println("ROUPAS ===  "+ usuario.getRoupaDescricao(i));
 						}
 						
 				}catch(Exception ex){
@@ -184,8 +180,6 @@ public class TelaMenu{
 			if(usuario.QtdProduto(idUser) != 0) {
 				
 				qtdProdutos = usuario.QtdProduto(idUser);
-				
-				System.out.println("qtd produtos inicial "+ qtdProdutos);
 				
 				for(int i=0; i<qtdProdutos; i++) {
 					model.addElement(usuario.getProdutoCarrinho(idUser, i));
@@ -215,9 +209,7 @@ public class TelaMenu{
 		
 			qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);
 			
-			for(int i=0; i<qtdProdutosFavoritos; i++) {
-				
-				System.out.println("favoritos ===== "+ usuario.getProdutoFavorito(idUser, i));
+			for(int i=0; i<qtdProdutosFavoritos; i++) {				
 				
 				modelFavorito.addElement(usuario.getProdutoFavorito(idUser, i));
 			}
@@ -241,18 +233,6 @@ public class TelaMenu{
 		srollEditarProdutos = new JScrollPane(JlistEditarProdutos);
 		
 		try {
-//			if(usuario.getQuantidadeProdutosPessoa(idUser) != 0) {
-//				
-//				int qtdP = usuario.getQuantidadeProdutosPessoa(idUser);
-//				
-//				System.out.println("qPRODUTOS DA PESSOA ==== "+ qtdP);
-//				
-//				for(int i=0; i<qtdP; i++) {
-//					System.out.println("PRODUTOS DA PESSOA ===== "+ usuario.getProdutoDescricaoPessoa(idUser, i));
-//					modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, i));
-//				}
-//				
-//			}
 			
 			//obtem a quantidade total de roupas da pessoa
 			int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
@@ -260,7 +240,6 @@ public class TelaMenu{
 			//adiciona as roupas nos quais tem o nome do usuario
 			for(int i=0; i<qtd; i++) {
 				qtdRoupasUsuario++;
-				System.out.println("quantiodade de roupa do usuario LOOP =-> " + qtdRoupasUsuario);
 				modelEditarProdutos.addElement(usuario.getProdutoPessoa(idUser, i).getDescricao() );
 			}
 			
@@ -346,15 +325,11 @@ public class TelaMenu{
 				 int indice = JlistProdutos.getSelectedIndex();
 				 
 				 usuario.AdicionarCompra(idUser, indice);
-				 qtdProdutos = usuario.QtdProduto(idUser);
+				 qtdProdutos = usuario.QtdProduto(idUser);				 
 				 
-				 System.out.println("indice do button carrinho == "+indice);
-				 System.out.println("qtd produtos do button carrinho == "+qtdProdutos);
-				 System.out.println("produto no carrinh  == "+ usuario.getProdutoCarrinho(idUser, qtdProdutos-1));
-				 
-				 for(int i=0; i<qtdProdutos; i++) {
-						System.out.println("PRODUTOOOOO ======" + usuario.getProdutoCarrinho(idUser, i));
-					}
+//				 for(int i=0; i<qtdProdutos; i++) {
+//						System.out.println("PRODUTOOOOO ======" + usuario.getProdutoCarrinho(idUser, i));
+//					}
 				 
 				 //ADICIONA O NOVO PRODUTO NA JLIST DO CARRINHO
 				 model.addElement(usuario.getProdutoCarrinho(idUser, qtdProdutos-1));
@@ -371,15 +346,11 @@ public class TelaMenu{
 					 int indice = JlistProdutos.getSelectedIndex();
 					 
 					 usuario.AdicionarFavorito(idUser, indice);
-					 qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);
+					 qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);					 
 					 
-					 System.out.println("indice do button favorito == "+indice);
-					 System.out.println("qtd produtos do button favorito == "+qtdProdutosFavoritos);
-					 System.out.println("produto no favorito  == "+ usuario.getProdutoFavorito(idUser, qtdProdutosFavoritos-1));
-					 
-					 for(int i=0; i<qtdProdutosFavoritos; i++) {
-							System.out.println("FAVORITOOOOOS ======" + usuario.getProdutoFavorito(idUser, i));
-						}
+//					 for(int i=0; i<qtdProdutosFavoritos; i++) {
+//							System.out.println("FAVORITOOOOOS ======" + usuario.getProdutoFavorito(idUser, i));
+//						}
 					 
 					 //ADICIONA O NOVO PRODUTO NA JLIST DE FAVORITOS
 					 modelFavorito.addElement(usuario.getProdutoFavorito(idUser, qtdProdutosFavoritos-1));
@@ -468,7 +439,6 @@ public class TelaMenu{
 			        	
 			        	int size = model.getSize();
 			        	float total = 0;
-			        	System.out.println("size === "+ size );
 			        	
 //			        	model.getElementAt(size);
 			        	
@@ -565,9 +535,9 @@ public class TelaMenu{
 			      }
 			    );
 		  
-		  for(int i=0; i<qtdProdutos; i++) {
-				System.out.println("PRODUTOS NO CARRINHO " + usuario.getProdutoCarrinho(idUser, i));
-			}
+//		  for(int i=0; i<qtdProdutos; i++) {
+//				System.out.println("PRODUTOS NO CARRINHO " + usuario.getProdutoCarrinho(idUser, i));
+//			}
 		
 	}
 		
@@ -624,10 +594,7 @@ public class TelaMenu{
 						        	//garante que todos os produtos sejam removidos do carrinho
 						         	if(qtdProdutosFavoritos == 1) {
 						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser);
-						        	}
-						        	
-						        	System.out.println("qtd favorito agora == " + qtdProdutosFavoritos);
-						        	System.out.println("indice DO FAVORITO agora == " + remover);
+						        	}						        	
 						        	
 						        	
 					        	
@@ -636,12 +603,11 @@ public class TelaMenu{
 //					    					"Erro: " + ex + "\n", null, 
 //					    					JOptionPane.INFORMATION_MESSAGE);
 					    		}
+					        						        	
 					        	
-					        	System.out.println("qtd favorito FORA DO TRY == " + qtdProdutosFavoritos);
-					        	
-					        	for(int i=0; i<qtdProdutosFavoritos; i++) {
-									System.out.println("PRODUTO FAVORITO " + usuario.getProdutoFavorito(idUser, i));
-								}
+//					        	for(int i=0; i<qtdProdutosFavoritos; i++) {
+//									System.out.println("PRODUTO FAVORITO " + usuario.getProdutoFavorito(idUser, i));
+//								}
 					        	
 						}
 					  }
@@ -807,7 +773,6 @@ public class TelaMenu{
 						 public void actionPerformed(ActionEvent e){							 
 							
 							 try {
-							System.out.println("teste");
 							//Quantidade de produtos associados a pessoa logada	
 							 int qtdProdutosPessoa = usuario.getQuantidadeProdutosPessoa(idUser);
 							 
@@ -825,13 +790,13 @@ public class TelaMenu{
 							 
 							 //como diminuiu um usuario temos que diminuir a qtd de produtos
 							 int size = modelProdutos.getSize();
-							 size = size - qtdProdutosPessoa;
+//							 size = size - qtdProdutosPessoa;
 							 
 							 //remove todos os produtos
 							 modelProdutos.removeAllElements();
 							 
 							 //aloca os novos produtos editados na lista
-							 for(int k=0; k<size; k++) {
+							 for(int k=0; k<=size; k++) {
 								 System.out.println("produtos a serem colocados "+ produ[k]);
 								 modelProdutos.addElement(produ[k]);
 							 }						
@@ -850,7 +815,7 @@ public class TelaMenu{
 							 
 							 int qt = usuario.getQtdPessoas();
 							 String us[] =  usuario.escreveUsuarios();
-							 for(int i=0; i<qt; i++) {
+							 for(int i=0; i<=qt; i++) {
 								 System.out.println("USARIOS NOVOS ::::: "+ us[i]);
 							 }
 							 
