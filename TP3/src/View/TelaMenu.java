@@ -8,6 +8,7 @@ import Modelo.CarrinhoDeCompra;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -350,7 +351,7 @@ public class TelaMenu{
 					// Um botão que permite obter o índice do item selecionado
 					 int indice = JlistProdutos.getSelectedIndex();
 					 
-					 usuario.AdicionarFavorito(idUser, indice);
+					 usuario.AdicionarFavorito(idUser, indice, indice);
 					 qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);
 					 
 					 System.out.println("indice do button favorito == "+indice);
@@ -481,7 +482,7 @@ public class TelaMenu{
 				        	model.removeAllElements();
 				        	
 				        	//todos os produtos sao removidos do obj carrinho
-				         	usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
+				         	usuario.RemoveTodosCarrinho(qtdProdutos , idUser, size);
 				         	
 				        	qtdProdutos--;	        
 				        	
@@ -516,12 +517,12 @@ public class TelaMenu{
 			        	
 			        	//exerce a remocao do item no carrinho
 			        	try {
-				        	usuario.RemoveProdutoCarrinho(idUser, remover);
+				        	usuario.RemoveProdutoCarrinho(idUser, remover, remover);
 				        	model.remove(remover);
 				        	
 				        	//garante que todos os produtos sejam removidos do carrinho
 				         	if(qtdProdutos == 1) {
-				        		usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
+				        		usuario.RemoveTodosCarrinho(qtdProdutos , idUser, remover);
 				        	}
 				        	
 				        	qtdProdutos--;
@@ -633,7 +634,7 @@ public class TelaMenu{
 						        	
 						        	//garante que todos os produtos sejam removidos do carrinho
 						         	if(qtdProdutosFavoritos == 1) {
-						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser);
+						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser, remover);
 						        	}
 						        	
 						        	System.out.println("qtd favorito agora == " + qtdProdutosFavoritos);
@@ -959,6 +960,7 @@ public class TelaMenu{
 		  AddRoupa.setBounds(255, 345, 200, 35);
 		  panelAddProdutos.add(AddRoupa);
 		  
+		  
 		  AddRoupa.addActionListener(
 				  new ActionListener(){
 						 public void actionPerformed(ActionEvent e){
@@ -1022,7 +1024,7 @@ public class TelaMenu{
 							
 					}catch(Exception ex){
 								JOptionPane.showMessageDialog(null, 
-								"Os campos nao foram preenchidos corretamente\n", null, 
+								("Os campos nao foram preenchidos corretamente\n"), null, 
 								JOptionPane.INFORMATION_MESSAGE);
 					}
 					        	
@@ -1030,9 +1032,10 @@ public class TelaMenu{
 					  }
 				   );
 		  
-			JButton AddSapato = new JButton("Adicionar");
+			  JButton AddSapato = new JButton("Adicionar");
 			  AddSapato.setBounds(255, 345, 200, 35);
 			  panelAddProdutos.add(AddSapato);
+			  System.out.println(AddSapato);
 			  
 			  AddSapato.addActionListener(
 					  new ActionListener(){
@@ -1052,64 +1055,64 @@ public class TelaMenu{
 								if(itemCombo == 1) {
 									category = "sapato";
 								}
-								if(itemcomboTam != 34) {
-									if(itemcomboTam == 35) {
+								if(itemcomboTam != -1) {
+									if(itemcomboTam == 4) {
 										tam = "35";
 									}
-									if(itemcomboTam == 36) {
+									if(itemcomboTam == 5) {
 										tam = "36";
 									}
-									if(itemcomboTam == 37) {
+									if(itemcomboTam == 6) {
 										tam = "37";
 									}
-									if(itemcomboTam == 38) {
+									if(itemcomboTam == 7) {
 										tam = "38";
 									}
-									if(itemcomboTam == 39) {
+									if(itemcomboTam == 8) {
 										tam = "39";
 									}
-									if(itemcomboTam == 40) {
+									if(itemcomboTam == 9) {
 										tam = "40";
 									}
-									if(itemcomboTam == 41) {
+									if(itemcomboTam == 10) {
 										tam = "41";
 									}
-									if(itemcomboTam == 42) {
+									if(itemcomboTam == 11) {
 										tam = "42";
 									}
-									if(itemcomboTam == 43) {
+									if(itemcomboTam == 11) {
 										tam = "43";
 									}
-									if(itemcomboTam == 44) {
+									if(itemcomboTam == 12) {
 										tam = "44";
 									}
-									if(itemcomboTam == 45) {
+									if(itemcomboTam == 13) {
 										tam = "45";
 									}
-									if(itemcomboTam == 46) {
+									if(itemcomboTam == 14) {
 										tam = "46";
 									}
-									if(itemcomboTam == 47) {
+									if(itemcomboTam == 15) {
 										tam = "47";
 									}
-									if(itemcomboTam == 48) {
+									if(itemcomboTam == 16) {
 										tam = "48";
 									}
-									if(itemcomboTam == 49) {
+									if(itemcomboTam == 17) {
 										tam = "49";
 									}
-									if(itemcomboTam == 50) {
+									if(itemcomboTam == 18) {
 										tam = "50";
 									}
-									if(itemcomboTam == 51) {
+									if(itemcomboTam == 19) {
 										tam = "51";
 									}
-									if(itemcomboTam == 52) {
+									if(itemcomboTam == 20) {
 										tam = "52";
 								}
 									
 								
-								sucesso = usuario.cadastrarSapato(idUser, descricaoText.getText(), marcaText.getText(), valor, condicaoText.getText(), category, estiloText.getText(), corText.getText(), tam, tam);
+								sucesso = usuario.cadastrarSapato(idUser, descricaoText.getText(), marcaText.getText(), valor, condicaoText.getText(), category, estiloText.getText(), corText.getText(), tam);
 										
 									if(sucesso == true) {
 										JOptionPane.showMessageDialog(null, 
@@ -1117,7 +1120,7 @@ public class TelaMenu{
 										JOptionPane.INFORMATION_MESSAGE);
 										
 										//obtem a qtd Sapatos atualizada
-										Object qtdSapatos1 = usuario.getQtdSapatos();
+										Object qtdSapato = usuario.getQtdSapatos();
 										
 										//adiciona a novo sapato no JList do home
 										modelProdutos.addElement(usuario.getSapatoDescricao(qtdSapatos + 1));
@@ -1125,7 +1128,7 @@ public class TelaMenu{
 										//adiciona a nova sapato no JList de SAPATO DE USUARIO
 										int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
 										
-										System.out.println("quantodadeeee = "+ qtd);
+										System.out.println("quantidadeeee = "+ qtd);
 										
 										modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, qtd-1));
 										

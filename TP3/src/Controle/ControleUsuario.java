@@ -573,9 +573,9 @@ public class ControleUsuario {
 	}
 	
 	/*==========================CARRINHO===============================*/
-	
-	//int i associado ao id do usuario e int r associado ao id da roupa
-	public void AdicionarCompra(int i, int r) {	
+	//int i associado ao id do usuario e int s associado ao id do sapato
+	public void AdicionarCompra1(int i, int r, int s) {	
+		carrinho[i].adicionarProduto(sapato[s]);
 		carrinho[i].adicionarProduto(roupa[r]);
 	}
 	
@@ -593,15 +593,28 @@ public class ControleUsuario {
 		return roupa;
 	}
 	
-	public void RemoveTodosCarrinho(int qtd, int r) {
+	public String[] escreveProdutosCarrinho1(int qtd, int s) {
+		String[] sapato = new String[qtd];
+		
+		for(int i = 0; i < qtd; i++) {
+			sapato[i] = carrinho[s].getProduto(i).getDescricao();
+		}
+		
+		return sapato;
+	}
+	
+	public void RemoveTodosCarrinho(int qtd, int r, int s) {
 		
 		for(int i = qtd; i >= 0; i--) {
 			carrinho[r].excluirProduto(roupa[i]);
+			carrinho[r].excluirProduto(sapato[s]);
+
 		}
 	}
 	
-	public void RemoveProdutoCarrinho(int c, int i) {
+	public void RemoveProdutoCarrinho(int c, int i, int s) {
 		carrinho[c].excluirProduto(roupa[i]);
+		carrinho[c].excluirProduto(sapato[s]);
 	}
 	
 	public String getProdutoCarrinho(int c, int i) {
@@ -626,8 +639,9 @@ public class ControleUsuario {
 /*==========================LISTA DE FAVORITOS===============================*/
 	
 	//int i associado ao id do usuario e int r associado ao id da roupa
-	public void AdicionarFavorito(int i, int r) {	
+	public void AdicionarFavorito(int i, int r, int s) {	
 		favorito[i].adicionarProduto(roupa[r]);
+		favorito[i].adicionarProduto(sapato[s]);
 	}
 	
 	public int QtdProdutoFavorito(int i) {
@@ -644,15 +658,17 @@ public class ControleUsuario {
 //		return roupa;
 //	}
 	
-	public void RemoveTodosFavoritos(int qtd, int r) {
+	public void RemoveTodosFavoritos(int qtd, int r, int s) {
 		
 		for(int i = qtd+1; i >= 0; i--) {
 			favorito[r].excluirProduto(roupa[i]);
+			favorito[s].excluirProduto(sapato[i]);
 		}
 	}
 	
 	public void RemoveProdutoFavorito(int c, int i) {
 		favorito[c].excluirProduto(roupa[i]);
+		favorito[c].excluirProduto(sapato[i]);
 	}
 	
 	public String getProdutoFavorito(int c, int i) {
@@ -667,6 +683,12 @@ public class ControleUsuario {
 	public boolean cadastrarSapato(int idUser, String text, String text2, float valor, String text3, String category,
 			String text4, String text5, String tam, String tam2) {
 		return false;
+	}
+
+
+	public void AdicionarCompra(int idUser, int indice) {
+		// TODO Stub de método gerado automaticamente
+		
 	}
 
 }
