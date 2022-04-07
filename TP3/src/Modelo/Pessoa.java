@@ -1,10 +1,14 @@
 package Modelo;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.text.MaskFormatter;
+
 public class Pessoa {
 
+	private static String Nome = null;
 	/**
 	 * Possui atributos com apenas dados pessoais, alem de gets, sets, e
 	 * construtores.
@@ -13,11 +17,7 @@ public class Pessoa {
 	 */
 		
 		private String nome;
-		private String sexo;
 		private String senha; 
-		private String email;
-		private String cpf;
-		private Date dataNascimento;
 		private int id;
 		
 		private Telefone telefone;
@@ -28,11 +28,6 @@ public class Pessoa {
 		//o construtor inicia o array list 
 		public Pessoa() {
 			produtos = new ArrayList<Produto>();
-//			this.setCpf("012345596");
-//			this.setNome(nome);
-//			this.setSexo(sexo);
-//			this.setSenha(senha);
-//			this.setEmail(email);
 		}
 
 		//permite adicionar produtos associados a pessoa
@@ -63,44 +58,12 @@ public class Pessoa {
 			this.nome = nome;
 		}
 
-		public String getSexo() {
-			return sexo;
-		}
-
-		public void setSexo(String sexo) {
-			this.sexo = sexo;
-		}
-
-		public String getEmail() {
-			return email;
-		}
-
-		public void setEmail(String email) {
-			this.email = email;
-		}
-
-		public String getCpf() {
-			return cpf;
-		}
-
-		public void setCpf(String cpf) {
-			this.cpf = cpf;
-		}
-		
 		public String getSenha() {
 			return senha;
 		}
 
 		public void setSenha(String senha) {
 			this.senha = senha;
-		}
-
-		public Date getDataNascimento() {
-			return dataNascimento;
-		}
-
-		public void setDataNascimento(Date dataNascimento) {
-			this.dataNascimento = dataNascimento;
 		}
 		
 		public int getId() {
@@ -127,6 +90,10 @@ public class Pessoa {
 
 		public void setEndereco(Endereco endereco) {
 			this.endereco = endereco;
+		}
+
+		public static Object verificarPessoa(String string) {
+			return null;
 		}
 		
 }

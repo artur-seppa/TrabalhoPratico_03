@@ -7,6 +7,8 @@ public class Roupa extends Produto{
 	private String tecido;
 	private String tamanho;
 	
+	public Roupa(String string) {
+	}
 	public String getCategoria() {
 		return categoria;
 	}
@@ -36,6 +38,20 @@ public class Roupa extends Produto{
 	}
 	public void setTamanho(String tamanho) {
 		this.tamanho = tamanho;
+	}
+	public static void addRoupaCadastrada(int i) {
+	}
+	public int getNome() {
+		return (Integer) null;
+	}
+	public static void addRoupaCadastrada(Roupa roupa1) {
+
+	}
+	public static Roupa getRoupaCadastrada(int i) {
+		return null;
+	}
+	public static Object quantidadeRoupasCadastradas() {
+		return null;
 	}
 	
 	

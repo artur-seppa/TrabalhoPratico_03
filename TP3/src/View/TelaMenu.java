@@ -1427,7 +1427,7 @@ public class TelaMenu{
 		JlistPesquisa = new JList<String>(modelPesquisa);
 		srollPesquisa = new JScrollPane(JlistPesquisa);
 		
-		srollPesquisa.setBounds(300, 45, 150, 150);
+		srollPesquisa.setBounds(280, 45, 150, 150);
 		panelPesquisar.add(srollPesquisa);
 		
 		/*--------------------LABELS E TEXTFILELDS---------------------*/
