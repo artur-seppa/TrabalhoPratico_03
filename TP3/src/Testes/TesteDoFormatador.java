@@ -8,7 +8,7 @@ import Modelo.Formatador;
 
 public class TesteDoFormatador {
 
-
+//Teste
 	/**
 	 * Testa o metodo verificarTelefone.
 	 */

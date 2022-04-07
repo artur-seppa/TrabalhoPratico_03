@@ -8,7 +8,7 @@ import org.junit.Test;
 import Modelo.Roupa;
 
 public class TesteCadastroItens {
-
+//Teste
 	/**
 	 * Teste dos metodos addItemCadastrado e getItemCadastrado.
 	 */
