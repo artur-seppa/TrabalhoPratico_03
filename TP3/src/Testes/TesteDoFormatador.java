@@ -1,12 +1,13 @@
 package Testes;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
+
 import Modelo.Formatador;
 
-public class TesteFormatador {
-	
+public class TesteDoFormatador {
+
 
 	/**
 	 * Testa o metodo verificarTelefone.
@@ -20,6 +21,6 @@ public class TesteFormatador {
 	 */
 	@Test
 	public void testVerificarCep() {
-		assertEquals("71.200-100", Formatador.verificarCep("71200100"));
+		assertEquals("71200-100", Formatador.verificarCep("71200100"));
 	}
 }

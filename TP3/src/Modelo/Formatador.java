@@ -33,7 +33,7 @@ public class Formatador {
 		MaskFormatter formatoCep;
 		
 		if (((String) Endereco).length() != 8) {
-			endereco2 = "nulo";
+			Endereco = "nulo";
 		}
 		
 		try {

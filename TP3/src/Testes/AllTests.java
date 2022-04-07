@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ TesteCadastroItems.class, TesteFormatador.class })
+@SuiteClasses({ TesteCadastroItens.class, TesteDoFormatador.class })
 public class AllTests {
 
 }
