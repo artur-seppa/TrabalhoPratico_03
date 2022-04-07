@@ -3,12 +3,10 @@ import Controle.*;
 import Modelo.Pessoa;
 import Modelo.Produto;
 import Modelo.Roupa;
-import Modelo.Sapato;
 import Modelo.CarrinhoDeCompra;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,7 +20,6 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -60,11 +57,14 @@ public class TelaMenu{
 	private static JPanel panelAddProdutos = new JPanel();
 	private static JLabel tituloAddProdutos = new JLabel("Adicionar produtos");
 	
+	private static JPanel panelEditarExcluirProdutos = new JPanel();
+	private static JLabel tituloEditarExcluirProdutos = new JLabel("Seus produtos");
+	
 	private static JPanel panelEditarProdutos = new JPanel();
 	private static JLabel tituloEditarProdutos = new JLabel("Editar produtos");
 	
-	private static JPanel panelEditarExcluirProdutos = new JPanel();
-	private static JLabel tituloEditarExcluirProdutos = new JLabel("Seus produtos");
+	private static JPanel panelPesquisar = new JPanel();
+	private static JLabel tituloPesquisar = new JLabel("Pesquisar usuarios");
 	
 	private static JPanel panelProduto = new JPanel();
 	private static JLabel tituloProduto = new JLabel("Inserir produto");
@@ -95,6 +95,11 @@ public class TelaMenu{
 	private DefaultListModel modelEditarProdutos = new DefaultListModel();
 	private JScrollPane srollEditarProdutos = new JScrollPane();
 	
+	private static String[] ListaPesquisa = new String[100];
+	private JList<String> JlistPesquisa;
+	private DefaultListModel modelPesquisa = new DefaultListModel();
+	private JScrollPane srollPesquisa = new JScrollPane();
+	
 	/*
 	 * Criacao dos Buttons associados ao JList
 	 */
@@ -115,6 +120,8 @@ public class TelaMenu{
 	private static int qtdRoupas = 0;
 	private static int qtdProdutos = 0;
 	private static int qtdProdutosFavoritos = 0;
+	
+	private static int qtdRoupasUsuario = 0;
 	private static int indiceRoupa = 0;
 	
 	/*
@@ -125,7 +132,7 @@ public class TelaMenu{
 	JMenu perfil = new JMenu("Usuario");
 	JMenu menuCarrinho = new JMenu("carrinho de compras"); 
 	JMenu menuFavoritos = new JMenu("Roupas Favoritas");
-	
+	JMenu menuPesquisa = new JMenu("Search");
 	
 	public void imprimirTelaMenu(ControleUsuario u, int idUsuario){
 		
@@ -135,6 +142,7 @@ public class TelaMenu{
 		 */
 		usuario = u;
 		idUser = idUsuario;
+		System.out.println("IDUSER === "+ idUser);
 		
 		
 		/*
@@ -233,18 +241,29 @@ public class TelaMenu{
 		srollEditarProdutos = new JScrollPane(JlistEditarProdutos);
 		
 		try {
-			if(usuario.getQuantidadeProdutosPessoa(idUser) != 0) {
-				
-				int qtdP = usuario.getQuantidadeProdutosPessoa(idUser);
-				
-				System.out.println("qPRODUTOS DA PESSOA ==== "+ qtdP);
-				
-				for(int i=0; i<qtdP; i++) {
-					System.out.println("PRODUTOS DA PESSOA ===== "+ usuario.getProdutoDescricaoPessoa(idUser, i));
-					modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, i));
-				}
-				
+//			if(usuario.getQuantidadeProdutosPessoa(idUser) != 0) {
+//				
+//				int qtdP = usuario.getQuantidadeProdutosPessoa(idUser);
+//				
+//				System.out.println("qPRODUTOS DA PESSOA ==== "+ qtdP);
+//				
+//				for(int i=0; i<qtdP; i++) {
+//					System.out.println("PRODUTOS DA PESSOA ===== "+ usuario.getProdutoDescricaoPessoa(idUser, i));
+//					modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, i));
+//				}
+//				
+//			}
+			
+			//obtem a quantidade total de roupas da pessoa
+			int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
+			
+			//adiciona as roupas nos quais tem o nome do usuario
+			for(int i=0; i<qtd; i++) {
+				qtdRoupasUsuario++;
+				System.out.println("quantiodade de roupa do usuario LOOP =-> " + qtdRoupasUsuario);
+				modelEditarProdutos.addElement(usuario.getProdutoPessoa(idUser, i).getDescricao() );
 			}
+			
 		}catch(Exception ex){
 //			JOptionPane.showMessageDialog(null, 
 //			"Erro: " + ex + "\n", null, 
@@ -351,7 +370,7 @@ public class TelaMenu{
 					// Um botão que permite obter o índice do item selecionado
 					 int indice = JlistProdutos.getSelectedIndex();
 					 
-					 usuario.AdicionarFavorito(idUser, indice, indice);
+					 usuario.AdicionarFavorito(idUser, indice);
 					 qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);
 					 
 					 System.out.println("indice do button favorito == "+indice);
@@ -482,21 +501,21 @@ public class TelaMenu{
 				        	model.removeAllElements();
 				        	
 				        	//todos os produtos sao removidos do obj carrinho
-				         	usuario.RemoveTodosCarrinho(qtdProdutos , idUser, size);
+				         	usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
 				         	
-				        	qtdProdutos--;	        
+				        	//qtdProdutos--;	        
 				        	
 			        	}else {
 			        		
-			        		JOptionPane.showMessageDialog(null, 
-					    	"Insira produtos no carrinho para efetuar a compra\n", null, 
-					    	JOptionPane.INFORMATION_MESSAGE);
+//			        		JOptionPane.showMessageDialog(null, 
+//					    	"Insira produtos no carrinho para efetuar a compra\n", null, 
+//					    	JOptionPane.INFORMATION_MESSAGE);
 			        		
 			        	}
 			        }catch(Exception ex){
 //			    			JOptionPane.showMessageDialog(null, 
-//			    					"Erro: " + ex + "\n", null, 
-//			    					JOptionPane.INFORMATION_MESSAGE);
+//			    			"Erro: " + ex + "\n", null, 
+//			    			JOptionPane.INFORMATION_MESSAGE);
 			    	}
 			        	
 			        	
@@ -517,12 +536,12 @@ public class TelaMenu{
 			        	
 			        	//exerce a remocao do item no carrinho
 			        	try {
-				        	usuario.RemoveProdutoCarrinho(idUser, remover, remover);
+				        	usuario.RemoveProdutoCarrinho(idUser, remover);
 				        	model.remove(remover);
 				        	
 				        	//garante que todos os produtos sejam removidos do carrinho
 				         	if(qtdProdutos == 1) {
-				        		usuario.RemoveTodosCarrinho(qtdProdutos , idUser, remover);
+				        		usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
 				        	}
 				        	
 				        	qtdProdutos--;
@@ -584,36 +603,6 @@ public class TelaMenu{
 		
 		/*--------------------BUTTONS---------------------*/
 		  
-//		FavoritoAddCarrinho.setBounds(190, 270, 170, 35);
-//		  panelFavoritos.add(FavoritoAddCarrinho);
-		  
-		  //NAO ESTA FUNCIONANDO DIREITO, VERIFICAR O PORQUE
-		  
-//		  FavoritoAddCarrinho.addActionListener(
-//				  new ActionListener(){
-//						 public void actionPerformed(ActionEvent e){
-//							        	
-//							 // Um botão que permite obter o índice do item selecionado
-//							 int indice = JlistFavorito.getSelectedIndex();
-//							 
-//							 usuario.AdicionarCompra(idUser, indice);
-//							 qtdProdutos = usuario.QtdProduto(idUser);
-//							 
-//							 System.out.println("indice do button carrinho == "+indice);
-//							 System.out.println("qtd produtos do button carrinho == "+qtdProdutos);
-//							 System.out.println("produto no carrinh  == "+ usuario.getProdutoCarrinho(idUser, qtdProdutos-1));
-//							 
-//							 for(int i=0; i<qtdProdutos; i++) {
-//									System.out.println("PRODUTOOOOO ======" + usuario.getProdutoCarrinho(idUser, i));
-//								}
-//							 
-//							 //ADICIONA O NOVO PRODUTO NA JLIST DO CARRINHO
-//							 model.addElement(usuario.getProdutoCarrinho(idUser, qtdProdutos-1));
-//							 
-//						}
-//					  }
-//				   );
-		  
 		  excluirFavorito.setBounds(190, 270, 170, 35);
 		  panelFavoritos.add(excluirFavorito);
 		  
@@ -634,7 +623,7 @@ public class TelaMenu{
 						        	
 						        	//garante que todos os produtos sejam removidos do carrinho
 						         	if(qtdProdutosFavoritos == 1) {
-						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser, remover);
+						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser);
 						        	}
 						        	
 						        	System.out.println("qtd favorito agora == " + qtdProdutosFavoritos);
@@ -809,31 +798,81 @@ public class TelaMenu{
 					  }
 				   );
 		  
-//		  JButton ButtonDeletar = new JButton("Deletar user");
-//		  ButtonDeletar.setBounds(255, 385, 200, 35);
-//		  panelPerfil.add(ButtonDeletar);
-//		  
-//		  ButtonDeletar.addActionListener(
-//				  new ActionListener(){
-//						 public void actionPerformed(ActionEvent e){							 
-//							try {
-//							 usuario.DeletarUsuario(nomeText.getText(), senhaText.getText());
-//					        
-//							 String user[] = usuario.escreveUsuarios();
-//							 int qtd = usuario.getQtdPessoas();
-//							 
-//							 for(int i=0; i<qtd; i++) {
-//								 System.out.println("usuarios AGORA ===" + user[i]);
-//							 }
-//							}catch(Exception ex){
-////				    			JOptionPane.showMessageDialog(null, 
-////		    					"Erro: " + ex + "\n", null, 
-////		    					JOptionPane.INFORMATION_MESSAGE);
-//							}
-//						
-//						}
-//					  }
-//				   );
+		  JButton ButtonDeletar = new JButton("Deletar user");
+		  ButtonDeletar.setBounds(255, 385, 200, 35);
+		  panelPerfil.add(ButtonDeletar);
+		  
+		  ButtonDeletar.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){							 
+							try {
+							
+							//Quantidade de produtos associados a pessoa logada	
+							 int qtdProdutosPessoa = usuario.getQuantidadeProdutosPessoa(idUser);
+							 
+							 //deleta o usuario
+							 usuario.DeletarUsuario(nomeText.getText(), senhaText.getText(), idUser);
+					        
+							 String user[] = usuario.escreveUsuarios();
+							 String produ[] = usuario.escreveProdutos();
+							 int qtd = usuario.getQtdPessoas();						 
+													 
+							 for(int i=0; i<qtd; i++) {
+								 System.out.println("usuarios AGORA ===" + user[i]);
+								 System.out.println("produtos AGORA== "+ produ[i]);
+							 }
+							 
+							 //como diminuiu um usuario temos que diminuir a qtd de produtos
+							 int size = modelProdutos.getSize();
+							 size = size - qtdProdutosPessoa;
+							 
+							 //remove todos os produtos
+							 modelProdutos.removeAllElements();
+							 
+							 //aloca os novos produtos editados na lista
+							 for(int k=0; k<size; k++) {
+								 System.out.println("produtos a serem colocados "+ produ[k]);
+								 modelProdutos.addElement(produ[k]);
+							 }						
+							 
+							 divHomeNotVisible();
+					            panelFavoritoNotVisible();
+					            panelCarrinhoNotVisible();
+					            panelAddProdutosNotVisible();
+					            panelPerfilNotVisible();
+					            panelEditarExcluirProdutosNotVisible();
+					            panelEditarProdutosNotVisible();
+							 
+							 //volta a tela principal
+							 janela.setVisible(false);
+							 new TelaPrincipal().VoltarTelaPrincipal(usuario);
+							 
+							 int qt = usuario.getQtdPessoas();
+							 String us[] =  usuario.escreveUsuarios();
+							 for(int i=0; i<qt; i++) {
+								 System.out.println("USARIOS NOVOS ::::: "+ us[i]);
+							 }
+							 
+							//passa o valor null para os inputs ao finalizar a operacao
+							nomeText.setText(usuario.getNome(idUser));
+							senhaText.setText(usuario.getSenha(idUser));
+							dddText.setText(Integer.toString(usuario.getDDD(idUser)) );
+							telefoneText.setText(Integer.toString(usuario.getTelefone(idUser)) );
+							bairroText.setText(usuario.getBairro(idUser));
+							cepText.setText(Integer.toString(usuario.getCep(idUser)) );
+							cidadeText.setText(usuario.getCidade(idUser));
+							estadoText.setText(usuario.getEstado(idUser));
+							enderecoText.setText(usuario.getEndereco(idUser));
+							 
+							}catch(Exception ex){
+//				    			JOptionPane.showMessageDialog(null, 
+//		    					"Erro: " + ex + "\n", null, 
+//		    					JOptionPane.INFORMATION_MESSAGE);
+							}
+						
+						}
+					  }
+				   );
 		  
 	}
 	
@@ -905,9 +944,8 @@ public class TelaMenu{
 			categoria.setBounds(25, 115, 120, 30);
 			panelAddProdutos.add(categoria);
 			
-			String vetor[] = {"Roupa", "Sapato"};
+			String vetor[] = {"Roupa"};
 			
-		
 			JComboBox combobox = new JComboBox(vetor);
 			combobox.setBounds(25, 145, 200, 30);
 			panelAddProdutos.add(combobox);
@@ -944,7 +982,7 @@ public class TelaMenu{
 			tamanho.setBounds(255, 255, 120, 30);
 			panelAddProdutos.add(tamanho);
 		
-			String tam[] = {"P", "M", "G","35", "36", "37","38", "39", "40","41","42","43","44","45","46","47","48","49","50","51","52"};
+			String tam[] = {"P", "M", "G"};
 			
 			JComboBox comboTam = new JComboBox(tam);
 			comboTam.setBounds(255, 285, 200, 30);
@@ -956,10 +994,9 @@ public class TelaMenu{
 			
 			/*--------------------BUTTONS---------------------*/
 		
-		  JButton AddRoupa = new JButton("Adicionar");
+		  JButton AddRoupa = new JButton("Adicionar roupa");
 		  AddRoupa.setBounds(255, 345, 200, 35);
 		  panelAddProdutos.add(AddRoupa);
-		  
 		  
 		  AddRoupa.addActionListener(
 				  new ActionListener(){
@@ -995,7 +1032,7 @@ public class TelaMenu{
 									
 								if(sucesso == true) {
 									JOptionPane.showMessageDialog(null, 
-									("Roupa adicionada com sucesso\n"), null, 
+									"Roupa adicionada com sucesso\n", null, 
 									JOptionPane.INFORMATION_MESSAGE);
 									
 									//obtem a qtd roupas atualizada
@@ -1005,11 +1042,12 @@ public class TelaMenu{
 									modelProdutos.addElement(usuario.getRoupaDescricao(qtdRoupas-1));
 									
 									//adiciona a nova roupa no JList de ROUPA DE USUARIO
-									int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
-									
-									System.out.println("quantidadeeee = "+ qtd);
-									
-									modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, qtd-1));
+//									int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
+//									
+//									System.out.println("quantodadeeee = "+ qtd);
+									System.out.println("quantiodade de roupa do usuario =-> " + qtdRoupasUsuario);
+									modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, qtdRoupasUsuario));
+									qtdRoupasUsuario++;
 									
 									//passa o valor null para os inputs ao finalizar a operacao
 									descricaoText.setText(null);
@@ -1024,7 +1062,7 @@ public class TelaMenu{
 							
 					}catch(Exception ex){
 								JOptionPane.showMessageDialog(null, 
-								("Os campos nao foram preenchidos corretamente\n"), null, 
+								"Os campos nao foram preenchidos corretamente\n", null, 
 								JOptionPane.INFORMATION_MESSAGE);
 					}
 					        	
@@ -1032,128 +1070,8 @@ public class TelaMenu{
 					  }
 				   );
 		  
-			  JButton AddSapato = new JButton("Adicionar");
-			  AddSapato.setBounds(255, 345, 200, 35);
-			  panelAddProdutos.add(AddSapato);
-			  System.out.println(AddSapato);
-			  
-			  AddSapato.addActionListener(
-					  new ActionListener(){
-							 public void actionPerformed(ActionEvent e){
-								
-						try {
-								boolean sucesso;
-							
-								float valor = Float.parseFloat(precoText.getText());
-								int itemCombo = combobox.getSelectedIndex();
-								int itemcomboTam = comboTam.getSelectedIndex();
-								
-								String category = null;
-								String tam = null;
-								int qtdSapatos = 0;
-								
-								if(itemCombo == 1) {
-									category = "sapato";
-								}
-								if(itemcomboTam != -1) {
-									if(itemcomboTam == 4) {
-										tam = "35";
-									}
-									if(itemcomboTam == 5) {
-										tam = "36";
-									}
-									if(itemcomboTam == 6) {
-										tam = "37";
-									}
-									if(itemcomboTam == 7) {
-										tam = "38";
-									}
-									if(itemcomboTam == 8) {
-										tam = "39";
-									}
-									if(itemcomboTam == 9) {
-										tam = "40";
-									}
-									if(itemcomboTam == 10) {
-										tam = "41";
-									}
-									if(itemcomboTam == 11) {
-										tam = "42";
-									}
-									if(itemcomboTam == 11) {
-										tam = "43";
-									}
-									if(itemcomboTam == 12) {
-										tam = "44";
-									}
-									if(itemcomboTam == 13) {
-										tam = "45";
-									}
-									if(itemcomboTam == 14) {
-										tam = "46";
-									}
-									if(itemcomboTam == 15) {
-										tam = "47";
-									}
-									if(itemcomboTam == 16) {
-										tam = "48";
-									}
-									if(itemcomboTam == 17) {
-										tam = "49";
-									}
-									if(itemcomboTam == 18) {
-										tam = "50";
-									}
-									if(itemcomboTam == 19) {
-										tam = "51";
-									}
-									if(itemcomboTam == 20) {
-										tam = "52";
-								}
-									
-								
-								sucesso = usuario.cadastrarSapato(idUser, descricaoText.getText(), marcaText.getText(), valor, condicaoText.getText(), category, estiloText.getText(), corText.getText(), tam);
-										
-									if(sucesso == true) {
-										JOptionPane.showMessageDialog(null, 
-										("Sapato adicionada com sucesso\n"), null, 
-										JOptionPane.INFORMATION_MESSAGE);
-										
-										//obtem a qtd Sapatos atualizada
-										Object qtdSapato = usuario.getQtdSapatos();
-										
-										//adiciona a novo sapato no JList do home
-										modelProdutos.addElement(usuario.getSapatoDescricao(qtdSapatos + 1));
-										
-										//adiciona a nova sapato no JList de SAPATO DE USUARIO
-										int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
-										
-										System.out.println("quantidadeeee = "+ qtd);
-										
-										modelEditarProdutos.addElement(usuario.getProdutoDescricaoPessoa(idUser, qtd-1));
-										
-										//passa o valor null para os inputs ao finalizar a operacao
-										descricaoText.setText(null);
-										marcaText.setText(null);
-										precoText.setText(null);
-										condicaoText.setText(null);
-										estiloText.setText(null);
-										corText.setText(null);
-									}
-								}
-									
-										}catch(Exception ex){
-										JOptionPane.showMessageDialog(null, 
-										("Os campos nao foram preenchidos corretamente\n"), null, 
-										JOptionPane.INFORMATION_MESSAGE);
-										}
-										
-						  }
-						        	
-						  }
-					   );
-	  
-}
+	}
+	
 	
 /*####################### PAINEL EDITAR/EXCLUIR PRODUTOS ############################*/
 	
@@ -1179,15 +1097,14 @@ public class TelaMenu{
 		 * Criacao do Jlist com scroll no panel 
 		 */
 		
-		srollEditarProdutos = new JScrollPane(JlistEditarProdutos);
+
 		srollEditarProdutos.setBounds(40, 50, 500, 200);
-		
 		panelEditarExcluirProdutos.add(srollEditarProdutos);
 			
 		/*--------------------BUTTONS---------------------*/
 		
 		  JButton EditarRoupa = new JButton("Editar roupa");
-		  EditarRoupa.setBounds(155, 280, 180, 35);
+		  EditarRoupa.setBounds(65, 280, 180, 35);
 		  panelEditarExcluirProdutos.add(EditarRoupa);
 		  
 		  EditarRoupa.addActionListener(
@@ -1213,18 +1130,54 @@ public class TelaMenu{
 					  }
 				   );
 		  
-//		  JButton ExcluirRoupa = new JButton("Excluir roupa");
-//		  ExcluirRoupa.setBounds(240, 300, 180, 35);
-//		  panelEditarExcluirProdutos.add(ExcluirRoupa);
-//		  
-//		  ExcluirRoupa.addActionListener(
-//				  new ActionListener(){
-//						 public void actionPerformed(ActionEvent e){
-//					
-//					        	
-//						}
-//					  }
-//				   );
+		  JButton ExcluirRoupa = new JButton("Excluir roupa");
+		  ExcluirRoupa.setBounds(240, 280, 180, 35);
+		  panelEditarExcluirProdutos.add(ExcluirRoupa);
+		  
+		  ExcluirRoupa.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){
+							 
+							// Um botão que permite obter o índice do item selecionado
+						    indiceRoupa = JlistEditarProdutos.getSelectedIndex();
+						    
+							System.out.println("indice de roupa do usuario =-> " + indiceRoupa);
+//						    if(modelEditarProdutos.getElementAt(indiceRoupa).equals(usuario.getProdutoDescricaoPessoa(idUser, indiceRoupa) ) ) {
+						    	
+							 //obtem a qtd roupas atualizada
+							   qtdRoupas = usuario.getQtdRoupas();
+							   System.out.println("qtd = " + qtdRoupas);
+							  
+							   /*
+							    * Exerce a elmininacao das roupas no JList home
+							    */
+							   for(int i=0; i<qtdRoupas; i++) {
+									//adiciona a nova roupa no JList do home
+								   if(usuario.getProdutoDescricaoPessoa(idUser, indiceRoupa).equals(usuario.getRoupaDescricao(i)) ) {
+									   System.out.println("indice i = " + i);
+									   usuario.excluirProdutoRoupa(i);
+									   modelProdutos.remove(i);
+								   }
+							   }
+							   
+							   	//elimina a roupa do home e do usuario
+						    	modelEditarProdutos.remove(indiceRoupa);
+						    	usuario.excluirRoupa(idUser, indiceRoupa);
+						    	
+						    	qtdRoupasUsuario--;
+						    	
+//						    int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
+						    System.out.println("qtd de roupas  ==-=@ "+ qtdRoupasUsuario);
+						    
+//						    for(int k=0; k<qtdRoupasUsuario; k++) {
+//						    	System.out.println(usuario.getProdutoDescricaoPessoa(idUser, k));
+//						    }
+						    
+						 
+					        	
+						}
+					  }
+				   );
 		  
 	}
 	
@@ -1282,12 +1235,6 @@ public class TelaMenu{
 		precoText.setBounds(255, 75, 200, 30);
 		panelEditarProdutos.add(precoText);
 		
-		JTextField precoText1 = new JTextField(120);
-		int indiceSapato = 0;
-		precoText1.setText(Float.toString(usuario.getProdutoPrecoPessoa(idUser, indiceSapato)) );
-		precoText1.setBounds(255, 75, 200, 30);
-		panelEditarProdutos.add(precoText1);
-		
 		JLabel condicao = new JLabel("Condicao :");
 		condicao.setFont(new Font("Arial", Font.BOLD, 15));
 		condicao.setBounds(255, 115, 120, 30);
@@ -1298,21 +1245,12 @@ public class TelaMenu{
 		condicaoText.setBounds(255, 145, 200, 30);
 		panelEditarProdutos.add(condicaoText);
 		
-		JTextField condicaoText1 = new JTextField(120);
-		condicaoText1.setText(usuario.getProdutoCondicaoPessoa(idUser, indiceSapato));
-		condicaoText1.setBounds(255, 145, 200, 30);
-		panelEditarProdutos.add(condicaoText1);
-		
 		/***********************************/
 		
 		Roupa roupa = (Roupa) usuario.getProdutoPessoa(idUser, indiceRoupa);
 		String desc = roupa.getDescricao();
 		
-		Sapato sapato = (Sapato) usuario.getProdutoPessoa(idUser, indiceSapato);
-		String desc1 = roupa.getDescricao();
-		
 		System.out.println("cor==== " + roupa.getCor());
-		System.out.println("cor==== " + sapato.getCor());
 		
 		JLabel categoria = new JLabel("Categoria :");
 		categoria.setFont(new Font("Arial", Font.BOLD, 15));
@@ -1320,9 +1258,8 @@ public class TelaMenu{
 		panelEditarProdutos.add(categoria);
 		
 		String vetor[] = {"Roupa"};
-		String vetor1[] = {"Sapato"};
 		
-		JComboBox combobox = new JComboBox(vetor1);
+		JComboBox combobox = new JComboBox(vetor);
 		combobox.setBounds(25, 145, 200, 30);
 		panelEditarProdutos.add(combobox);
 		
@@ -1361,13 +1298,11 @@ public class TelaMenu{
 		tamanho.setBounds(255, 255, 120, 30);
 		panelEditarProdutos.add(tamanho);
 	
-		String tam[] = {"P", "M", "G","35", "36", "37","38", "39", "40","41","42","43","44","45","46","47","48","49","50","51","52"};
-		
+		String tam[] = {"P", "M", "G"};
 		
 		JComboBox comboTam = new JComboBox(tam);
 		comboTam.setBounds(255, 285, 200, 30);
 		panelEditarProdutos.add(comboTam);
-		
 		
 			
 		/*--------------------BUTTONS---------------------*/
@@ -1376,10 +1311,6 @@ public class TelaMenu{
 		  SalvarRoupa.setBounds(255, 345, 200, 35);
 		  panelEditarProdutos.add(SalvarRoupa);
 		  
-		  JButton SalvarSapato = new JButton("Salvar Sapato");
-		  SalvarSapato.setBounds(255, 345, 200, 35);
-		  panelEditarProdutos.add(SalvarSapato);
-		  
 		  SalvarRoupa.addActionListener(
 				  new ActionListener(){
 						 public void actionPerformed(ActionEvent e){
@@ -1387,7 +1318,7 @@ public class TelaMenu{
 							 try {
 									boolean sucesso;
 								
-									float valor = Float.parseFloat(precoText1.getText());
+									float valor = Float.parseFloat(precoText.getText());
 									int itemCombo = combobox.getSelectedIndex();
 									int itemcomboTam = comboTam.getSelectedIndex();
 									
@@ -1419,7 +1350,7 @@ public class TelaMenu{
 										
 										System.out.println("elemento no home === "+ usuario.getRoupaDescricao(indice) );
 																				
-										if(desc1.equals(usuario.getRoupaDescricao(indice)) )
+										if(desc.equals(usuario.getRoupaDescricao(indice)) )
 										{
 											break;
 										}
@@ -1427,7 +1358,7 @@ public class TelaMenu{
 									
 									System.out.println("indiceeeeeeee " + indice);
 									
-									sucesso = usuario.editarRoupa(indice, descricaoText.getText(), marcaText.getText(), valor, condicaoText1.getText(), category, estiloText.getText(), corText.getText(), tecidoText.getText(), tam);
+									sucesso = usuario.editarRoupa(indice, descricaoText.getText(), marcaText.getText(), valor, condicaoText.getText(), category, estiloText.getText(), corText.getText(), tecidoText.getText(), tam);
 											
 										if(sucesso == true) {
 											JOptionPane.showMessageDialog(null, 
@@ -1446,8 +1377,8 @@ public class TelaMenu{
 											//passa o valor null para os inputs ao finalizar a operacao
 											descricaoText.setText(null);
 											marcaText.setText(null);
-											precoText1.setText(null);
-											condicaoText1.setText(null);
+											precoText.setText(null);
+											condicaoText.setText(null);
 											estiloText.setText(null);
 											corText.setText(null);
 											tecidoText.setText(null);
@@ -1464,137 +1395,102 @@ public class TelaMenu{
 					  }
 				   );
 		  
+	}
 	
-	//----------------------
 	
-	SalvarSapato.addActionListener(
-			  new ActionListener(){
-					 public void actionPerformed(ActionEvent e){
-						 
-						 try {
-								boolean sucesso;
+	/*####################### PAINEL PESQUISAR ############################*/
+	
+	public void divPesquisar() {
+		
+		janela.add(panelPesquisar);
+		panelPesquisar.setVisible(true);
+		
+		panelPesquisar.setLayout(null);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloPesquisar.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloPesquisar.setBounds(40, 10, 280, 30);		
+		panelPesquisar.add(tituloPesquisar);
+		
+		/*----------------JList---------------*/
+		/*
+		 * Criacao do Jlist com scroll no panel 
+		 */
+		
+		//Instancia o Jlist de Produtos cadastardos pelo usuario
+		modelPesquisa = new DefaultListModel();
+		JlistPesquisa = new JList<String>(modelPesquisa);
+		srollPesquisa = new JScrollPane(JlistPesquisa);
+		
+		srollPesquisa.setBounds(280, 45, 150, 150);
+		panelPesquisar.add(srollPesquisa);
+		
+		/*--------------------LABELS E TEXTFILELDS---------------------*/
+		
+		/***************PESSOA********************/
+		JLabel nome = new JLabel("Nome do usuario procurado :");
+		nome.setFont(new Font("Arial", Font.BOLD, 15));
+		nome.setBounds(25, 45, 240, 30);
+		panelPesquisar.add(nome);
+	
+		JTextField nomeText = new JTextField(120);
+		nomeText.setBounds(25, 75, 200, 30);
+		panelPesquisar.add(nomeText);
+		
+		JLabel nomeBuscado = new JLabel("Nome :");
+		nomeBuscado.setFont(new Font("Arial", Font.BOLD, 15));
+		nomeBuscado.setBounds(25, 115, 120, 30);
+		panelPesquisar.add(nomeBuscado);
+	
+		JTextField nomeBuscadoText = new JTextField(120);
+		nomeBuscadoText.setBounds(25, 145, 200, 30);
+		panelPesquisar.add(nomeBuscadoText);
+		
+		
+		/*--------------------BUTTONS---------------------*/
+		
+		  JButton Pesquisar = new JButton("Pesquisar");
+		  Pesquisar.setBounds(65, 280, 180, 35);
+		  panelPesquisar.add(Pesquisar);
+		  
+		  Pesquisar.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){
 							
-								float valor = Float.parseFloat(precoText1.getText());
-								int itemCombo = combobox.getSelectedIndex();
-								int itemcomboTam = comboTam.getSelectedIndex();
-								
-								String category = null;
-								String tam = null;
-								
-								if(itemCombo == 1) {
-									category = "sapato";
-								}
-								if(itemcomboTam != 34) {
-									if(itemcomboTam == 35) {
-										tam = "35";
-									}
-									if(itemcomboTam == 36) {
-										tam = "36";
-									}
-									if(itemcomboTam == 37) {
-										tam = "37";
-									}
-									if(itemcomboTam == 38) {
-										tam = "38";
-									}
-									if(itemcomboTam == 39) {
-										tam = "39";
-									}
-									if(itemcomboTam == 40) {
-										tam = "40";
-									}
-									if(itemcomboTam == 41) {
-										tam = "41";
-									}
-									if(itemcomboTam == 42) {
-										tam = "42";
-									}
-									if(itemcomboTam == 43) {
-										tam = "43";
-									}
-									if(itemcomboTam == 44) {
-										tam = "44";
-									}
-									if(itemcomboTam == 45) {
-										tam = "45";
-									}
-									if(itemcomboTam == 46) {
-										tam = "46";
-									}
-									if(itemcomboTam == 47) {
-										tam = "47";
-									}
-									if(itemcomboTam == 48) {
-										tam = "48";
-									}
-									if(itemcomboTam == 49) {
-										tam = "49";
-									}
-									if(itemcomboTam == 50) {
-										tam = "50";
-									}
-									if(itemcomboTam == 51) {
-										tam = "51";
-									}
-									if(itemcomboTam == 52) {
-										tam = "52";
-								}
-								
-								//obtem a qtd sapatos atualizada
-								Object qtdSapatos = usuario.getQtdSapatos();;
-								System.out.println("size === "+ qtdSapatos);
-								int indice;
-								
-								int qtdSapato = 0;
-								for(indice = 0; indice < qtdSapato; indice++) {
+							 //remove todos os elementos da lista ao iniciar
+							 modelPesquisa.removeAllElements();
+							 
+							//obtem os nomes e a quantidade de usuarios no sistema 
+							String user[] = usuario.escreveUsuarios();
+							int qtdUser = usuario.getQtdPessoas();
+							
+							//caso um dos nomes seja igual ao do textfield, retorna para nomeBuscadoText
+							for(int i=0; i<qtdUser; i++) {
+								if(nomeText.getText().equals(user[i])) {
+									nomeBuscadoText.setText(user[i]);
 									
-									System.out.println("elemento no home === "+ usuario.getSapatoDescricao(indice) );
-																			
-									if(desc1.equals(usuario.getSapatoDescricao(indice)) )
-									{
-										break;
+									int iduser = usuario.getIdUser(i);
+									int qtdProdPessoa = usuario.getQuantidadeProdutosPessoa(iduser);
+									
+									for(int k=0; k<qtdProdPessoa; k++) {
+										modelPesquisa.addElement(usuario.getProdutoDescricaoPessoa(iduser, k) );
 									}
+									
 								}
-								
-								System.out.println("indiceeeeeeee " + indice);
-								
-								sucesso = usuario.editarSapato(indice, descricaoText.getText(), marcaText.getText(), valor, condicaoText1.getText(), category, estiloText.getText(), corText.getText(), tam);
-										
-									if(sucesso == true) {
-										JOptionPane.showMessageDialog(null, 
-										"Sapato editada com sucesso\n", null, 
-										JOptionPane.INFORMATION_MESSAGE);							
-										
-										
-										modelEditarProdutos.setElementAt(usuario.getProdutoDescricaoPessoa(idUser, indiceSapato), 0);
-										for(int i=0; i<=indiceSapato; i++) {
-											System.out.println( "teste de bug == " +usuario.getProdutoDescricaoPessoa(idUser, i) );
-										}
-										
-										//Atualiza o painel home da mudanca de sapato
-										modelProdutos.setElementAt(usuario.getProdutoDescricaoPessoa(idUser, indiceSapato), indice);
-										
-										//passa o valor null para os inputs ao finalizar a operacao
-										descricaoText.setText(null);
-										marcaText.setText(null);
-										precoText1.setText(null);
-										condicaoText1.setText(null);
-										estiloText.setText(null);
-										corText.setText(null);
-										
-									}
-								}
-						}catch(Exception ex){
-									JOptionPane.showMessageDialog(null, 
-									"Os campos nao foram preenchidos corretamente\n", null, 
-									JOptionPane.INFORMATION_MESSAGE);
+							}
+							
+							
+							
 						}
-				        	
-					}
-				  }
-			   );
-	  
-}
+					  }
+				   );
+		  
+	}
 	
 	
 	/*====================Metodos SETVISIBLE(FALSE)=======================*/
@@ -1629,6 +1525,10 @@ public class TelaMenu{
 	public void panelEditarProdutosNotVisible(){
 		panelEditarProdutos.setVisible(false);
 		janela.setSize(600, 400);
+	}
+	
+	public void panelPesquisarNotVisible(){
+		panelPesquisar.setVisible(false);
 	}
 	
 	/*=======================CONSTRUTOR DA TELA===========================*/
@@ -1666,6 +1566,7 @@ public class TelaMenu{
 		barraMenu.add(perfil);
 		barraMenu.add(menuCarrinho);
 		barraMenu.add(menuFavoritos);
+		barraMenu.add(menuPesquisa);
 		
 		
 		//-------------evento de clique nos itens(submenu)----------------
@@ -1684,6 +1585,7 @@ public class TelaMenu{
             	panelAddProdutosNotVisible();
             	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 
             	divPerfil();
             }
@@ -1698,6 +1600,7 @@ public class TelaMenu{
             	panelPerfilNotVisible();
             	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 
             	divAddProdutos();
             }
@@ -1712,7 +1615,7 @@ public class TelaMenu{
             	panelAddProdutosNotVisible();
             	panelPerfilNotVisible();
             	panelEditarProdutosNotVisible();
-            	
+            	panelPesquisarNotVisible();
             	
             	divEditarExcluirProdutos();
             }
@@ -1728,6 +1631,7 @@ public class TelaMenu{
 		menuCarrinho.addMenuListener(new ListenerMenus());
 		menuFavoritos.addMenuListener(new ListenerMenus());
 		home.addMenuListener(new ListenerMenus());
+		menuPesquisa.addMenuListener(new ListenerMenus());
 		
 	}
 	
@@ -1749,6 +1653,7 @@ public class TelaMenu{
 	        	panelAddProdutosNotVisible();
 	        	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 	        	
 	        	//aloca o panel Carrinho
             	painelCarrinho();
@@ -1763,6 +1668,7 @@ public class TelaMenu{
 	        	panelAddProdutosNotVisible();
 	        	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 	        	
 	        	//aloca o panel Favoritos
 	        	divFavorito();
@@ -1777,9 +1683,26 @@ public class TelaMenu{
 	        	panelAddProdutosNotVisible();
 	        	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 	        	
 	        	//instancia a visibilidade do panelHome
 	        	panelHome.setVisible(true);
+	        	
+	        }
+	        
+	        if(e.getSource().equals(menuPesquisa) ) {
+	        	
+	        	//retira os panels
+	        	divHomeNotVisible();
+	        	panelCarrinhoNotVisible();
+	        	panelFavoritoNotVisible();
+	        	panelPerfilNotVisible();
+	        	panelAddProdutosNotVisible();
+	        	panelEditarExcluirProdutosNotVisible();
+            	panelEditarProdutosNotVisible();
+	        	
+	        	//instancia a visibilidade do panelHome
+            	divPesquisar();
 	        	
 	        }
 	    }

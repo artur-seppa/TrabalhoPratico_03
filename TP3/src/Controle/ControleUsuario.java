@@ -111,6 +111,10 @@ public class ControleUsuario {
 		return totalP;
 	}
 	
+	public Pessoa[] retornaStringPessoa() {		
+		return pessoa;
+	}
+	
 	/***********PESSOA***********/
 	
 	public String getNome(int i) {		
@@ -125,8 +129,8 @@ public class ControleUsuario {
 		return qtdPessoas;
 	}
 	
-	public Pessoa[] retornaStringPessoa() {		
-		return pessoa;
+	public int getIdUser(int i) {
+		return pessoa[i].getId();
 	}
 	
 	/***********TELEFONE***********/
@@ -258,26 +262,84 @@ public class ControleUsuario {
 		for(int i = 0; i <qtdPessoas; i++) {
 			if(nome.equals(pessoa[i].getNome()) ) {
 				if(senha.equals(pessoa[i].getSenha()) ) {
+					//retorna o id do usuario
 					return pessoa[i].getId();
 				}
 			}
 		}
-		//caso nao encontre o nome e nem a senha retorna false
+		//caso nao encontre o nome e nem a senha retorna -1
 		return -1;
 	}
 	
-	public void DeletarUsuario(String nome, String senha) {
+	public void DeletarUsuario(String nome, String senha, int IdUser) {
 		
 		//procura pelo mesmo nome e senha nos usuarios cadastrados
 		for(int i = 0; i <qtdPessoas; i++) {
 			if(nome.equals(pessoa[i].getNome()) ) {
 				if(senha.equals(pessoa[i].getSenha()) ) {
 					
-					for(int j=i; j<qtdPessoas; j++) {
-//						System.out.println(pessoa[j].getNome());
-						pessoa[j] = pessoa[j+1];
+					//caso o usuario nao seja o ultimo instanciado, entra no if
+					if(i != qtdPessoas-1 ) {
 						
-						System.out.println("ANTES ===== "+ pessoa[j].getNome());
+						/*
+						 * Percorre por todos os usuarios, passando as informacoes
+						 * do indice a frente para o usuario anterior. 
+						 * 
+						 * o vetor inicia no indice no qual queremos deletar o usuario
+						 */
+						for(int p = i; p <=qtdPessoas; p++) {
+							
+							//O usuario anterior recebe as info do usuario a frente
+							pessoa[p].setNome(pessoa[p+1].getNome());
+							pessoa[p].setSenha(pessoa[p+1].getSenha());
+							pessoa[p].setId(p+1);
+							
+							//o usuario anterior recebe o usuario a sua frente
+//							pessoa[p] = pessoa[p+1];
+							
+							//pega a qtd de produtos associado a essa pessoa
+							int qtd = pessoa[p].quantidadeProdutos();
+							
+							for(int j=0; j<qtd; j++) {
+								
+								//pega o produto dessa pessoa :
+								//pessoa[p].getProduto(j).getDescricao();
+								
+								//associa o produto dessa pessoa com a do sistema
+								for(int k=0; k<qtdRoupas; k++) {
+									if(roupa[k].getDescricao().equals(pessoa[p].getProduto(j).getDescricao()) ) {
+										//roupa[k].setDescricao(roupa[k+1].getDescricao());
+										pessoa[p].getProduto(k).setDescricao( pessoa[p+1].getProduto(k).getDescricao());
+										
+									}
+								}
+								
+	//							//exclui o produto associado a pessoa
+	//							pessoa[i].excluirProduto(roupa[j]);
+							}		
+								
+						}												
+					}else {
+						
+						//edita as suas informacoes para null
+						pessoa[i].setNome(null);
+						
+						//pega a qtd de produtos associado a essa pessoa
+						int qtd = pessoa[i].quantidadeProdutos();
+						
+						for(int j=0; j<qtd; j++) {
+							
+							//associa o produto dessa pessoa com a do sistema
+							for(int k=0; k<qtdRoupas; k++) {
+								if(roupa[k].getDescricao().equals(pessoa[i].getProduto(j).getDescricao()) ) {
+									roupa[k].setDescricao(roupa[k+1].getDescricao());
+									
+								}
+							}
+							
+//							//exclui o produto associado a pessoa
+//							pessoa[i].excluirProduto(roupa[j]);
+						}
 					}
 					
 					
@@ -285,7 +347,8 @@ public class ControleUsuario {
 			}
 		}
 		
-		qtdPessoas-- ;		
+		//diminui a quantidade de usuarios
+		qtdPessoas-- ;
 		
 	}
 	
@@ -449,7 +512,15 @@ public class ControleUsuario {
 		return pessoa[i].quantidadeProdutos();
 	}
 	
+<<<<<<< HEAD
+	//teste para capturar roupas Usuario	
+	public String getProdutoNomePessoa(int i, int r) {
+		return pessoa[i].getProduto(r).getPessoa().getNome();
+	}
+	
+=======
 	/***********CADASTRAR ROUPAS***********/
+>>>>>>> refs/remotes/origin/modAmanda
 	public boolean cadastrarRoupa(int idUser, String descricao , String marca, float preco, String condicao,
 			String categoria, String estilo, String cor, String tecido, String tamanho ) {
 		
@@ -476,7 +547,7 @@ public class ControleUsuario {
 			//ASSOCIA O PRODUTO A PESSOA
 			pessoa[idUser].adicionarProduto(roupa[qtdRoupas]);
 			
-			//incrementa o numero de roupas totais
+//			//incrementa o numero de roupas totais
 			qtdRoupas++;
 			
 			return true;
@@ -511,6 +582,32 @@ public class ControleUsuario {
 		
 	}
 	
+<<<<<<< HEAD
+	public void excluirRoupa(int idUser, int indice) {
+			
+			//exclui o produto associado a pessoa
+			pessoa[idUser].excluirProduto(roupa[indice]);
+		
+	}
+	
+	public void excluirProdutoRoupa(int i) {
+		
+		for(int k=i; k<=qtdRoupas;  k++) {
+		
+			if(k == 0) {
+				break;
+			}
+			roupa[k] = roupa[k+1];
+		}
+		
+		qtdRoupas--;
+	
+}
+	
+	
+	/*==========================CARRINHO===============================*/
+=======
+>>>>>>> refs/remotes/origin/modAmanda
 	
 	/***********CADASTRAR SAPATOS***********/
 	public boolean cadastrarSapato(int idUser, String descricao , String marca, float preco, String condicao,
