@@ -11,12 +11,12 @@ public class Formatador {
 		String telefoneFormatado = null;
 		MaskFormatter formatoTelefone;
 
-		if (telefone.length() != 8) {
+		if (telefone.length() != 10) {
 			telefone = "nulo";
 		}
 
 		try {
-			formatoTelefone = new MaskFormatter("####-####");
+			formatoTelefone = new MaskFormatter("(##)####-####");
 			formatoTelefone.setValueContainsLiteralCharacters(false);
 			telefoneFormatado = formatoTelefone.valueToString(telefone);
 
