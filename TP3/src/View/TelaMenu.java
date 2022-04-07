@@ -805,8 +805,9 @@ public class TelaMenu{
 		  ButtonDeletar.addActionListener(
 				  new ActionListener(){
 						 public void actionPerformed(ActionEvent e){							 
-							try {
 							
+							 try {
+							System.out.println("teste");
 							//Quantidade de produtos associados a pessoa logada	
 							 int qtdProdutosPessoa = usuario.getQuantidadeProdutosPessoa(idUser);
 							 

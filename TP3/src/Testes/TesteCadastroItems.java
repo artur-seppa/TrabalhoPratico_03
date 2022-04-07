@@ -19,7 +19,7 @@ public class TesteCadastroItems {
 	//***********ROUPA************/
 	public void testGetRoupaCadastrada() {
 		Roupa roupa1 = new Roupa("vestido");
-		Roupa roupa2 = new Roupa("calça jeans");
+		Roupa roupa2 = new Roupa("calca jeans");
 		Roupa roupa3 = new Roupa("bota");
 		Roupa.addRoupaCadastrada(roupa1);
 		Roupa.addRoupaCadastrada(roupa2);
@@ -31,7 +31,7 @@ public class TesteCadastroItems {
 	}
 
 	private void assertEquals(int i, Object addRoupaCadastrada) {
-		// TODO Stub de método gerado automaticamente
+		// TODO Stub de mï¿½todo gerado automaticamente
 		
 	}
 	/**
@@ -42,7 +42,7 @@ public class TesteCadastroItems {
 		assertEquals(0, Roupa.quantidadeRoupasCadastradas());
 		
 		Roupa roupa1 = new Roupa("vestido");
-		Roupa roupa2 = new Roupa("calça jeans");
+		Roupa roupa2 = new Roupa("calï¿½a jeans");
 		Roupa roupa3 = new Roupa("bota");
 
 		Roupa.addRoupaCadastrada(roupa1);

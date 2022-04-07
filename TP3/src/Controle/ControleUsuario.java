@@ -276,10 +276,10 @@ public class ControleUsuario {
 							//O usuario anterior recebe as info do usuario a frente
 							pessoa[p].setNome(pessoa[p+1].getNome());
 							pessoa[p].setSenha(pessoa[p+1].getSenha());
-							pessoa[p].setId(p+1);
+//							pessoa[p].setId(p+1);
 							
 							//o usuario anterior recebe o usuario a sua frente
-//							pessoa[p] = pessoa[p+1];
+							pessoa[p] = pessoa[p+1];
 							
 							//pega a qtd de produtos associado a essa pessoa
 							int qtd = pessoa[p].quantidadeProdutos();
