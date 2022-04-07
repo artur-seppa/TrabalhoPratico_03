@@ -995,7 +995,7 @@ public class TelaMenu{
 									
 								if(sucesso == true) {
 									JOptionPane.showMessageDialog(null, 
-									"Roupa adicionada com sucesso\n", null, 
+									("Roupa adicionada com sucesso\n"), null, 
 									JOptionPane.INFORMATION_MESSAGE);
 									
 									//obtem a qtd roupas atualizada
@@ -1116,7 +1116,7 @@ public class TelaMenu{
 										
 									if(sucesso == true) {
 										JOptionPane.showMessageDialog(null, 
-										"Sapato adicionada com sucesso\n", null, 
+										("Sapato adicionada com sucesso\n"), null, 
 										JOptionPane.INFORMATION_MESSAGE);
 										
 										//obtem a qtd Sapatos atualizada
@@ -1144,7 +1144,7 @@ public class TelaMenu{
 									
 										}catch(Exception ex){
 										JOptionPane.showMessageDialog(null, 
-										"Os campos nao foram preenchidos corretamente\n", null, 
+										("Os campos nao foram preenchidos corretamente\n"), null, 
 										JOptionPane.INFORMATION_MESSAGE);
 										}
 										

@@ -45,7 +45,7 @@ public class ControleUsuario {
 			endereco[i].setEndereco("Residencial BlaBla " + i);
 			endereco[i].setCep(1234567*(i+1));
 			
-			roupa[i] = new Roupa();
+			roupa[i] = new Roupa(null);
 			roupa[i].setCategoria("roupa");
 			roupa[i].setDescricao("camiseta"+i);
 			roupa[i].setCor("vermelha");
@@ -457,7 +457,7 @@ public class ControleUsuario {
 		  && categoria != null && categoria.length()>0 && estilo != null && estilo.length()>0 && cor != null && cor.length()>0 &&
 		  tecido != null && tecido.length()>0 && tamanho != null && tamanho.length()>0) {
 			
-			roupa[qtdRoupas] = new Roupa();
+			roupa[qtdRoupas] = new Roupa(tamanho);
 			roupa[qtdRoupas].setDescricao(descricao);
 			roupa[qtdRoupas].setMarca(marca);
 			roupa[qtdRoupas].setPreco(preco);
