@@ -57,11 +57,14 @@ public class TelaMenu{
 	private static JPanel panelAddProdutos = new JPanel();
 	private static JLabel tituloAddProdutos = new JLabel("Adicionar produtos");
 	
+	private static JPanel panelEditarExcluirProdutos = new JPanel();
+	private static JLabel tituloEditarExcluirProdutos = new JLabel("Seus produtos");
+	
 	private static JPanel panelEditarProdutos = new JPanel();
 	private static JLabel tituloEditarProdutos = new JLabel("Editar produtos");
 	
-	private static JPanel panelEditarExcluirProdutos = new JPanel();
-	private static JLabel tituloEditarExcluirProdutos = new JLabel("Seus produtos");
+	private static JPanel panelPesquisar = new JPanel();
+	private static JLabel tituloPesquisar = new JLabel("Pesquisar usuarios");
 	
 	private static JPanel panelProduto = new JPanel();
 	private static JLabel tituloProduto = new JLabel("Inserir produto");
@@ -91,6 +94,11 @@ public class TelaMenu{
 	private JList<String> JlistEditarProdutos;
 	private DefaultListModel modelEditarProdutos = new DefaultListModel();
 	private JScrollPane srollEditarProdutos = new JScrollPane();
+	
+	private static String[] ListaPesquisa = new String[100];
+	private JList<String> JlistPesquisa;
+	private DefaultListModel modelPesquisa = new DefaultListModel();
+	private JScrollPane srollPesquisa = new JScrollPane();
 	
 	/*
 	 * Criacao dos Buttons associados ao JList
@@ -124,7 +132,7 @@ public class TelaMenu{
 	JMenu perfil = new JMenu("Usuario");
 	JMenu menuCarrinho = new JMenu("carrinho de compras"); 
 	JMenu menuFavoritos = new JMenu("Roupas Favoritas");
-	
+	JMenu menuPesquisa = new JMenu("Search");
 	
 	public void imprimirTelaMenu(ControleUsuario u, int idUsuario){
 		
@@ -495,19 +503,19 @@ public class TelaMenu{
 				        	//todos os produtos sao removidos do obj carrinho
 				         	usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
 				         	
-				        	qtdProdutos--;	        
+				        	//qtdProdutos--;	        
 				        	
 			        	}else {
 			        		
-			        		JOptionPane.showMessageDialog(null, 
-					    	"Insira produtos no carrinho para efetuar a compra\n", null, 
-					    	JOptionPane.INFORMATION_MESSAGE);
+//			        		JOptionPane.showMessageDialog(null, 
+//					    	"Insira produtos no carrinho para efetuar a compra\n", null, 
+//					    	JOptionPane.INFORMATION_MESSAGE);
 			        		
 			        	}
 			        }catch(Exception ex){
 //			    			JOptionPane.showMessageDialog(null, 
-//			    					"Erro: " + ex + "\n", null, 
-//			    					JOptionPane.INFORMATION_MESSAGE);
+//			    			"Erro: " + ex + "\n", null, 
+//			    			JOptionPane.INFORMATION_MESSAGE);
 			    	}
 			        	
 			        	
@@ -1099,28 +1107,28 @@ public class TelaMenu{
 		  EditarRoupa.setBounds(65, 280, 180, 35);
 		  panelEditarExcluirProdutos.add(EditarRoupa);
 		  
-//		  EditarRoupa.addActionListener(
-//				  new ActionListener(){
-//						 public void actionPerformed(ActionEvent e){
-//							
-//							// Um botão que permite obter o índice do item selecionado
-//					        indiceRoupa = JlistEditarProdutos.getSelectedIndex(); 
-//							 
-//							divHomeNotVisible();
-//				            panelFavoritoNotVisible();
-//				            panelCarrinhoNotVisible();
-//				            panelAddProdutosNotVisible();
-//				            panelPerfilNotVisible();
-//				            panelEditarExcluirProdutosNotVisible();
-//				            	
-//				            
-//				            divEditarProdutos();
-//					        
-//					        										        									
-//							
-//						}
-//					  }
-//				   );
+		  EditarRoupa.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){
+							
+							// Um botão que permite obter o índice do item selecionado
+					        indiceRoupa = JlistEditarProdutos.getSelectedIndex(); 
+							 
+							divHomeNotVisible();
+				            panelFavoritoNotVisible();
+				            panelCarrinhoNotVisible();
+				            panelAddProdutosNotVisible();
+				            panelPerfilNotVisible();
+				            panelEditarExcluirProdutosNotVisible();
+				            	
+				            
+				            divEditarProdutos();
+					        
+					        										        									
+							
+						}
+					  }
+				   );
 		  
 		  JButton ExcluirRoupa = new JButton("Excluir roupa");
 		  ExcluirRoupa.setBounds(240, 280, 180, 35);
@@ -1390,6 +1398,100 @@ public class TelaMenu{
 	}
 	
 	
+	/*####################### PAINEL PESQUISAR ############################*/
+	
+	public void divPesquisar() {
+		
+		janela.add(panelPesquisar);
+		panelPesquisar.setVisible(true);
+		
+		panelPesquisar.setLayout(null);
+		
+		/*
+		* set o width e height do obj.
+		* (loc x, loc y do titulo na window. || width e height do titulo)
+		*/
+		
+		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		tituloPesquisar.setFont(new Font("Arial", Font.BOLD, 17));
+		tituloPesquisar.setBounds(40, 10, 280, 30);		
+		panelPesquisar.add(tituloPesquisar);
+		
+		/*----------------JList---------------*/
+		/*
+		 * Criacao do Jlist com scroll no panel 
+		 */
+		
+		//Instancia o Jlist de Produtos cadastardos pelo usuario
+		modelPesquisa = new DefaultListModel();
+		JlistPesquisa = new JList<String>(modelPesquisa);
+		srollPesquisa = new JScrollPane(JlistPesquisa);
+		
+		srollPesquisa.setBounds(300, 45, 150, 150);
+		panelPesquisar.add(srollPesquisa);
+		
+		/*--------------------LABELS E TEXTFILELDS---------------------*/
+		
+		/***************PESSOA********************/
+		JLabel nome = new JLabel("Nome do usuario procurado :");
+		nome.setFont(new Font("Arial", Font.BOLD, 15));
+		nome.setBounds(25, 45, 240, 30);
+		panelPesquisar.add(nome);
+	
+		JTextField nomeText = new JTextField(120);
+		nomeText.setBounds(25, 75, 200, 30);
+		panelPesquisar.add(nomeText);
+		
+		JLabel nomeBuscado = new JLabel("Nome :");
+		nomeBuscado.setFont(new Font("Arial", Font.BOLD, 15));
+		nomeBuscado.setBounds(25, 115, 120, 30);
+		panelPesquisar.add(nomeBuscado);
+	
+		JTextField nomeBuscadoText = new JTextField(120);
+		nomeBuscadoText.setBounds(25, 145, 200, 30);
+		panelPesquisar.add(nomeBuscadoText);
+		
+		
+		/*--------------------BUTTONS---------------------*/
+		
+		  JButton Pesquisar = new JButton("Pesquisar");
+		  Pesquisar.setBounds(65, 280, 180, 35);
+		  panelPesquisar.add(Pesquisar);
+		  
+		  Pesquisar.addActionListener(
+				  new ActionListener(){
+						 public void actionPerformed(ActionEvent e){
+							
+							 //remove todos os elementos da lista ao iniciar
+							 modelPesquisa.removeAllElements();
+							 
+							//obtem os nomes e a quantidade de usuarios no sistema 
+							String user[] = usuario.escreveUsuarios();
+							int qtdUser = usuario.getQtdPessoas();
+							
+							//caso um dos nomes seja igual ao do textfield, retorna para nomeBuscadoText
+							for(int i=0; i<qtdUser; i++) {
+								if(nomeText.getText().equals(user[i])) {
+									nomeBuscadoText.setText(user[i]);
+									
+									int iduser = usuario.getIdUser(i);
+									int qtdProdPessoa = usuario.getQuantidadeProdutosPessoa(iduser);
+									
+									for(int k=0; k<qtdProdPessoa; k++) {
+										modelPesquisa.addElement(usuario.getProdutoDescricaoPessoa(iduser, k) );
+									}
+									
+								}
+							}
+							
+							
+							
+						}
+					  }
+				   );
+		  
+	}
+	
 	
 	/*====================Metodos SETVISIBLE(FALSE)=======================*/
 	
@@ -1423,6 +1525,10 @@ public class TelaMenu{
 	public void panelEditarProdutosNotVisible(){
 		panelEditarProdutos.setVisible(false);
 		janela.setSize(600, 400);
+	}
+	
+	public void panelPesquisarNotVisible(){
+		panelPesquisar.setVisible(false);
 	}
 	
 	/*=======================CONSTRUTOR DA TELA===========================*/
@@ -1460,6 +1566,7 @@ public class TelaMenu{
 		barraMenu.add(perfil);
 		barraMenu.add(menuCarrinho);
 		barraMenu.add(menuFavoritos);
+		barraMenu.add(menuPesquisa);
 		
 		
 		//-------------evento de clique nos itens(submenu)----------------
@@ -1478,6 +1585,7 @@ public class TelaMenu{
             	panelAddProdutosNotVisible();
             	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 
             	divPerfil();
             }
@@ -1492,6 +1600,7 @@ public class TelaMenu{
             	panelPerfilNotVisible();
             	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 
             	divAddProdutos();
             }
@@ -1506,7 +1615,7 @@ public class TelaMenu{
             	panelAddProdutosNotVisible();
             	panelPerfilNotVisible();
             	panelEditarProdutosNotVisible();
-            	
+            	panelPesquisarNotVisible();
             	
             	divEditarExcluirProdutos();
             }
@@ -1522,6 +1631,7 @@ public class TelaMenu{
 		menuCarrinho.addMenuListener(new ListenerMenus());
 		menuFavoritos.addMenuListener(new ListenerMenus());
 		home.addMenuListener(new ListenerMenus());
+		menuPesquisa.addMenuListener(new ListenerMenus());
 		
 	}
 	
@@ -1543,6 +1653,7 @@ public class TelaMenu{
 	        	panelAddProdutosNotVisible();
 	        	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 	        	
 	        	//aloca o panel Carrinho
             	painelCarrinho();
@@ -1557,6 +1668,7 @@ public class TelaMenu{
 	        	panelAddProdutosNotVisible();
 	        	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 	        	
 	        	//aloca o panel Favoritos
 	        	divFavorito();
@@ -1571,9 +1683,26 @@ public class TelaMenu{
 	        	panelAddProdutosNotVisible();
 	        	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
+            	panelPesquisarNotVisible();
 	        	
 	        	//instancia a visibilidade do panelHome
 	        	panelHome.setVisible(true);
+	        	
+	        }
+	        
+	        if(e.getSource().equals(menuPesquisa) ) {
+	        	
+	        	//retira os panels
+	        	divHomeNotVisible();
+	        	panelCarrinhoNotVisible();
+	        	panelFavoritoNotVisible();
+	        	panelPerfilNotVisible();
+	        	panelAddProdutosNotVisible();
+	        	panelEditarExcluirProdutosNotVisible();
+            	panelEditarProdutosNotVisible();
+	        	
+	        	//instancia a visibilidade do panelHome
+            	divPesquisar();
 	        	
 	        }
 	    }

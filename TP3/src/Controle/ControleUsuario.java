@@ -95,6 +95,10 @@ public class ControleUsuario {
 		return totalP;
 	}
 	
+	public Pessoa[] retornaStringPessoa() {		
+		return pessoa;
+	}
+	
 	/***********PESSOA***********/
 	
 	public String getNome(int i) {		
@@ -109,8 +113,8 @@ public class ControleUsuario {
 		return qtdPessoas;
 	}
 	
-	public Pessoa[] retornaStringPessoa() {		
-		return pessoa;
+	public int getIdUser(int i) {
+		return pessoa[i].getId();
 	}
 	
 	/***********TELEFONE***********/
@@ -274,6 +278,9 @@ public class ControleUsuario {
 							pessoa[p].setSenha(pessoa[p+1].getSenha());
 							pessoa[p].setId(p+1);
 							
+							//o usuario anterior recebe o usuario a sua frente
+//							pessoa[p] = pessoa[p+1];
+							
 							//pega a qtd de produtos associado a essa pessoa
 							int qtd = pessoa[p].quantidadeProdutos();
 							
@@ -285,7 +292,8 @@ public class ControleUsuario {
 								//associa o produto dessa pessoa com a do sistema
 								for(int k=0; k<qtdRoupas; k++) {
 									if(roupa[k].getDescricao().equals(pessoa[p].getProduto(j).getDescricao()) ) {
-										roupa[k].setDescricao(roupa[k+1].getDescricao());
+										//roupa[k].setDescricao(roupa[k+1].getDescricao());
+										pessoa[p].getProduto(k).setDescricao( pessoa[p+1].getProduto(k).getDescricao());
 										
 									}
 								}
