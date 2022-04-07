@@ -512,15 +512,12 @@ public class ControleUsuario {
 		return pessoa[i].quantidadeProdutos();
 	}
 	
-<<<<<<< HEAD
 	//teste para capturar roupas Usuario	
 	public String getProdutoNomePessoa(int i, int r) {
 		return pessoa[i].getProduto(r).getPessoa().getNome();
 	}
 	
-=======
 	/***********CADASTRAR ROUPAS***********/
->>>>>>> refs/remotes/origin/modAmanda
 	public boolean cadastrarRoupa(int idUser, String descricao , String marca, float preco, String condicao,
 			String categoria, String estilo, String cor, String tecido, String tamanho ) {
 		
@@ -582,7 +579,6 @@ public class ControleUsuario {
 		
 	}
 	
-<<<<<<< HEAD
 	public void excluirRoupa(int idUser, int indice) {
 			
 			//exclui o produto associado a pessoa
@@ -606,8 +602,6 @@ public class ControleUsuario {
 	
 	
 	/*==========================CARRINHO===============================*/
-=======
->>>>>>> refs/remotes/origin/modAmanda
 	
 	/***********CADASTRAR SAPATOS***********/
 	public boolean cadastrarSapato(int idUser, String descricao , String marca, float preco, String condicao,
