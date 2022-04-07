@@ -45,10 +45,6 @@ public class Endereco {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public static int length() {
-		// tipo referente a formatar cep
-		return 0;
-	}
 	
 	
 }

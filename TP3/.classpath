@@ -6,30 +6,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/JUnit/junit-4.13.2.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/JUnit/hamcrest-2.2.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Noda/Downloads/junit-jupiter-api-5.8.2.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Noda/Downloads/junit-jupiter-api-5.2.0-javadoc.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Noda/Downloads/junit-jupiter-engine-5.2.0-javadoc.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="/home/artur/Downloads/junit-jupiter-engine-5.2.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/artur/Downloads/junit-jupiter-api-5.8.2.jar"/>
+	<classpathentry kind="lib" path="/home/artur/Downloads/junit-jupiter-api-5.2.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/artur/Downloads/junit-4.13.2.jar"/>
+	<classpathentry kind="lib" path="/home/artur/Downloads/hamcrest-2.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
