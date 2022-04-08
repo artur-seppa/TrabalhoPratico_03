@@ -870,11 +870,6 @@ public class ControleUsuario {
 	}
 
 
-	public void AdicionarCompra(int idUser, int indice) {
-		// TODO Stub de método gerado automaticamente
-		
-	}
-
 
 	public Produto[] getProduto() {
 		return produto;

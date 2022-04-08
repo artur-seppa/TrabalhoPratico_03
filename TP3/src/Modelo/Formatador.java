@@ -7,7 +7,7 @@ public class Formatador {
 	private static Object Endereco = null;
 	static Scanner ler = new Scanner(System.in);
 /*
- * Verifica Telefone e formata
+ * 
  * 
 * @author Arthur Seppa Reiman
 * @author Amanda Fernandes Custodio

@@ -2,7 +2,7 @@ package Modelo;
 
 public class Endereco {
 	/*
-	 * Possui atributos para endereço
+	 * 
 	 * 
 	* @author Arthur Seppa Reiman
 	* @author Amanda Fernandes Custodio

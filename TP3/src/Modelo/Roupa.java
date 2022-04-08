@@ -2,7 +2,7 @@ package Modelo;
 
 public class Roupa extends Produto{
 	/**
-	 * Possui atributos para Classe produtos
+	 *
 	 * 
 	 * 
 	 * @author Arthur Seppa Reiman

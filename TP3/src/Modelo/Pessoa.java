@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public class Pessoa {
 	/**
-	 * Possui atributos com apenas dados pessoais, alem de gets, sets, e
-	 * construtores.
+	 *
 	 * 
 	 * @author Arthur Seppa Reiman
 	 * @author Amanda Fernandes Custodio
