@@ -345,8 +345,13 @@ public class TelaMenu{
 					// Um botão que permite obter o índice do item selecionado
 					 int indice = JlistProdutos.getSelectedIndex();
 					 
+<<<<<<< HEAD
 					 usuario.AdicionarFavorito(idUser, indice);
 					 qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);					 
+=======
+					 usuario.AdicionarFavorito(idUser, indice, indice);
+					 qtdProdutosFavoritos = usuario.QtdProdutoFavorito(idUser);
+>>>>>>> branch 'modAmanda' of https://github.com/artur-seppa/TrabalhoPratico_03.git
 					 
 //					 for(int i=0; i<qtdProdutosFavoritos; i++) {
 //							System.out.println("FAVORITOOOOOS ======" + usuario.getProdutoFavorito(idUser, i));
@@ -471,7 +476,7 @@ public class TelaMenu{
 				        	model.removeAllElements();
 				        	
 				        	//todos os produtos sao removidos do obj carrinho
-				         	usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
+				         	usuario.RemoveTodosCarrinho(qtdProdutos , idUser, size);
 				         	
 				        	//qtdProdutos--;	        
 				        	
@@ -506,12 +511,12 @@ public class TelaMenu{
 			        	
 			        	//exerce a remocao do item no carrinho
 			        	try {
-				        	usuario.RemoveProdutoCarrinho(idUser, remover);
+				        	usuario.RemoveProdutoCarrinho(idUser, remover, remover);
 				        	model.remove(remover);
 				        	
 				        	//garante que todos os produtos sejam removidos do carrinho
 				         	if(qtdProdutos == 1) {
-				        		usuario.RemoveTodosCarrinho(qtdProdutos , idUser);
+				        		usuario.RemoveTodosCarrinho(qtdProdutos , idUser, remover);
 				        	}
 				        	
 				        	qtdProdutos--;
@@ -593,8 +598,16 @@ public class TelaMenu{
 						        	
 						        	//garante que todos os produtos sejam removidos do carrinho
 						         	if(qtdProdutosFavoritos == 1) {
+<<<<<<< HEAD
 						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser);
 						        	}						        	
+=======
+						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser, remover);
+						        	}
+						        	
+						        	System.out.println("qtd favorito agora == " + qtdProdutosFavoritos);
+						        	System.out.println("indice DO FAVORITO agora == " + remover);
+>>>>>>> branch 'modAmanda' of https://github.com/artur-seppa/TrabalhoPratico_03.git
 						        	
 						        	
 					        	

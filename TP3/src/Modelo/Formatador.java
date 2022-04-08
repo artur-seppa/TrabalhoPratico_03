@@ -120,4 +120,27 @@ public class Formatador {
 
 		return telefoneFormatado;
 	}
+<<<<<<< HEAD
+=======
+	public static String verificarCep(Object endereco2) {
+		String cepFormatado = null;
+		MaskFormatter formatoCep;
+		
+		if (((String) Endereco).length() != 8) {
+			Endereco = "nulo";
+		}
+		
+		try {
+			formatoCep = new MaskFormatter("##.###-###");
+			formatoCep.setValueContainsLiteralCharacters(false);
+			cepFormatado = formatoCep.valueToString(Endereco);
+		} catch (ParseException e1) {
+			System.out.println("\nCEP invalido!\nInsira um novo CEP: ");
+			Endereco = ler.next();
+			cepFormatado = verificarCep(Endereco);
+		}
+
+		return cepFormatado;
+	}
+>>>>>>> branch 'modAmanda' of https://github.com/artur-seppa/TrabalhoPratico_03.git
 }

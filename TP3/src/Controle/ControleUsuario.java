@@ -470,6 +470,10 @@ public class ControleUsuario {
 		return pessoa[i].getProduto(r).getPessoa().getNome();
 	}
 	
+<<<<<<< HEAD
+=======
+	/***********CADASTRAR ROUPAS***********/
+>>>>>>> branch 'modAmanda' of https://github.com/artur-seppa/TrabalhoPratico_03.git
 	public boolean cadastrarRoupa(int idUser, String descricao , String marca, float preco, String condicao,
 			String categoria, String estilo, String cor, String tecido, String tamanho ) {
 		
