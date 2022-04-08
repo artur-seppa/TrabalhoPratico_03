@@ -38,12 +38,13 @@ public class TelaMenu{
 	
 	/*
 	 * Criacao de Jpanel's
+	 * 
+	 * 
+	 * @author Arthur Seppa Reiman
+	 * @author Amanda Fernandes Custodio
 	 */
 	private static JPanel panelHome = new JPanel();
 	private static JLabel tituloHome = new JLabel("Home");
-	
-	private static JPanel panelRoupas = new JPanel();
-	private static JLabel tituloRoupas = new JLabel("Roupas");
 	
 	private static JPanel panelCarrinho = new JPanel();
 	private static JLabel tituloCarrinho = new JLabel("Carrinho de Compras");
@@ -66,36 +67,30 @@ public class TelaMenu{
 	private static JPanel panelPesquisar = new JPanel();
 	private static JLabel tituloPesquisar = new JLabel("Pesquisar usuarios");
 	
-	private static JPanel panelProduto = new JPanel();
-	private static JLabel tituloProduto = new JLabel("Inserir produto");
 	
-	private static TelaMenu telaMenu = new TelaMenu();	//instancia o objeto da telaMenu
+	
 	private static ControleUsuario usuario;		//instancia o TIPO ControleUsuario === BD
 
 	/*
 	 * Criacao do JList: recebe a String Lista para imprimir no swing)
 	 */
-	private static String[] listaProdutos = new String[100];
+	
 	private JList<String> JlistProdutos;
 	private DefaultListModel modelProdutos = new DefaultListModel();
 	private JScrollPane srollProdutos = new JScrollPane();
 	
-	private static String[] ListaCarrinho = new String[100];
 	private JList<String> JlistCarrinho;
 	private DefaultListModel model = new DefaultListModel();
 	private JScrollPane srollCarrinho = new JScrollPane();
 	
-	private static String[] ListaFavorito = new String[100];
 	private JList<String> JlistFavorito;
 	private DefaultListModel modelFavorito = new DefaultListModel();
 	private JScrollPane srollFavorito = new JScrollPane();
 	
-	private static String[] ListaEditarProdutos = new String[100];
 	private JList<String> JlistEditarProdutos;
 	private DefaultListModel modelEditarProdutos = new DefaultListModel();
 	private JScrollPane srollEditarProdutos = new JScrollPane();
 	
-	private static String[] ListaPesquisa = new String[100];
 	private JList<String> JlistPesquisa;
 	private DefaultListModel modelPesquisa = new DefaultListModel();
 	private JScrollPane srollPesquisa = new JScrollPane();
@@ -165,17 +160,19 @@ public class TelaMenu{
 						}
 						
 				}catch(Exception ex){
-//					JOptionPane.showMessageDialog(null, 
-//					"Erro: " + ex + "\n", null, 
-//					JOptionPane.INFORMATION_MESSAGE);
-				}
+/*					JOptionPane.showMessageDialog(null, 
+*					"Erro: " + ex + "\n", null, 
+*					JOptionPane.INFORMATION_MESSAGE);
+*/				}
 		
 		/*
 		 *	O usuario ao logar ja tem o seu carrinho atualizado com 
 		 *	pedidos anteriores 
 		 */
 		
-		//Instancia o Jlist do Carrinho de Compras
+		/*
+		 * Instancia o Jlist do Carrinho de Compras
+		 */
 		model = new DefaultListModel();
 		JlistCarrinho = new JList<String>(model);
 		srollCarrinho = new JScrollPane(JlistCarrinho);
@@ -235,7 +232,9 @@ public class TelaMenu{
 		 *	produtos anteriores 
 		 */
 		
-		//Instancia o Jlist de Produtos cadastardos pelo usuario
+		/*
+		 * Instancia o Jlist de Produtos cadastardos pelo usuario
+		 */
 		modelEditarProdutos = new DefaultListModel();
 		JlistEditarProdutos = new JList<String>(modelEditarProdutos);
 		srollEditarProdutos = new JScrollPane(JlistEditarProdutos);
@@ -254,10 +253,14 @@ public class TelaMenu{
 //				
 //			}
 			
-			//obtem a quantidade total de roupas da pessoa
+			/*
+			 * obtem a quantidade total de roupas da pessoa
+			 */
 			int qtd = usuario.getQuantidadeProdutosPessoa(idUser);
 			
-			//adiciona as roupas nos quais tem o nome do usuario
+			/*
+			 * adiciona as roupas nos quais tem o nome do usuario
+			 */
 			for(int i=0; i<qtd; i++) {
 				qtdRoupasUsuario++;
 				System.out.println("quantiodade de roupa do usuario LOOP =-> " + qtdRoupasUsuario);
@@ -328,10 +331,14 @@ public class TelaMenu{
 	      new ActionListener(){
 	        public void actionPerformed(ActionEvent e){
 	        	
-	        	// Um botão que permite obter o índice do item selecionado
+	        	/*
+	        	 *  Um botão que permite obter o índice do item selecionado
+	        	 */
 	        	int indice = JlistProdutos.getSelectedIndex();
 	          
-	          //antes de tudo os JLabels do DetalheProduto sao limpados
+	          /*
+	           * antes de tudo os JLabels do DetalheProduto sao limpados
+	           */
 	          new DetalheProduto().CloseDetalhes();
 	          new DetalheProduto().imprimirTelaDetalhe(usuario, indice);
 	        }
@@ -342,7 +349,9 @@ public class TelaMenu{
 			new ActionListener(){
 			 public void actionPerformed(ActionEvent e){
 				        	
-				 // Um botão que permite obter o índice do item selecionado
+				 /*
+				  *  Um botão que permite obter o índice do item selecionado
+				  */
 				 int indice = JlistProdutos.getSelectedIndex();
 				 
 				 usuario.AdicionarCompra(idUser, indice);
@@ -356,7 +365,9 @@ public class TelaMenu{
 						System.out.println("PRODUTOOOOO ======" + usuario.getProdutoCarrinho(idUser, i));
 					}
 				 
-				 //ADICIONA O NOVO PRODUTO NA JLIST DO CARRINHO
+				 /*
+				  * ADICIONA O NOVO PRODUTO NA JLIST DO CARRINHO
+				  */
 				 model.addElement(usuario.getProdutoCarrinho(idUser, qtdProdutos-1));
 				 
 			}
@@ -367,7 +378,9 @@ public class TelaMenu{
 				new ActionListener(){
 				 public void actionPerformed(ActionEvent e){
 					        	
-					// Um botão que permite obter o índice do item selecionado
+					/*
+					 *  Um botão que permite obter o índice do item selecionado
+					 */
 					 int indice = JlistProdutos.getSelectedIndex();
 					 
 					 usuario.AdicionarFavorito(idUser, indice, indice);
@@ -381,7 +394,9 @@ public class TelaMenu{
 							System.out.println("FAVORITOOOOOS ======" + usuario.getProdutoFavorito(idUser, i));
 						}
 					 
-					 //ADICIONA O NOVO PRODUTO NA JLIST DE FAVORITOS
+					 /*
+					  * ADICIONA O NOVO PRODUTO NA JLIST DE FAVORITOS
+					  */
 					 modelFavorito.addElement(usuario.getProdutoFavorito(idUser, qtdProdutosFavoritos-1));
 				}
 			  }
@@ -455,10 +470,14 @@ public class TelaMenu{
           panelCarrinho.add(frete);
           
           
-          //instância um objeto da classe Random usando o construtor básico
+          /*
+           * instância um objeto da classe Random usando o construtor básico
+           */
           Random geradorAleatorio = new Random();
 
-          //gera um numero inteiro aleatorio de 1 a 15
+          /*
+           * gera um numero inteiro aleatorio de 1 a 15
+           */
           int aleatorio = geradorAleatorio.nextInt(14) +1;
           
 		  
@@ -500,10 +519,14 @@ public class TelaMenu{
 				        	 */
 				        	model.removeAllElements();
 				        	
-				        	//todos os produtos sao removidos do obj carrinho
+				        	/*
+				        	 * todos os produtos sao removidos do obj carrinho
+				        	 */
 				         	usuario.RemoveTodosCarrinho(qtdProdutos , idUser, size);
 				         	
-				        	//qtdProdutos--;	        
+				        	/*
+				        	 * qtdProdutos--;	        
+				        	 */
 				        	
 			        	}else {
 			        		
@@ -530,16 +553,22 @@ public class TelaMenu{
 			      new ActionListener(){
 			        public void actionPerformed(ActionEvent e){
 
-			        	// Um botão que permite obter o índice do item selecionado
+			        	/*
+			        	 *  Um botão que permite obter o índice do item selecionado
+			        	 */
 			        	int remover = JlistCarrinho.getSelectedIndex();
 			        	
 			        	
-			        	//exerce a remocao do item no carrinho
+			        	/*
+			        	 * exerce a remocao do item no carrinho
+			        	 */
 			        	try {
 				        	usuario.RemoveProdutoCarrinho(idUser, remover, remover);
 				        	model.remove(remover);
 				        	
-				        	//garante que todos os produtos sejam removidos do carrinho
+				        	/*
+				        	 * garante que todos os produtos sejam removidos do carrinho
+				        	 */
 				         	if(qtdProdutos == 1) {
 				        		usuario.RemoveTodosCarrinho(qtdProdutos , idUser, remover);
 				        	}
@@ -610,18 +639,24 @@ public class TelaMenu{
 				  new ActionListener(){
 						 public void actionPerformed(ActionEvent e){
 							        	
-							// Um botão que permite obter o índice do item selecionado
+							/*
+							 *  Um botão que permite obter o índice do item selecionado
+							 */
 					        	int remover = JlistFavorito.getSelectedIndex();
 					        	
 					        	
-					        	//exerce a remocao do item na lista de favoritos
+					        	/*
+					        	 * exerce a remocao do item na lista de favoritos
+					        	 */
 					        	try {
 						        	usuario.RemoveProdutoFavorito(idUser, remover);
 						        	modelFavorito.remove(remover);
 						        	
 						        	qtdProdutosFavoritos--;
 						        	
-						        	//garante que todos os produtos sejam removidos do carrinho
+						        	/*
+						        	 * garante que todos os produtos sejam removidos do carrinho
+						        	 */
 						         	if(qtdProdutosFavoritos == 1) {
 						        		usuario.RemoveTodosFavoritos(qtdProdutosFavoritos , idUser, remover);
 						        	}
@@ -807,10 +842,14 @@ public class TelaMenu{
 						 public void actionPerformed(ActionEvent e){							 
 							try {
 							
-							//Quantidade de produtos associados a pessoa logada	
+							/*
+							 * Quantidade de produtos associados a pessoa logada	
+							 */
 							 int qtdProdutosPessoa = usuario.getQuantidadeProdutosPessoa(idUser);
 							 
-							 //deleta o usuario
+							 /*
+							  * deleta o usuario
+							  */
 							 usuario.DeletarUsuario(nomeText.getText(), senhaText.getText(), idUser);
 					        
 							 String user[] = usuario.escreveUsuarios();
@@ -822,14 +861,20 @@ public class TelaMenu{
 								 System.out.println("produtos AGORA== "+ produ[i]);
 							 }
 							 
-							 //como diminuiu um usuario temos que diminuir a qtd de produtos
+							 /*
+							  * como diminuiu um usuario temos que diminuir a qtd de produtos
+							  */
 							 int size = modelProdutos.getSize();
 							 size = size - qtdProdutosPessoa;
 							 
-							 //remove todos os produtos
+							 /*
+							  * remove todos os produtos
+							  */
 							 modelProdutos.removeAllElements();
 							 
-							 //aloca os novos produtos editados na lista
+							 /*
+							  * aloca os novos produtos editados na lista
+							  */
 							 for(int k=0; k<size; k++) {
 								 System.out.println("produtos a serem colocados "+ produ[k]);
 								 modelProdutos.addElement(produ[k]);
@@ -843,7 +888,9 @@ public class TelaMenu{
 					            panelEditarExcluirProdutosNotVisible();
 					            panelEditarProdutosNotVisible();
 							 
-							 //volta a tela principal
+							 /*
+							  * volta a tela principal
+							  */
 							 janela.setVisible(false);
 							 new TelaPrincipal().VoltarTelaPrincipal(usuario);
 							 
@@ -853,7 +900,9 @@ public class TelaMenu{
 								 System.out.println("USARIOS NOVOS ::::: "+ us[i]);
 							 }
 							 
-							//passa o valor null para os inputs ao finalizar a operacao
+							/*
+							 * passa o valor null para os inputs ao finalizar a operacao
+							 */
 							nomeText.setText(usuario.getNome(idUser));
 							senhaText.setText(usuario.getSenha(idUser));
 							dddText.setText(Integer.toString(usuario.getDDD(idUser)) );
@@ -1139,13 +1188,17 @@ public class TelaMenu{
 				  new ActionListener(){
 						 public void actionPerformed(ActionEvent e){
 							 
-							// Um botão que permite obter o índice do item selecionado
+							/*
+							 * Um botão que permite obter o índice do item selecionado
+							 */
 						    indiceRoupa = JlistEditarProdutos.getSelectedIndex();
 						    
 							System.out.println("indice de roupa do usuario =-> " + indiceRoupa);
 //						    if(modelEditarProdutos.getElementAt(indiceRoupa).equals(usuario.getProdutoDescricaoPessoa(idUser, indiceRoupa) ) ) {
 						    	
-							 //obtem a qtd roupas atualizada
+							 /*
+							  * obtem a qtd roupas atualizada
+							  */
 							   qtdRoupas = usuario.getQtdRoupas();
 							   System.out.println("qtd = " + qtdRoupas);
 							  
@@ -1153,7 +1206,9 @@ public class TelaMenu{
 							    * Exerce a elmininacao das roupas no JList home
 							    */
 							   for(int i=0; i<qtdRoupas; i++) {
-									//adiciona a nova roupa no JList do home
+									/*
+									 * adiciona a nova roupa no JList do home
+									 */
 								   if(usuario.getProdutoDescricaoPessoa(idUser, indiceRoupa).equals(usuario.getRoupaDescricao(i)) ) {
 									   System.out.println("indice i = " + i);
 									   usuario.excluirProdutoRoupa(i);
@@ -1161,7 +1216,9 @@ public class TelaMenu{
 								   }
 							   }
 							   
-							   	//elimina a roupa do home e do usuario
+							   	/*
+							   	 * elimina a roupa do home e do usuario
+							   	 */
 						    	modelEditarProdutos.remove(indiceRoupa);
 						    	usuario.excluirRoupa(idUser, indiceRoupa);
 						    	
@@ -1372,10 +1429,14 @@ public class TelaMenu{
 												System.out.println( "teste de bug == " +usuario.getProdutoDescricaoPessoa(idUser, i) );
 											}
 											
-											//Atualiza o painel home da mudanca de roupa
+											/*
+											 * Atualiza o painel home da mudanca de roupa
+											 */
 											modelProdutos.setElementAt(usuario.getProdutoDescricaoPessoa(idUser, indiceRoupa), indice);
 											
-											//passa o valor null para os inputs ao finalizar a operacao
+											/*
+											 * passa o valor null para os inputs ao finalizar a operacao
+											 */
 											descricaoText.setText(null);
 											marcaText.setText(null);
 											precoText.setText(null);
@@ -1552,17 +1613,23 @@ public class TelaMenu{
 		janela.setJMenuBar(barraMenu);
 		
 		
-		//isntancia os itens submenu
+		/*
+		 * isntancia os itens submenu
+		 */
 		JMenuItem itemPerfil = new JMenuItem("Perfil");
 		JMenuItem itemAddProdutos = new JMenuItem("Adicionar produtos");
 		JMenuItem itemEditarProdutos = new JMenuItem("Editar produtos");
 		
-		//adiciona os itens submenu em cada componente do menu
+		/*
+		 * adiciona os itens submenu em cada componente do menu
+		 */
 		perfil.add(itemPerfil);
 		perfil.add(itemAddProdutos);
 		perfil.add(itemEditarProdutos);
 		
-		//acrescenta os componentes na barra de menu
+		/*
+		 * acrescenta os componentes na barra de menu
+		 */
 		barraMenu.add(home);
 		barraMenu.add(perfil);
 		barraMenu.add(menuCarrinho);
@@ -1644,10 +1711,14 @@ public class TelaMenu{
 	    @Override
 	    public void menuSelected(MenuEvent e) {
 	    	
-	    	//getSource pega o nome do Menu que chamou o evento
+	    	/*
+	    	 * getSource pega o nome do Menu que chamou o evento
+	    	 */
 	        if(e.getSource().equals(menuCarrinho) ) {
 	        	
-	        	//retira os panels
+	        	/*
+	        	 * retira os panels
+	        	 */
 	        	divHomeNotVisible();
 	        	panelFavoritoNotVisible();
 	        	panelPerfilNotVisible();
@@ -1656,13 +1727,17 @@ public class TelaMenu{
             	panelEditarProdutosNotVisible();
             	panelPesquisarNotVisible();
 	        	
-	        	//aloca o panel Carrinho
+	        	/*
+	        	 * aloca o panel Carrinho
+	        	 */
             	painelCarrinho();
 
 	        }
 	        if(e.getSource().equals(menuFavoritos) ) {
 	        	
-	        	//retira os panels
+	        	/*
+	        	 * retira os panels
+	        	 */
 	        	divHomeNotVisible();
 	        	panelCarrinhoNotVisible();
 	        	panelPerfilNotVisible();
@@ -1671,13 +1746,17 @@ public class TelaMenu{
             	panelEditarProdutosNotVisible();
             	panelPesquisarNotVisible();
 	        	
-	        	//aloca o panel Favoritos
+	        	/*
+	        	 * aloca o panel Favoritos
+	        	 */
 	        	divFavorito();
 	        }
 	        
 	        if(e.getSource().equals(home) ) {
 	        	
-	        	//retira os panels
+	        	/*
+	        	 * retira os panels
+	        	 */
 	        	panelCarrinhoNotVisible();
 	        	panelFavoritoNotVisible();
 	        	panelPerfilNotVisible();
@@ -1693,7 +1772,9 @@ public class TelaMenu{
 	        
 	        if(e.getSource().equals(menuPesquisa) ) {
 	        	
-	        	//retira os panels
+	        	/*
+	        	 * retira os panels
+	        	 */
 	        	divHomeNotVisible();
 	        	panelCarrinhoNotVisible();
 	        	panelFavoritoNotVisible();
@@ -1702,7 +1783,9 @@ public class TelaMenu{
 	        	panelEditarExcluirProdutosNotVisible();
             	panelEditarProdutosNotVisible();
 	        	
-	        	//instancia a visibilidade do panelHome
+	        	/*
+	        	 * instancia a visibilidade do panelHome
+	        	 */
             	divPesquisar();
 	        	
 	        }

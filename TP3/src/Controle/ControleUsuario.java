@@ -3,21 +3,31 @@ package Controle;
 import Modelo.*;
 
 public class ControleUsuario {
-	//instancia o objeto array "pessoa" de Pessoa com tamanho de 100.
+	/**
+	*instancia o objeto array "pessoa" de Pessoa com tamanho de 100.
+	*/
+	
 	private Pessoa pessoa[] = new Pessoa[100]; 
 	private Telefone tel[] = new Telefone[100];
 	private Endereco endereco[] = new Endereco[100]; 
 	
-	//Produtos
+	/*
+	 * Produtos 
+	 */
 	private Produto produto[] = new Produto[100]; 
 	private Roupa roupa[] = new Roupa[100]; 
 	private Sapato sapato[] = new Sapato[100]; 
 	
-	//Carrinho e Favoritos
+	/*
+	 * Carrinho e Favoritos
+	 */
+	
 	private CarrinhoDeCompra carrinho[] = new CarrinhoDeCompra[100];
 	private RoupaFavorita favorito[] = new RoupaFavorita[100];
 	
-	//quantidade inicial
+	/*
+	*quantidade inicial
+	*/
 	private int qtdPessoas = 0;
 	private int qtdSapatos = 0;
 	private int qtdRoupas = 0;
@@ -64,21 +74,26 @@ public class ControleUsuario {
 			sapato[i].setGenero("feminino");
 			sapato[i].setPreco(i+1.99f);
 			
-			//ASSOCIA O NOME DA PESSOA AO PRODUTO
+			/*ASSOCIA O NOME DA PESSOA AO PRODUTO
+			*/
 			roupa[i].setPessoa(pessoa[i]);
 			sapato[i].setPessoa(pessoa[i]);
 			
-			//ASSOCIA O PRODUTO A PESSOA
+			/*ASSOCIA O PRODUTO A PESSOA
+			*/
 			pessoa[i].adicionarProduto(roupa[i]);
 			pessoa[i].adicionarProduto(sapato[i]);
 			
-			//ASSOCIA O NOME DA PESSOA AO TELEFONE
+			/*ASSOCIA O NOME DA PESSOA AO TELEFONE
+			*/
 			tel[i].setPessoa(pessoa[i]);
 			
-			//ASSOCIA O NOME DA PESSOA AO ENDERECO
+			/*ASSOCIA O NOME DA PESSOA AO ENDERECO
+			*/
 			endereco[i].setPessoa(pessoa[i]);
 			
-			//ASSOCIA O PRODUTO AO CARRINHO E A LISTA DE FAVORITOS
+			/*ASSOCIA O PRODUTO AO CARRINHO E A LISTA DE FAVORITOS
+			*/
 			carrinho[i] = new CarrinhoDeCompra();
 			carrinho[i].adicionarProduto(roupa[i]);
 			carrinho[i].adicionarProduto(sapato[i]);
@@ -186,7 +201,8 @@ public class ControleUsuario {
 			tel[qtdPessoas].setDdd(ddd);
 			tel[qtdPessoas].setTelefone(telefone);
 			
-			//ASSOCIA O NOME DA PESSOA AO TELEFONE
+			/*ASSOCIA O NOME DA PESSOA AO TELEFONE
+			*/
 			tel[qtdPessoas].setPessoa(pessoa[qtdPessoas]);
 			
 			endereco[qtdPessoas] = new Endereco();
@@ -196,13 +212,16 @@ public class ControleUsuario {
 			endereco[qtdPessoas].setEstado(estado);
 			endereco[qtdPessoas].setEndereco(adress);
 			
-			//ASSOCIA O NOME DA PESSOA AO ENDERECO
+			/*ASSOCIA O NOME DA PESSOA AO ENDERECO
+			*/
 			endereco[qtdPessoas].setPessoa(pessoa[qtdPessoas]);
 
 			carrinho[qtdPessoas] = new CarrinhoDeCompra();
 			favorito[qtdPessoas] = new RoupaFavorita();
 			
-			//incrementa o numero de usuarios totais
+			/*
+			 * incrementa o numero de usuarios totais
+			 */
 			qtdPessoas++;
 			qtdID++;
 			
@@ -210,14 +229,30 @@ public class ControleUsuario {
 		
 		}
 		
-		//procura pelo mesmo nome e senha nos usuarios cadastrados
-//				for(int i = 0; i <qtdPessoas; i++) {
-//					if(nome.equals(pessoa[i].getNome()) ) {
-//						if(senha.equals(pessoa[i].getSenha()) ) {
-//							return false;
-//						}
-//					}
-//				}
+		/*
+		 * procura pelo mesmo nome e senha nos usuarios cadastrados
+		 */
+/*
+ * 				for(int i = 0; i <qtdPessoas; i++) {
+ */
+/*
+ * 					if(nome.equals(pessoa[i].getNome()) ) {
+ */
+/*
+ * 					if(senha.equals(pessoa[i].getSenha()) ) {
+ */
+/*
+ * 							return false;
+ */
+/*
+ * 						}
+ */
+/*
+ * 					}
+ */
+/*
+ * 				}
+ */
 		
 		return false;
 	}
@@ -258,7 +293,9 @@ public class ControleUsuario {
 	
 	public int logarUsuario(String nome, String senha) {
 		
-		//procura pelo mesmo nome e senha nos usuarios cadastrados
+		/*
+		 * procura pelo mesmo nome e senha nos usuarios cadastrados
+		 */
 		for(int i = 0; i <qtdPessoas; i++) {
 			if(nome.equals(pessoa[i].getNome()) ) {
 				if(senha.equals(pessoa[i].getSenha()) ) {
@@ -267,18 +304,24 @@ public class ControleUsuario {
 				}
 			}
 		}
-		//caso nao encontre o nome e nem a senha retorna -1
+		/*caso nao encontre o nome e nem a senha retorna -1
+		 * 
+		 */
 		return -1;
 	}
 	
 	public void DeletarUsuario(String nome, String senha, int IdUser) {
 		
-		//procura pelo mesmo nome e senha nos usuarios cadastrados
+		/*
+		 * procura pelo mesmo nome e senha nos usuarios cadastrados
+		 */
 		for(int i = 0; i <qtdPessoas; i++) {
 			if(nome.equals(pessoa[i].getNome()) ) {
 				if(senha.equals(pessoa[i].getSenha()) ) {
 					
-					//caso o usuario nao seja o ultimo instanciado, entra no if
+					/*
+					 * caso o usuario nao seja o ultimo instanciado, entra no if
+					 */
 					if(i != qtdPessoas-1 ) {
 						
 						/*
@@ -289,23 +332,35 @@ public class ControleUsuario {
 						 */
 						for(int p = i; p <=qtdPessoas; p++) {
 							
-							//O usuario anterior recebe as info do usuario a frente
+							/*
+							 * O usuario anterior recebe as info do usuario a frente
+							 */
 							pessoa[p].setNome(pessoa[p+1].getNome());
 							pessoa[p].setSenha(pessoa[p+1].getSenha());
 							pessoa[p].setId(p+1);
 							
-							//o usuario anterior recebe o usuario a sua frente
+							/*
+							 * o usuario anterior recebe o usuario a sua frente
+							 */
 //							pessoa[p] = pessoa[p+1];
 							
-							//pega a qtd de produtos associado a essa pessoa
+							/*
+							 * pega a qtd de produtos associado a essa pessoa
+							 */
 							int qtd = pessoa[p].quantidadeProdutos();
 							
 							for(int j=0; j<qtd; j++) {
 								
-								//pega o produto dessa pessoa :
-								//pessoa[p].getProduto(j).getDescricao();
+								/*
+								 * pega o produto dessa pessoa :
+								 */
+								/*
+								 * pessoa[p].getProduto(j).getDescricao();
+								 */
 								
-								//associa o produto dessa pessoa com a do sistema
+								/*
+								 * associa o produto dessa pessoa com a do sistema
+								 */
 								for(int k=0; k<qtdRoupas; k++) {
 									if(roupa[k].getDescricao().equals(pessoa[p].getProduto(j).getDescricao()) ) {
 										//roupa[k].setDescricao(roupa[k+1].getDescricao());
@@ -314,22 +369,30 @@ public class ControleUsuario {
 									}
 								}
 								
-	//							//exclui o produto associado a pessoa
-	//							pessoa[i].excluirProduto(roupa[j]);
+								/*
+								 * exclui o produto associado a pessoa
+								 */
+								pessoa[i].excluirProduto(roupa[j]);
 							}		
 								
 						}												
 					}else {
 						
-						//edita as suas informacoes para null
+						/*
+						 * edita as suas informacoes para null
+						 */
 						pessoa[i].setNome(null);
 						
-						//pega a qtd de produtos associado a essa pessoa
+						/*
+						 * pega a qtd de produtos associado a essa pessoa
+						 */
 						int qtd = pessoa[i].quantidadeProdutos();
 						
 						for(int j=0; j<qtd; j++) {
 							
-							//associa o produto dessa pessoa com a do sistema
+							/*
+							 * associa o produto dessa pessoa com a do sistema
+							 */
 							for(int k=0; k<qtdRoupas; k++) {
 								if(roupa[k].getDescricao().equals(pessoa[i].getProduto(j).getDescricao()) ) {
 									roupa[k].setDescricao(roupa[k+1].getDescricao());
@@ -337,8 +400,12 @@ public class ControleUsuario {
 								}
 							}
 							
-//							//exclui o produto associado a pessoa
-//							pessoa[i].excluirProduto(roupa[j]);
+							/*
+							 * exclui o produto associado a pessoa
+							 */
+							/*
+							 * pessoa[i].excluirProduto(roupa[j]);
+							 */
 						}
 					}
 					
@@ -347,12 +414,15 @@ public class ControleUsuario {
 			}
 		}
 		
-		//diminui a quantidade de usuarios
+		/*
+		 * diminui a quantidade de usuarios
+		 */
 		qtdPessoas-- ;
 		
 	}
 	
-	/*==========================PRODUTOS===============================*/
+	/*
+	 * PRODUTOS*/
 	public String[] escreveProdutosSapatos() {
 		
 		String[] totalS = new String[qtdSapatos];
@@ -385,7 +455,7 @@ public class ControleUsuario {
 	}
 	
 	/*
-	 * return da PeÃ§a 
+	 * return  
 	 */
 	public Roupa getRoupa(int i) {
 		return roupa[i];
@@ -512,7 +582,9 @@ public class ControleUsuario {
 		return pessoa[i].quantidadeProdutos();
 	}
 	
-	//teste para capturar roupas Usuario	
+	/*
+	 * teste para capturar roupas Usuario	
+	 */
 	public String getProdutoNomePessoa(int i, int r) {
 		return pessoa[i].getProduto(r).getPessoa().getNome();
 	}
@@ -538,13 +610,19 @@ public class ControleUsuario {
 			roupa[qtdRoupas].setTamanho(tamanho);
 			
 			
-			//ASSOCIA O NOME DA PESSOA AO PRODUTO
+			/*
+			 * ASSOCIA O NOME DA PESSOA AO PRODUTO
+			 */
 			roupa[qtdRoupas].setPessoa(pessoa[idUser]);
 			
-			//ASSOCIA O PRODUTO A PESSOA
+			/*
+			 * ASSOCIA O PRODUTO A PESSOA
+			 */
 			pessoa[idUser].adicionarProduto(roupa[qtdRoupas]);
 			
-//			//incrementa o numero de roupas totais
+			/*
+			 * incrementa o numero de roupas totais
+			 */
 			qtdRoupas++;
 			
 			return true;
@@ -581,7 +659,9 @@ public class ControleUsuario {
 	
 	public void excluirRoupa(int idUser, int indice) {
 			
-			//exclui o produto associado a pessoa
+			/*
+			 * exclui o produto associado a pessoa
+			 */
 			pessoa[idUser].excluirProduto(roupa[indice]);
 		
 	}
@@ -623,13 +703,19 @@ public class ControleUsuario {
 			sapato[qtdSapatos].setTamanho(tamanho);
 			
 			
-			//ASSOCIA O NOME DA PESSOA AO PRODUTO
+			/*
+			 * ASSOCIA O NOME DA PESSOA AO PRODUTO
+			 */
 			sapato[qtdSapatos].setPessoa(pessoa[idUser]);
 			
-			//ASSOCIA O PRODUTO A PESSOA
+			/*
+			 * ASSOCIA O PRODUTO A PESSOA
+			 */
 			pessoa[idUser].adicionarProduto(sapato[qtdSapatos]);
 			
-			//incrementa o numero de SAPATOS totais
+			/*
+			 * incrementa o numero de SAPATOS totais
+			 */
 			qtdSapatos++;
 			
 			return true;
@@ -664,7 +750,9 @@ public class ControleUsuario {
 	}
 	
 	/*==========================CARRINHO===============================*/
-	//int i associado ao id do usuario e int s associado ao id do sapato
+	/*
+	 * int i associado ao id do usuario e int s associado ao id do sapato
+	 */
 	public void AdicionarCompra1(int i, int r, int s) {	
 		carrinho[i].adicionarProduto(sapato[s]);
 		carrinho[i].adicionarProduto(roupa[r]);
@@ -716,17 +804,22 @@ public class ControleUsuario {
 		return carrinho[c].getProduto(i).getPreco();
 	}
 	
-//	//ao finalizar a compra o boolean eh acionado
-//	boolean sucesso;
-//	
-//	public void setCompraFinalizada(boolean b) {
-//		sucesso = b;
-//	}
-//	
-//	public boolean getCompraFinalizada() {
-//		return sucesso;
-//	}
-	
+/*
+ * 	//ao finalizar a compra o boolean eh acionado
+ *
+*
+ * 	boolean sucesso;
+ *
+*	
+*	public void setCompraFinalizada(boolean b) {
+*		sucesso = b;
+*	}
+*	
+*	public boolean getCompraFinalizada() {
+*
+*		return sucesso;
+*	}
+*/	
 /*==========================LISTA DE FAVORITOS===============================*/
 	
 	//int i associado ao id do usuario e int r associado ao id da roupa
@@ -739,16 +832,16 @@ public class ControleUsuario {
 		return favorito[i].quantidadeProdutos();
 	}
 	
-//	public String[] escreveProdutosFavoritos(int qtd, int r) {
-//		String[] roupa = new String[qtd];
-//		
-//		for(int i = 0; i < qtd; i++) {
-//			roupa[i] = favorito[r].getProduto(i).getDescricao();
-//		}
-//		
-//		return roupa;
-//	}
-	
+/*	public String[] escreveProdutosFavoritos(int qtd, int r) {
+*		String[] roupa = new String[qtd];
+*		
+*	for(int i = 0; i < qtd; i++) {
+*			roupa[i] = favorito[r].getProduto(i).getDescricao();
+*		}
+*		
+*		return roupa;
+*	}
+*/	
 	public void RemoveTodosFavoritos(int qtd, int r, int s) {
 		
 		for(int i = qtd+1; i >= 0; i--) {
@@ -780,6 +873,16 @@ public class ControleUsuario {
 	public void AdicionarCompra(int idUser, int indice) {
 		// TODO Stub de método gerado automaticamente
 		
+	}
+
+
+	public Produto[] getProduto() {
+		return produto;
+	}
+
+
+	public void setProduto(Produto produto[]) {
+		this.produto = produto;
 	}
 
 }

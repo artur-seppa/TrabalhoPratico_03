@@ -1,6 +1,5 @@
 package View;
 import Controle.*;
-import Modelo.Pessoa;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -26,7 +25,9 @@ import javax.swing.JTextField;
 
 public class TelaPrincipal implements ActionListener{
 	
-	//---->classes swing(GUI)
+	/*
+	 * ---->classes swing(GUI)
+	 */
 	
 	/*
 	* 	JFrame == window que abre na tela do usuario
@@ -35,6 +36,9 @@ public class TelaPrincipal implements ActionListener{
 	* 
 	* 	Para cada classe swing chamada, instanciamos os seus objetos
 	* 	com seus respectivos atributos e metodos das classes. 
+	* 
+	* @author Arthur Seppa Reiman
+	* @author Amanda Fernandes Custodio
 	*/
 	
 	/*Banco de dados instanciado*/
@@ -61,11 +65,15 @@ public class TelaPrincipal implements ActionListener{
 		janela.add(panel);
 		placeComponents(panel);
 		
-		//Ao clicar no 'x' a janela fecha
+		/*
+		 * Ao clicar no 'x' a janela fecha
+		 */
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	//nao pode ter main, procure na tela pessoa
+	/*
+	 * nao pode ter main, procure na tela pessoa
+	 */
 
 	private static void placeComponents(JPanel panel) {
 
@@ -86,7 +94,7 @@ public class TelaPrincipal implements ActionListener{
 		userLabel.setBounds(130, 50, 140, 30);
 		panel.add(userLabel);
 
-//		JTextField userText = new JTextField(20);
+        //JTextField userText = new JTextField(20);
 		//userText.setFont(new Font("Arial", Font.BOLD, 16));
 		userText.setBounds(130, 80, 140, 30);
 		panel.add(userText);
@@ -129,8 +137,12 @@ public class TelaPrincipal implements ActionListener{
 		Object src = e.getSource();
 		
 		if(src == cadastroUsuario) {
-			//TEM QUE PASSAR O BD PARA NAO PERDER A CONFIGURACAO do construtor
-			//e usuarios ja fabricados
+			/*
+			 * TEM QUE PASSAR O BD PARA NAO PERDER A CONFIGURACAO do construtor
+			 */
+			/*
+			 * e usuarios ja fabricados
+			 */
 			new CadastroUsuario().imprimirTelaCadastro(usuario);
 //			new CadastroUsuario().imprimirTelaCadastro(dados);
 		}
@@ -144,11 +156,17 @@ public class TelaPrincipal implements ActionListener{
 
 				if(sucesso != -1) {
 					
-					//fecha a janela quando logar o usuario
+					/*
+					 * fecha a janela quando logar o usuario
+					 */
 					janela.setVisible(false);
 					
-					//TEM QUE PASSAR O BD PARA NAO PERDER A CONFIGURACAO do construtor
-					//e usuarios ja fabricados
+					/*
+					 * TEM QUE PASSAR O BD PARA NAO PERDER A CONFIGURACAO do construtor
+					 */
+					/*
+					 * e usuarios ja fabricados
+					 */
 					new TelaMenu().imprimirTelaMenu(usuario, sucesso);
 					
 //					String teste;

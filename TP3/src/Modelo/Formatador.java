@@ -6,7 +6,12 @@ import javax.swing.text.MaskFormatter;
 public class Formatador {
 	private static Object Endereco = null;
 	static Scanner ler = new Scanner(System.in);
-
+/*
+ * Verifica Telefone e formata
+ * 
+* @author Arthur Seppa Reiman
+* @author Amanda Fernandes Custodio
+ */
 	public static String verificarTelefone(String telefone) {
 		String telefoneFormatado = null;
 		MaskFormatter formatoTelefone;
@@ -28,6 +33,9 @@ public class Formatador {
 
 		return telefoneFormatado;
 	}
+	/*
+	 * Verifica cep e formata
+	 */
 	public static String verificarCep(Object endereco2) {
 		String cepFormatado = null;
 		MaskFormatter formatoCep;

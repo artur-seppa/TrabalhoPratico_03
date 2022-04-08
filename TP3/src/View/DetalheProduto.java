@@ -4,8 +4,6 @@ import Controle.*;
 import Modelo.Roupa;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /*
  * 	JFrame == window que abre na tela do usuario
@@ -16,18 +14,15 @@ import java.awt.event.ActionListener;
  * 	com seus respectivos atributos e metodos das classes. 
  */
 
-import javax.swing.JButton;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 public class DetalheProduto{
 	
-	//---->classes swing(GUI)
+	/*
+	 * ---->classes swing(GUI)
+	 */
 	
 	/*
 	* 	JFrame == window que abre na tela do usuario
@@ -36,13 +31,13 @@ public class DetalheProduto{
 	* 
 	* 	Para cada classe swing chamada, instanciamos os seus objetos
 	* 	com seus respectivos atributos e metodos das classes. 
+	 * @author Arthur Seppa Reiman
+	 * @author Amanda Fernandes Custodio
 	*/
 	
 	private static JFrame janela = new JFrame("Detalhes do produto");
 	private static JPanel panel = new JPanel();
 	
-	private static JButton cadastroUsuario = new JButton("Cadastrar");
-	private static JButton loginButton = new JButton("Entrar");
 	
 	private static JLabel descricao = new JLabel();
 	private static JLabel tamanho = new JLabel();
@@ -55,12 +50,11 @@ public class DetalheProduto{
 	private static JLabel marca = new JLabel();
 	private static JLabel condicao = new JLabel();
 	
-	private static JTextField nomeText = new JTextField(20);
-	private static JPasswordField passwordText = new JPasswordField(20);
-	private static JTextField telefoneText = new JTextField(9);
-	private static JTextField dddText = new JTextField(3);
 	
-	//instancia o TIPO ControleUsuario === BD
+	
+	/*
+	 * instancia o TIPO ControleUsuario === BD
+	 */
 	private static ControleUsuario usuario;
 	private static DetalheProduto objCadastro = new DetalheProduto();
 	private static int cont;
@@ -82,7 +76,9 @@ public class DetalheProduto{
 		
 	}
 
-	//nao pode ter main, procure na tela pessoa
+	/*
+	 * nao pode ter main, procure na tela pessoa
+	 */
 
 	private static void placeComponents(JPanel panel) {
 		
@@ -187,7 +183,9 @@ public class DetalheProduto{
 	}
 	
 	public static void CloseDetalhes() {
-		//passa o valor null para os inputs ao finalizar a operacao
+		/*
+		 * passa o valor null para os inputs ao finalizar a operacao
+		 */
 		descricao.setText(null);
 		tamanho.setText(null);
 		cor.setText(null);
@@ -201,6 +199,14 @@ public class DetalheProduto{
 		
 		janela.setVisible(false);
 		
+	}
+
+	public static DetalheProduto getObjCadastro() {
+		return objCadastro;
+	}
+
+	public static void setObjCadastro(DetalheProduto objCadastro) {
+		DetalheProduto.objCadastro = objCadastro;
 	}
 
 }

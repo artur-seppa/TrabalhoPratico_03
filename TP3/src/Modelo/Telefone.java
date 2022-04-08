@@ -1,6 +1,13 @@
 package Modelo;
 
 public class Telefone {
+	/**
+	 * Possui atributos com apenas dados pessoais, como ddd, telefone.
+	 * 
+	 * 
+	 * @author Arthur Seppa Reiman
+	 * @author Amanda Fernandes Custodio
+	 */
 	private Pessoa pessoa;
 	
 	private int ddd;

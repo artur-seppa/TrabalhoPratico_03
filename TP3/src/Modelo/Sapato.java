@@ -1,6 +1,13 @@
 package Modelo;
 
 public class Sapato extends Produto{
+	/**
+	 * Possui atributos para sapato
+	 * 
+	 * 
+	 * @author Arthur Seppa Reiman
+	 * @author Amanda Fernandes Custodio
+	 */
 	private String categoria;
 	private String estilo;
 	private String cor;

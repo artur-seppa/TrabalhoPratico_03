@@ -1,9 +1,5 @@
 package View;
 
-import Controle.*;
-import Modelo.Roupa;
-
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,12 +18,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class TelaCompra{
 	
-	//---->classes swing(GUI)
+	/*
+	 * ---->classes swing(GUI)
+	 */
 	
 	/*
 	* 	JFrame == window que abre na tela do usuario
@@ -36,33 +33,27 @@ public class TelaCompra{
 	* 
 	* 	Para cada classe swing chamada, instanciamos os seus objetos
 	* 	com seus respectivos atributos e metodos das classes. 
+	* 
+	* @author Arthur Seppa Reiman
+	* @author Amanda Fernandes Custodio
 	*/
 	
 	private static JFrame janela = new JFrame("Compra");
 	private static JPanel panel = new JPanel();
 	
-	private static JTextField nomeText = new JTextField(20);
-	private static JPasswordField passwordText = new JPasswordField(20);
-	private static JTextField telefoneText = new JTextField(9);
-	private static JTextField dddText = new JTextField(3);
 	
-	//instancia o TIPO ControleUsuario === BD
-	private static ControleUsuario usuario;
-	private static DetalheProduto objCadastro = new DetalheProduto();
-	private static int idUser;
-	private static int qtdProdutos;
-	private static boolean sucesso;
 	
 	public void imprimirTelaCompra(/*ControleUsuario u, int id, int size*/){
 	    
-//		/*
-//		 * Obtem o "BD" criado na tela anterior, com seus users ja pre fabricados,
-//		 * e passa essa configuracao ao obj usuario de mesmo tipo ControleUsuario
-//		 */
-//		usuario = u;
-//		idUser = id;
-//		qtdProdutos = size;
-		
+/*		/*
+*		 * Obtem o "BD" criado na tela anterior, com seus users ja pre fabricados,
+*		 * e passa essa configuracao ao obj usuario de mesmo tipo ControleUsuario
+*
+*		 */
+/*		usuario = u;
+*		idUser = id;
+*		qtdProdutos = size;
+*/		
 		janela.setVisible(true);
 		
 		janela.setSize(300, 300);
@@ -71,7 +62,9 @@ public class TelaCompra{
 		
 	}
 
-	//nao pode ter main, procure na tela pessoa
+	/*
+	 * nao pode ter main, procure na tela pessoa
+	 */
 
 	private static void placeComponents(JPanel panel) {
 		
@@ -95,7 +88,7 @@ public class TelaCompra{
 		
 		String vetor[] = {"cartao de credito", "cartao de debito"};
 		
-		JComboBox combobox = new JComboBox(vetor);
+		JComboBox<Object> combobox = new JComboBox<Object>(vetor);
 		combobox.setBounds(30, 100, 160, 30);
 		panel.add(combobox);
 		

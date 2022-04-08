@@ -25,7 +25,9 @@ import javax.swing.JTextField;
 
 public class CadastroUsuario implements ActionListener{
 	
-	//---->classes swing(GUI)
+	/*
+	 * ---->classes swing(GUI)
+	 */
 	
 	/*
 	* 	JFrame == window que abre na tela do usuario
@@ -34,18 +36,22 @@ public class CadastroUsuario implements ActionListener{
 	* 
 	* 	Para cada classe swing chamada, instanciamos os seus objetos
 	* 	com seus respectivos atributos e metodos das classes. 
+	* 
+	 * @author Arthur Seppa Reiman
+	 * @author Amanda Fernandes Custodio
 	*/
 	
-//	private static ControleUsuario pessoa = new ControleUsuario();
+/*
+ * 	private static ControleUsuario pessoa = new ControleUsuario();
+ */
 	
 	private static JFrame janela = new JFrame("Cadastrar");
 	private static JPanel panel = new JPanel();
 	private static JLabel titulo = new JLabel("Cadastro de usuario");
 	
 	private static JButton cadastroUsuario = new JButton("Cadastrar");
-	private static JButton loginButton = new JButton("Entrar");
 	
-	private static JTextField nomeText = new JTextField(20);
+	static JTextField nomeText = new JTextField(20);
 	private static JPasswordField passwordText = new JPasswordField(20);
 	
 	private static JTextField telefoneText = new JTextField(9);
@@ -58,7 +64,9 @@ public class CadastroUsuario implements ActionListener{
 	private static JTextField cepText = new JTextField(9);
 	
 	
-	//instancia o TIPO ControleUsuario === BD
+	/*
+	 * instancia o TIPO ControleUsuario === BD
+	 */
 	private static ControleUsuario usuario;
 	private static CadastroUsuario objCadastro = new CadastroUsuario();
 
@@ -79,7 +87,9 @@ public class CadastroUsuario implements ActionListener{
 		
 	}
 
-	//nao pode ter main, procure na tela pessoa
+	/*
+	 * nao pode ter main, procure na tela pessoa
+	 */
 
 	private static void placeComponents(JPanel panel) {
 
@@ -90,7 +100,8 @@ public class CadastroUsuario implements ActionListener{
 		* (loc x, loc y do titulo na window. || width e height do titulo)
 		*/
 		
-		/*impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
+		/*
+		 * impoe a fonte do titulo(fonte, negrito e tamanho em px)*/
 		titulo.setFont(new Font("Arial", Font.BOLD, 17));
 		titulo.setBounds(100, 10, 250, 30);		
 		panel.add(titulo);
@@ -207,11 +218,15 @@ public class CadastroUsuario implements ActionListener{
 					"Usuario cadastrado com sucesso\n", null, 
 					JOptionPane.INFORMATION_MESSAGE);
 					
-					//fecha a janela quando cadastrar o usuario
+					/*
+					 * fecha a janela quando cadastrar o usuario
+					 */
 					janela.setVisible(false);
 					
 					
-					//passa o valor null para os inputs ao finalizar a operacao
+					/*
+					 * passa o valor null para os inputs ao finalizar a operacao
+					 */
 					nomeText.setText(null);
 					passwordText.setText(null);
 					telefoneText.setText(null);

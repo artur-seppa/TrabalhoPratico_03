@@ -1,6 +1,13 @@
 package Modelo;
 
 public class Roupa extends Produto{
+	/**
+	 * Possui atributos para Classe produtos
+	 * 
+	 * 
+	 * @author Arthur Seppa Reiman
+	 * @author Amanda Fernandes Custodio
+	 */
 	private String categoria;
 	private String estilo;
 	private String cor;
@@ -41,9 +48,7 @@ public class Roupa extends Produto{
 	}
 	public static void addRoupaCadastrada(int i) {
 	}
-	public int getNome() {
-		return (Integer) null;
-	}
+	
 	public static void addRoupaCadastrada(Roupa roupa1) {
 
 	}
