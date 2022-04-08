@@ -1,6 +1,13 @@
 package Modelo;
 
 public class Acessorio extends Produto{
+	/**
+	 * Possui atributos para acessorio
+	 * 
+	 * 
+	 * @author Arthur Seppa Reiman
+	 * @author Amanda Fernandes Custodio
+	 */
 	private String categoria;
 	private String material;
 	private String cor;

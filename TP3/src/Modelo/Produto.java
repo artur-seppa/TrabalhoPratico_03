@@ -1,6 +1,12 @@
 package Modelo;
 
 public abstract class Produto {
+	/**
+	 * Possui atributos com informações para Produto, 
+	 * 
+	 * @author Artur Seppa Reiman 
+	 * @author Amanda Fernandes Custodio
+	 */
 	private Pessoa pessoa;
 	
 	private String marca;

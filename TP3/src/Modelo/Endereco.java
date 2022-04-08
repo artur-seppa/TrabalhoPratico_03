@@ -1,6 +1,12 @@
 package Modelo;
 
 public class Endereco {
+	/*
+	 * Possui atributos para endereço
+	 * 
+	* @author Arthur Seppa Reiman
+	* @author Amanda Fernandes Custodio
+	*/
 	private Pessoa pessoa;
 	
 	private int cep;
@@ -46,7 +52,9 @@ public class Endereco {
 		this.endereco = endereco;
 	}
 	public static int length() {
-		// tipo referente a formatar cep
+		/*
+		 *  tipo referente a formatar cep
+		 */
 		return 0;
 	}
 	

@@ -1,18 +1,14 @@
 package Modelo;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 
-import javax.swing.text.MaskFormatter;
 
 public class Pessoa {
-
-	private static String Nome = null;
 	/**
 	 * Possui atributos com apenas dados pessoais, alem de gets, sets, e
 	 * construtores.
 	 * 
+	 * @author Arthur Seppa Reiman
 	 * @author Amanda Fernandes Custodio
 	 */
 		
@@ -25,29 +21,39 @@ public class Pessoa {
 		
 		private ArrayList<Produto> produtos;
 		
-		//o construtor inicia o array list 
+		/*
+		 * o construtor inicia o array list 
+		 */
 		public Pessoa() {
 			produtos = new ArrayList<Produto>();
 		}
 
-		//permite adicionar produtos associados a pessoa
+		/*
+		 * permite adicionar produtos associados a pessoa
+		 */
 		public void adicionarProduto(Produto produto) {
 			produtos.add(produto);
 		}
 		
-		//retorna a qauntidade de produtos dessa pessoa
+		/*
+		 * retorna a qauntidade de produtos dessa pessoa
+		 */
 		public int quantidadeProdutos() {
 			return produtos.size();
 		}
 		
-		//exclui o produto associado a pessoa
+		/*
+		 * exclui o produto associado a pessoa
+		 */
 		public void excluirProduto(Produto produto) {
 			produtos.remove(produto);
 		}
 		
-		//pega a posiçao de onde o produto se encontra
-		public Produto getProduto(int posicao) {
-			return produtos.get(posicao);
+		/*
+		 * pega a posiçao de onde o produto se encontra
+		 */
+		public Produto getProduto(int qtdsapatosusuario) {
+			return produtos.get(qtdsapatosusuario);
 		}
 
 		public String getNome() {
@@ -74,7 +80,7 @@ public class Pessoa {
 			this.id = id;
 		}
 		
-		//======getter e setter dos objetos especiais=======//
+		/*======getter e setter dos objetos especiais=======*/
 
 		public Telefone getTelefone() {
 			return telefone;
@@ -93,6 +99,10 @@ public class Pessoa {
 		}
 
 		public static Object verificarPessoa(String string) {
+			return null;
+		}
+
+		public Produto getProduto(String qtdsapatosusuario) {
 			return null;
 		}
 		
